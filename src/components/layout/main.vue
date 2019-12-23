@@ -6,7 +6,7 @@
                 <el-breadcrumb-item v-text="this.$router.currentRoute.name"></el-breadcrumb-item>
             </el-breadcrumb>
         </div>
-        <div style="background-color:white">
+        <div>
             <keep-alive>
             <router-view v-if="this.$route.meta.keepAlive"></router-view>
             </keep-alive>
@@ -21,5 +21,6 @@
   }
 </script>
 <style>
- 
+
+
 </style>
