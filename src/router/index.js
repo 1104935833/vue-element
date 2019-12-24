@@ -4,6 +4,7 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Chat from '@/components/chat/Chat'
 Vue.use(Router)
+
 const router = new Router({
     routes: [{
         path: '/',

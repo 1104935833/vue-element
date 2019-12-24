@@ -40,6 +40,7 @@ import tabNav from './tabNav'
       if(this.$store.state.user.name==undefined){
         _this.getRequest("/logout");
         _this.$store.commit('logout');
+        location.reload();
         _this.$router.replace({path: '/'});
       }
     },
@@ -89,6 +90,7 @@ import tabNav from './tabNav'
             _this.getRequest("/logout");
             _this.$store.commit('logout');
             _this.$router.replace({path: '/'});
+            location.reload();
           }).catch(() => {
             _this.$message({
               type: 'info',
