@@ -3,7 +3,7 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">论文类型：</el-col>
       <el-col :span="21">
-        <el-radio-group v-model="paperType">
+        <el-radio-group v-model="paper_type">
           <el-radio :label="1">期刊论文</el-radio>
           <el-radio :label="2">论文集</el-radio>
           <el-radio :label="3">学位论文</el-radio>
@@ -15,13 +15,13 @@
     <el-row >
       <el-col :span="3">论文标题：</el-col>
       <el-col :span="11">
-        <el-input placeholder="请输入内容" v-model="paperTitle" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_title" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">第一作者类型：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="firstAuthorType">
+        <el-radio-group v-model="first_auth_type">
           <el-radio :label="1">本校老师</el-radio>
           <el-radio :label="2">本校学生</el-radio>
           <el-radio :label="3">外校人员</el-radio>
@@ -31,29 +31,29 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">第一作者：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="firstAuthor" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="first_author" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">通讯作者：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="reportAuthor" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="correspondence_author" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">发表/出版时间：</el-col>
       <el-col :span="7">
-        <el-date-picker v-model="publishTime" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="time" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
       <el-col :span="3" :offset="4">发表刊物/论文集：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="Publications" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="publication" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">刊物类型：</el-col>
       <el-col :span="10">
-        <el-checkbox-group v-model="PublicationType">
+        <el-checkbox-group v-model="publication_type">
           <el-checkbox label="SCI"></el-checkbox>
           <el-checkbox label="EI"></el-checkbox>
           <el-checkbox label="ISTP"></el-checkbox>
@@ -71,16 +71,16 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">论文学科门类：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="paperSubType">
+        <el-radio-group v-model="paper_category">
           <el-radio :label="1">自然科学类</el-radio>
           <el-radio :label="2">人文社科类</el-radio>
         </el-radio-group>
       </el-col>
     <el-col :span="3" :offset="4">期刊等级：</el-col>
       <el-col :span="7">
-        <el-select v-model="PeriodicalLevel" placeholder="请选择">
+        <el-select v-model="paper_grade" placeholder="请选择">
         <el-option
-          v-for="item in Periodicals"
+          v-for="item in paperGrades"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -93,9 +93,9 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">所属单位：</el-col>
       <el-col :span="7">
-        <el-select v-model="company" placeholder="请选择">
+        <el-select v-model="paper_company" placeholder="请选择">
         <el-option
-          v-for="item in companys"
+          v-for="item in paperCompanys"
           :key="item.value"
           :label="item.label"
           :value="item.value">
@@ -106,7 +106,7 @@
       </el-col>
       <el-col :span="3" :offset="4">一级学科：</el-col>
       <el-col :span="7">
-        <el-select v-model="firstSubject" placeholder="请选择">
+        <el-select v-model="paper_a" placeholder="请选择">
         <el-option
           v-for="item in subjects"
           :key="item.value"
@@ -121,7 +121,7 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">项目来源：</el-col>
       <el-col :span="7">
-        <el-select v-model="projectSource" placeholder="请选择">
+        <el-select v-model="project_source" placeholder="请选择">
         <el-option
           v-for="item in sources"
           :key="item.value"
@@ -134,7 +134,7 @@
       </el-col>
       <el-col :span="3" :offset="4">发表范围：</el-col>
       <el-col :span="7">
-        <el-select v-model="publicationScope" placeholder="请选择">
+        <el-select v-model="publication_scope" placeholder="请选择">
         <el-option
           v-for="item in scopes"
           :key="item.value"
@@ -149,35 +149,35 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">卷号：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="volumeNumber" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_volume" clearable></el-input>
       </el-col>
       <el-col :span="3" :offset="4">期号：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="issueNumber" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_issue" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">页码范围：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="pageRange" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_page" clearable></el-input>
       </el-col>
       <el-col :span="3" :offset="4">字数：</el-col>
       <el-col :span="4">
-        <el-input placeholder="请输入内容" v-model="wordNumber" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_word" clearable></el-input>
       </el-col>
       <el-col :span="3"><span>万字</span></el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">学校署名：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="schoolName">
+        <el-radio-group v-model="paper_school">
           <el-radio :label="1">第一单位</el-radio>
           <el-radio :label="2">单选按钮</el-radio>
         </el-radio-group>
       </el-col>
       <el-col :span="3" :offset="4">版面：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="layout">
+        <el-radio-group v-model="pape">
           <el-radio :label="1">正刊</el-radio>
           <el-radio :label="2">增刊</el-radio>
           <el-radio :label="3">年刊</el-radio>
@@ -188,65 +188,65 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">是否为译文：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="isTranslation">
+        <el-radio-group v-model="paper_translation">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
       </el-col>
       <el-col :span="3" :offset="4">ISSN号：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="ISSN" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_issn" clearable></el-input>
       </el-col>
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">CN号：</el-col>
       <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="CN" clearable></el-input>
+        <el-input placeholder="请输入内容" v-model="paper_cn" clearable></el-input>
       </el-col>
-      <el-col :span="3" :offset="4">是否与行业联合发表：</el-col>
+      <!-- <el-col :span="3" :offset="4">是否与行业联合发表：</el-col>
       <el-col :span="7">
         <el-radio-group v-model="isindustryAlliance">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">是否与地方联合发表：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="islocalAssociation">
+        <el-radio-group v-model="paper_local">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
       </el-col>
-      <el-col :span="3" :offset="4">是否与国际联合发表：</el-col>
+      <!-- <el-col :span="3" :offset="4">是否与国际联合发表：</el-col>
       <el-col :span="7">
         <el-radio-group v-model="isinterAssociation">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">是否与企业联合发表：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="iscompanyAssociation">
+        <el-radio-group v-model="paper_enterprise">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
       </el-col>
-      <el-col :span="3" :offset="4">是否与跨学科论文：</el-col>
+      <!-- <el-col :span="3" :offset="4">是否与跨学科论文：</el-col>
       <el-col :span="7">
         <el-radio-group v-model="isinterdisciplinaryPapers">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
-      </el-col>
+      </el-col> -->
     </el-row>
     <el-row type="flex" align="middle">
       <el-col :span="3">是否被高引用：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="isQuote">
+        <el-radio-group v-model="paper_high">
           <el-radio :label="1">是</el-radio>
           <el-radio :label="2">否</el-radio>
         </el-radio-group>
@@ -255,7 +255,7 @@
     <el-row type="flex" align="middle">
       <el-col :span="3">自然科学研究类别：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="isNaturalScienceType">
+        <el-radio-group v-model="science">
           <el-radio :label="1">自然科学</el-radio>
           <el-radio :label="2">工程与技术</el-radio>
           <el-radio :label="3">医药科学</el-radio>
@@ -266,10 +266,16 @@
     <el-row type="flex" align="middle">
       <el-col :span="24">
         <el-upload
+          ref="file"
           class="upload-demo"
           style="width:300px;"
           drag
-          action="https://jsonplaceholder.typicode.com/posts/"
+          acceept="application/pdf"
+          action="/test/file"
+          :on-success="handleSuccess"
+          accept=".jpg,.jpeg,.png,.pdf,.JPG,.JPEG,.PDF"
+          :on-remove="handleRemove"
+          :on-error="handleError"
           multiple>
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -279,47 +285,48 @@
     </el-row>
     <el-row>
       <el-col :span="12" :offset="12">
-        <el-button type="primary">提交</el-button>
+        <el-button type="primary" @click="submit()">提交</el-button>
       </el-col>
     </el-row>
   </div>
 </template>
 <script>
+import Axios from 'axios';
   export default {
     data () {
       return {
-        paperType: 0,
-        firstAuthorType:0,
-        paperSubType:0,
-        isTranslation:0,
-        isindustryAlliance:0,
-        islocalAssociation:0,
-        isinterAssociation:0,
-        iscompanyAssociation:0,
-        isinterdisciplinaryPapers:0,
-        isNaturalScienceType:0,
-        isQuote:0,
-        PeriodicalLevel:'',
-        CN:'',
-        ISSN:'',
-        layout:'',
-        schoolName:'',
-        wordNumber:'',
-        pageRange:'',
-        issueNumber:'',
-        volumeNumber:'',
-        publicationScope:'',
-        firstAuthor:'',
-        projectSource:'',
-        firstSubject:'',
-        paperTitle: '',
-        reportAuthor:'',
-        publishTime:'',
-        Publications:'',
-        company:'',
-        PublicationType: [],
-        Periodicals:[],
-        companys:[],
+        paper_type: 0,
+        first_auth_type:0,
+        paper_category:0,
+        paper_translation:0,
+        // isindustryAlliance:0,
+        paper_local:0,
+        // isinterAssociation:0,
+        paper_enterprise:0,
+        // isinterdisciplinaryPapers:0,
+        science:0,
+        paper_high:0,
+        paper_grade:'',
+        paper_cn:'',
+        paper_issn:'',
+        pape:'',
+        paper_school:'',
+        paper_word:'',
+        paper_page:'',
+        paper_issue:'',
+        paper_volume:'',
+        publication_scope:'',
+        first_author:'',
+        project_source:'',
+        paper_a:'',
+        paper_title: '',
+        correspondence_author:'',
+        time:'',
+        publication:'',
+        paper_company:'',
+        publication_type: [],
+        paperGrades:[],
+        paperCompanys:[],
         subjects:[],
         sources:[],
         scopes:[],
@@ -345,11 +352,61 @@
       };
     },
     methods: {
+      submit(){
+        let data={
+          paper_type:this.paper_type+'',
+          first_auth_type:this.first_auth_type,
+          paper_category:this.paper_category,
+          paper_translation:this.paper_translation,
+          paper_local:this.paper_local,
+          paper_enterprise:this.paper_enterprise,
+          science:this.science,
+          paper_high:this.paper_high,
+          paper_grade:this.paper_grade,
+          paper_cn:this.paper_cn,
+          paper_issn:this.paper_issn,
+          pape:this.pape,
+          paper_school:this.paper_school,
+          paper_word:this.paper_word,
+          paper_page:this.paper_page,
+          paper_issue:this.paper_issue,
+          paper_volume:this.paper_volume,
+          publication_scope:this.publication_scope,
+          first_author:this.first_author,
+          project_source:this.project_source,
+          paper_a:this.paper_a,
+          paper_title:this.paper_title,
+          correspondence_author:this.correspondence_author,
+          time:Date.parse(this.time),
+          publication:this.publication,
+          paper_company:this.paper_company,
+        }
+        this.postRequest("/test/data",data).then(res=>{
+          console.log(res)
+        });
+      },
+      handleSuccess(response, file, fileList){
+        if(file.status=="success"){
+          this.$message({message: '文件上传成功',type: 'success'});
+        }
+        
+      },
       submitUpload() {
         this.$refs.upload.submit();
       },
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
+      handleRemove(file, fileList) {//文件移除钩子
+        this.getRequest("/test/delFile",{fileName:file.response}).then(res=>{
+        if(res.data=='success'){
+          this.$message({message: '文件移除成功',type: 'success'});
+        }
+        else{
+          this.$message.error('文件删除失败');
+        }
+      })
+        
+      },
+      handleError(err, file, fileList){//上传失败钩子
+        this.$message.error('文件上传失败');
       },
       handlePreview(file) {
         console.log(file);
