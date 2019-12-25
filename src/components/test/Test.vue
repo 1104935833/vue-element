@@ -12,7 +12,7 @@
         </el-radio-group>
       </el-col>
     </el-row>
-    <el-row >
+    <el-row type="flex" align="middle" >
       <el-col :span="3">论文标题：</el-col>
       <el-col :span="11">
         <el-input placeholder="请输入内容" v-model="paper_title" clearable></el-input>
@@ -85,7 +85,7 @@
           :label="item.label"
           :value="item.value">
           <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span> -->
         </el-option>
       </el-select>
       </el-col>
@@ -100,7 +100,7 @@
           :label="item.label"
           :value="item.value">
           <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span> -->
         </el-option>
       </el-select>
       </el-col>
@@ -113,7 +113,7 @@
           :label="item.label"
           :value="item.value">
           <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span> -->
         </el-option>
       </el-select>
       </el-col>
@@ -128,7 +128,7 @@
           :label="item.label"
           :value="item.value">
           <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span> -->
         </el-option>
       </el-select>
       </el-col>
@@ -141,7 +141,7 @@
           :label="item.label"
           :value="item.value">
           <span style="float: left">{{ item.label }}</span>
-          <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+          <!-- <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span> -->
         </el-option>
       </el-select>
       </el-col>
@@ -198,77 +198,49 @@
         <el-input placeholder="请输入内容" v-model="paper_issn" clearable></el-input>
       </el-col>
     </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="3">CN号：</el-col>
-      <el-col :span="7">
-        <el-input placeholder="请输入内容" v-model="paper_cn" clearable></el-input>
+    <el-row :gutter="24">
+      <el-col :span="3">
+        <el-col>CN号：</el-col>
+        <el-col>是否与地方联合发表：</el-col>
+        <el-col>是否与企业联合发表：</el-col>
+        <el-col>是否被高引用：</el-col>
+        <el-col>自然科学研究类别：</el-col>
       </el-col>
-      <!-- <el-col :span="3" :offset="4">是否与行业联合发表：</el-col>
       <el-col :span="7">
-        <el-radio-group v-model="isindustryAlliance">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
-      </el-col> -->
-    </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="3">是否与地方联合发表：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="paper_local">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
+        <el-col >
+          <el-input placeholder="请输入内容" v-model="paper_cn" clearable></el-input>
+        </el-col>
+        <el-col>
+          <el-radio-group v-model="paper_local">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-col>
+        <el-col>
+          <el-radio-group v-model="paper_enterprise">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-col>
+        <el-col>
+          <el-radio-group v-model="paper_high">
+            <el-radio :label="1">是</el-radio>
+            <el-radio :label="2">否</el-radio>
+          </el-radio-group>
+        </el-col>
+        <el-col>
+          <el-radio-group v-model="science">
+            <el-radio :label="1">自然科学</el-radio>
+            <el-radio :label="2">工程与技术</el-radio>
+            <el-radio :label="3">医药科学</el-radio>
+            <el-radio :label="4">农业科学</el-radio>
+          </el-radio-group>
+        </el-col>
       </el-col>
-      <!-- <el-col :span="3" :offset="4">是否与国际联合发表：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="isinterAssociation">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
-      </el-col> -->
-    </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="3">是否与企业联合发表：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="paper_enterprise">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
-      </el-col>
-      <!-- <el-col :span="3" :offset="4">是否与跨学科论文：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="isinterdisciplinaryPapers">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
-      </el-col> -->
-    </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="3">是否被高引用：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="paper_high">
-          <el-radio :label="1">是</el-radio>
-          <el-radio :label="2">否</el-radio>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="3">自然科学研究类别：</el-col>
-      <el-col :span="7">
-        <el-radio-group v-model="science">
-          <el-radio :label="1">自然科学</el-radio>
-          <el-radio :label="2">工程与技术</el-radio>
-          <el-radio :label="3">医药科学</el-radio>
-          <el-radio :label="4">农业科学</el-radio>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row type="flex" align="middle">
-      <el-col :span="24">
+      <el-col :span="10" :offset="4">
         <el-upload
           ref="file"
           class="upload-demo"
-          style="width:300px;"
           drag
           acceept="application/pdf"
           action="/test/file"
@@ -283,9 +255,13 @@
         </el-upload>
       </el-col>
     </el-row>
+    <el-row type="flex" >
+      
+    </el-row>
     <el-row>
       <el-col :span="12" :offset="12">
         <el-button type="primary" @click="submit()">提交</el-button>
+       
       </el-col>
     </el-row>
   </div>
@@ -294,16 +270,14 @@
 import Axios from 'axios';
   export default {
     data () {
+      
       return {
         paper_type: 0,
         first_auth_type:0,
         paper_category:0,
         paper_translation:0,
-        // isindustryAlliance:0,
         paper_local:0,
-        // isinterAssociation:0,
         paper_enterprise:0,
-        // isinterdisciplinaryPapers:0,
         science:0,
         paper_high:0,
         paper_grade:'',
@@ -324,38 +298,19 @@ import Axios from 'axios';
         time:'',
         publication:'',
         paper_company:'',
-        publication_type: [],
-        paperGrades:[],
-        paperCompanys:[],
-        subjects:[],
-        sources:[],
-        scopes:[],
-        // cities: [{
-        //   value: 'Beijing',
-        //   label: '北京'
-        // }, {
-        //   value: 'Shanghai',
-        //   label: '上海'
-        // }, {
-        //   value: 'Nanjing',
-        //   label: '南京'
-        // }, {
-        //   value: 'Chengdu',
-        //   label: '成都'
-        // }, {
-        //   value: 'Shenzhen',
-        //   label: '深圳'
-        // }, {
-        //   value: 'Guangzhou',
-        //   label: '广州'
-        // }],
+        publication_type: [],//刊物类型
+        paperGrades:[],//期刊等级
+        paperCompanys:[],//所属单位
+        subjects:[],//一级学科
+        sources:[],//项目来源
+        scopes:[],//发表范围
       };
     },
     methods: {
       submit(){
         let data={
           paper_type:this.paper_type+'',
-          first_auth_type:this.first_auth_type,
+          first_author_type:this.first_auth_type,
           paper_category:this.paper_category,
           paper_translation:this.paper_translation,
           paper_local:this.paper_local,
@@ -366,6 +321,7 @@ import Axios from 'axios';
           paper_cn:this.paper_cn,
           paper_issn:this.paper_issn,
           pape:this.pape,
+          publication_type:this.publication_type,
           paper_school:this.paper_school,
           paper_word:this.paper_word,
           paper_page:this.paper_page,
@@ -382,8 +338,20 @@ import Axios from 'axios';
           paper_company:this.paper_company,
         }
         this.postRequest("/test/data",data).then(res=>{
-          console.log(res)
+          if(res.data.msg=="success"){
+            this.$message({message: '提交成功',type: 'success'});
+          }
         });
+      },
+      getlist(){
+        this.getRequest("/test/dataList").then(res=>{
+          this.paperGrades=res.data.paperGrades;
+          this.paperCompanys=res.data.paperCompanys;
+          this.subjects=res.data.subjects;
+          this.sources=res.data.sources;
+          this.scopes=res.data.scopes;
+          // console.log(this.paperGrades);
+        })
       },
       handleSuccess(response, file, fileList){
         if(file.status=="success"){
@@ -408,13 +376,31 @@ import Axios from 'axios';
       handleError(err, file, fileList){//上传失败钩子
         this.$message.error('文件上传失败');
       },
-      handlePreview(file) {
-        console.log(file);
+      handlePreview(file) {//点击文件列表中已上传的文件时的钩子
+        // console.log(file);
       }
+    },
+    created(){
+      this.getlist();
     }
   }
 </script>
 <style lang="scss">
+.el-upload-dragger{
+    background-color: #fff;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 660px;
+    height: 180px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+  .el-col{
+    margin-bottom: 20px;
+  }
   .el-row {
     margin-bottom: 20px;
     &:last-child {
