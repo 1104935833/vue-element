@@ -13,7 +13,7 @@
     <el-checkbox class="login_remember" v-model="checked"
                  label-position="left">记住密码</el-checkbox>
     <el-form-item style="width: 100%">
-      <el-button type="primary" style="width: 100%" @click="submitClick">登录</el-button>
+      <el-button type="primary" style="width: 100%" @click.native.prevent="submitClick">登录</el-button>
     </el-form-item>
   </el-form>
 </template>
