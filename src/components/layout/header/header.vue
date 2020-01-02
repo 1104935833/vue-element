@@ -37,7 +37,7 @@ import tabNav from './tabNav'
      components: {tabNav},
     created: function(){
       var _this = this;
-      if(this.$store.state.user.name==undefined){
+      if(this.$store.state.user.name==undefined || this.$store.state.user.name==null){
         _this.getRequest("/logout");
         _this.$store.commit('logout');
         location.reload();
