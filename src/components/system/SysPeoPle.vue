@@ -806,12 +806,15 @@
       loadEmps() {
         var _this = this;
         this.tableLoading = true;
-        this.getRequest("/employee/basic/emp?page=" + this.currentPage + "&size=10&keywords=" + this.keywords + "&politicId=" + this.emp.politicId + "&nationId=" + this.emp.nationId + "&posId=" + this.emp.posId + "&jobLevelId=" + this.emp.jobLevelId + "&engageForm=" + this.emp.engageForm + "&departmentId=" + this.emp.departmentId + "&beginDateScope=" + this.beginDateScope).then(resp => {
+        console.log(this.currentPage,this.keywords)
+        this.getRequest("/employee/basic/user?page=" + this.currentPage + "&size=10&keywords=" + this.keywords).then(resp => {
           this.tableLoading = false;
+          // console.log(resp);
           if (resp && resp.status == 200) {
+
             var data = resp.data;
-            _this.emps = data.emps;
-            _this.totalCount = data.count;
+            _this.emps = data.res;
+            
 //            _this.emptyEmpData();
           }
         })
@@ -840,15 +843,17 @@
       },
       initData() {
         var _this = this;
-        this.getRequest("/employee/basic/basicdata").then(resp => {
+        this.getRequest("/employee/basic/count").then(resp => {
           if (resp && resp.status == 200) {
-            var data = resp.data;
-            _this.nations = data.nations;
-            _this.politics = data.politics;
-            _this.deps = data.deps;
-            _this.positions = data.positions;
-            _this.joblevels = data.joblevels;
-            _this.emp.workID = data.workID;
+            console.log(resp)
+            // _this.totalCount = data.count;
+            // var data = resp.data;
+            // _this.nations = data.nations;
+            // _this.politics = data.politics;
+            // _this.deps = data.deps;
+            // _this.positions = data.positions;
+            // _this.joblevels = data.joblevels;
+            // _this.emp.workID = data.workID;
           }
         })
       },
