@@ -19,13 +19,12 @@
             <el-input
               placeholder="通过员工名搜索员工,记得回车哦..."
               clearable
-              @change="keywordsChange"
               style="width: 300px;margin: 0px;padding: 0px;"
               size="mini"
               :disabled="advanceSearchViewVisible"
               @keyup.enter.native="searchEmp"
               prefix-icon="el-icon-search"
-              v-model="keywords">
+              ref="search">
             </el-input>
             <el-button type="primary" size="mini" style="margin-left: 5px" icon="el-icon-search" @click="searchEmp">搜索
             </el-button>
@@ -205,7 +204,7 @@
                 
                 label="婚姻状况">
               </el-table-column> -->
-              <el-table-column
+              <!-- <el-table-column
                 
                 prop="nation.name"
                 label="民族">
@@ -214,7 +213,7 @@
               <el-table-column
                 prop="politicsStatus.name"
                 label="政治面貌">
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column
                 prop="email"
                 
@@ -232,7 +231,7 @@
                 align="left"
                 label="联系地址">
               </el-table-column>
-              <el-table-column
+              <!-- <el-table-column
                 prop="department.name"
                 align="left"
                 
@@ -249,7 +248,7 @@
                 
                 align="left"
                 label="职称">
-              </el-table-column>
+              </el-table-column> -->
              
               <el-table-column
                 align="left"
@@ -267,14 +266,14 @@
                   </el-button>
 
                   <el-button type="danger" style="padding: 3px 4px 3px 4px;margin: 2px" size="mini"
-                            @click="s">删除
+                           >删除
                   </el-button>
                 </template>
               </el-table-column>
             </el-table>
             <div style="display: flex;justify-content: space-between;margin: 2px">
               <el-button type="danger" size="mini" v-if="emps.length>0" :disabled="multipleSelection.length==0"
-                        @click="s">批量删除
+                       >批量删除
               </el-button>
               <el-pagination
                 background
@@ -695,7 +694,9 @@
     },
     methods: {
       handleCheckChange(data, checked, indeterminate) {
-        
+        this.keywords = checked.data.name;
+        this.loadEmps();
+        this.initData();
         console.log(data, checked, indeterminate);
       },
       // 加载树
@@ -791,12 +792,10 @@
       //   }).catch(() => {
       //   });
       // },
-      keywordsChange(val) {
-        if (val == '') {
-          this.loadEmps();
-        }
-      },
+
       searchEmp() {
+        this.keywords=this.$refs.search.currentValue;
+        this.initData();
         this.loadEmps();
       },
       currentChange(currentChange) {
@@ -806,14 +805,13 @@
       loadEmps() {
         var _this = this;
         this.tableLoading = true;
-        console.log(this.currentPage,this.keywords)
-        this.getRequest("/employee/basic/user?page=" + this.currentPage + "&size=10&keywords=" + this.keywords).then(resp => {
+        this.getRequest("/employee/basic/getUserByPage?page=" + this.currentPage + "&size=10&keywords=" + this.keywords).then(resp => {
           this.tableLoading = false;
           // console.log(resp);
           if (resp && resp.status == 200) {
 
             var data = resp.data;
-            _this.emps = data.res;
+            _this.emps = data.users;
             
 //            _this.emptyEmpData();
           }
@@ -843,10 +841,10 @@
       },
       initData() {
         var _this = this;
-        this.getRequest("/employee/basic/count").then(resp => {
+        this.getRequest("/employee/basic/count?keywords=" + this.keywords).then(resp => {
           if (resp && resp.status == 200) {
             console.log(resp)
-            // _this.totalCount = data.count;
+            _this.totalCount = resp.data.count;
             // var data = resp.data;
             // _this.nations = data.nations;
             // _this.politics = data.politics;
