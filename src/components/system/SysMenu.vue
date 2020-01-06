@@ -6,27 +6,37 @@
           style="padding: 0px;display:flex;justify-content:space-between;align-items: center"
         >
           <div style="margin-left: 5px;margin-right: 20px;display: inline">
-            <el-button type="primary" size="mini" icon="el-icon-plus"  @click="showAddEmpView">添加菜单</el-button>
+            <el-button type="primary" size="mini" icon="el-icon-plus" @click="showAddEmpView">添加菜单</el-button>
           </div>
         </el-header>
         <el-main style="padding-left: 0px;padding-top: 0px">
           <div>
-            
             <!-- 表格 -->
             <el-table :data="tableData" style="width: 100%" :cell-style="tableHeaderColor">
               <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
-              <el-table-column prop="iconCls" align="left" fixed label="图标"></el-table-column>
+              <el-table-column prop="iconCls" align="left" fixed label="图标">
+              </el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
               <el-table-column prop="url" align="left" fixed label="请求路径"></el-table-column>
               <el-table-column prop="component" align="left" fixed label="模块名称"></el-table-column>
               <el-table-column prop="name" align="left" fixed label="标题"></el-table-column>
-              <el-table-column prop="parentId" align="left" fixed label="类型"></el-table-column>
-              <el-table-column prop="type" align="left" fixed label="状态" ></el-table-column>
+              <el-table-column prop="parent" align="left" fixed label="类型"></el-table-column>
+              <el-table-column prop="type" align="left" fixed label="状态"></el-table-column>
               <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
-                  <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                  <el-button size="mini" v-if="scope.row.enabled=='1'" type="warning" @click="handleHide(scope.$index, scope.row,0)">禁用</el-button>
-                  <el-button size="mini"  v-if="scope.row.enabled=='0'" type="warning" @click="handleHide(scope.$index, scope.row,1)">启用</el-button>
+                  <el-button size="mini" @click="showEditView(scope.$index, scope.row)">编辑</el-button>
+                  <el-button
+                    size="mini"
+                    v-if="scope.row.enabled=='1'"
+                    type="warning"
+                    @click="handleHide(scope.$index, scope.row,0)"
+                  >禁用</el-button>
+                  <el-button
+                    size="mini"
+                    v-if="scope.row.enabled=='0'"
+                    type="warning"
+                    @click="handleHide(scope.$index, scope.row,1)"
+                  >启用</el-button>
 
                   <el-button
                     size="mini"
@@ -51,21 +61,25 @@
         </el-main>
       </el-container>
     </el-container>
-    <!-- 添加菜单 -->
-    <el-form ref="addEmpForm" style="margin: 0px;padding: 0px;">
+    <!-- 编辑菜单 -->
+    <el-form ref="EditForm" style="margin: 0px;padding: 0px;">
       <div style="text-align: left">
         <el-dialog
           :title="dialogTitle"
           style="padding: 0px;"
           :close-on-click-modal="false"
-          :visible.sync="dialogVisible"
+          :visible.sync="EditVisible"
           width="50%"
         >
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="菜单类型：" prop="isMenu">
-                  <el-radio-group v-model="stateValue" @change="typeChange">
+                <el-form-item label="菜单类型：">
+                  <el-radio-group
+                    v-model="form.stateValue"
+                    :disabled="isDisabled"
+                    @change="typeChange"
+                  >
                     <el-radio label="1">菜单</el-radio>
                     <el-radio label="0">目录</el-radio>
                   </el-radio-group>
@@ -76,13 +90,13 @@
           <el-row v-if="isType">
             <el-col :span="24">
               <div>
-                <el-form-item label="上级菜单：" prop="parentId">
-                  <el-select v-model="value" placeholder="请选择">
+                <el-form-item label="上级菜单：">
+                  <el-select v-model="form.value" placeholder="请选择">
                     <el-option
-                      v-for="item in options"
-                      :key="item.value"
-                      :label="item.label"
-                      :value="item.value"
+                      v-for="item in parentData"
+                      :key="item.id"
+                      :label="item.name"
+                      :value="item.id"
                     ></el-option>
                   </el-select>
                 </el-form-item>
@@ -92,8 +106,9 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="菜单名称：" prop="name">
+                <el-form-item label="菜单名称：">
                   <el-input
+                    v-model="form.name"
                     prefix-icon="el-icon-edit"
                     size="mini"
                     style="width: 90%"
@@ -106,8 +121,9 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="模块名称：" prop="component">
+                <el-form-item label="模块名称：">
                   <el-input
+                    v-model="form.component"
                     prefix-icon="el-icon-edit"
                     size="mini"
                     style="width: 90%"
@@ -120,8 +136,9 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="访问路径：" prop="path">
+                <el-form-item label="访问路径：">
                   <el-input
+                    v-model="form.path"
                     prefix-icon="el-icon-edit"
                     size="mini"
                     style="width: 90%"
@@ -134,8 +151,9 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="请求路径：" prop="url">
+                <el-form-item label="请求路径：">
                   <el-input
+                    v-model="form.url"
                     prefix-icon="el-icon-edit"
                     size="mini"
                     style="width: 90%"
@@ -149,7 +167,7 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="菜单类型：" prop="enabled">
+                <el-form-item label="是否有效：">
                   <el-radio-group v-model="typeValue">
                     <el-radio label="1">有效</el-radio>
                     <el-radio label="0">无效</el-radio>
@@ -159,8 +177,8 @@
             </el-col>
           </el-row>
           <span slot="footer" class="dialog-footer">
-            <el-button size="mini">取 消</el-button>
-            <el-button size="mini" type="primary">确 定</el-button>
+            <el-button size="mini" @click="cancelEidt">取 消</el-button>
+            <el-button size="mini" type="primary" @click="addEmp()">确 定</el-button>
           </span>
         </el-dialog>
       </div>
@@ -171,89 +189,116 @@
 export default {
   data() {
     return {
-      options: [
-        {
-          value: "选项1",
-          label: "黄金糕"
-        },
-        {
-          value: "选项2",
-          label: "双皮奶"
-        },
-        {
-          value: "选项3",
-          label: "蚵仔煎"
-        },
-        {
-          value: "选项4",
-          label: "龙须面"
-        },
-        {
-          value: "选项5",
-          label: "北京烤鸭"
-        }
-      ],
-      value: "",
       tableData: [],
+      parentData: [],
       typeValue: "1",
-      stateValue: "1",
-      props: {
-        label: "name",
-        isLeaf: "数学教研室"
+      form: {
+        value: "",
+        component: "",
+        stateValue: "1",
+        parent: "",
+        url: "",
+        parentId: "",
+        name: "",
+        path: ""
       },
+      form1: {
+        value: "",
+        component: "",
+        stateValue: "1",
+        parent: "",
+        url: "",
+        parentId: "",
+        name: "",
+        path: ""
+      },
+      isDisabled: false,
+      isEdit: false,
       count: 1,
       dialogTitle: "",
       multipleSelection: [],
       totalCount: -1,
       currentPage: 1,
       dialogVisible: false,
+      EditVisible: false,
       tableLoading: false,
       isType: true
     };
   },
   mounted: function() {
     this.loadEmps();
+    this.getAllParent();
   },
   methods: {
+    addEmp() {
+      //添加菜单
+      console.log(this.isEdit);
+      this.$set(this.form, "typeValue", this.typeValue);
+      if (!this.isEdit) {
+        
+        this.postRequest("/system/role/addMenu",this.form).then(res=>{
+          console.log(res);
+        });
+      }
+      console.log(this.form);
+    },
+    getAllParent() {
+      this.getRequest("/system/role/getAllParent").then(res => {
+        this.parentData = res.data;
+      });
+    },
     tableHeaderColor({ row, column, rowIndex, columnIndex }) {
       if (row.type === "有效" && columnIndex === 7) {
-        return 'color: green'
+        return "color: green";
       }
       if (row.type === "无效" && columnIndex === 7) {
-        return 'color: red;'
+        return "color: red;";
       }
     },
     typeChange() {
-      var val = this.stateValue;
+      var val = this.form.stateValue;
       if (val == "1") {
         this.isType = true;
       } else {
         this.isType = false;
       }
     },
-    handleEdit(index, row) {
-      console.log(index, row);
+    handleHide(index, row, type) {
+      let tmp;
+      if (type == 0) tmp = "此操作将禁用[" + row.name + "], 是否继续?";
+      else tmp = "此操作将启用[" + row.name + "], 是否继续?";
+      this.$confirm(tmp, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.getRequest("/system/role/menuhide", {
+            id: row.id,
+            type: type
+          }).then(res => {
+            this.loadEmps();
+          });
+        })
+        .catch(() => {});
     },
-    handleHide(index, row,type) {
-      console.log(index, row);
-      this.getRequest("/system/role/menuhide",{id:row.id,type:type}).then(res=>{
-        this.loadEmps();
-        console.log(res);
-      });
+    cancelEidt() {
+      this.form = this.form1;
+
+      this.EditVisible = false;
     },
     handleDelete(index, row) {
-      console.log(index, row);
-      this.getRequest("/system/role/menudel",{id:row.id}).then(res=>{
-        this.loadEmps();
-        console.log(res);
-      });
-    },
-    handleCheckChange(data, checked, indeterminate) {
-      this.keywords = checked.data.name;
-      this.currentPage = 1;
-      this.loadEmps();
-      this.initData();
-      console.log(data, checked, indeterminate);
+      this.$confirm("此操作将永久删除[" + row.name + "], 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.getRequest("/system/role/menudel", { id: row.id }).then(res => {
+            this.loadEmps();
+          });
+        })
+        .catch(() => {});
     },
     currentChange(currentChange) {
       this.currentPage = currentChange;
@@ -274,8 +319,30 @@ export default {
       );
     },
     showAddEmpView() {
+      this.isEdit = false;
+      this.form = this.form1;
+      this.form.stateValue = "1";
       this.dialogTitle = "添加菜单";
-      this.dialogVisible = true;
+      this.isDisabled = false;
+      this.EditVisible = true;
+      var _this = this;
+    },
+    showEditView(index, row) {
+      this.isEdit = true;
+      this.dialogTitle = "编辑菜单";
+      this.form = row;
+      if (row.enabled) this.typeValue = "1";
+      else this.typeValue = "0";
+      this.isDisabled = true; //菜单类型不可选
+      if (row.parent == "菜单") {
+        this.form.stateValue = "1";
+        this.isType = true; //是否显示下拉框
+        this.form.value = row.parentId;
+      } else {
+        this.form.stateValue = "0";
+        this.isType = false;
+      }
+      this.EditVisible = true;
       var _this = this;
     }
   }

@@ -224,43 +224,9 @@
                 <template slot-scope="scope">{{ scope.row.birthday | formatDate}}</template>
               </el-table-column>
               <el-table-column prop="idCard" align="left" label="身份证号码"></el-table-column>
-              <!-- <el-table-column
-                prop="wedlock"
-                
-                label="婚姻状况">
-              </el-table-column>-->
-              <!-- <el-table-column
-                
-                prop="nation.name"
-                label="民族">
-              </el-table-column>
-
-              <el-table-column
-                prop="politicsStatus.name"
-                label="政治面貌">
-              </el-table-column>-->
               <el-table-column prop="email" align="left" label="电子邮件"></el-table-column>
               <el-table-column prop="phone" label="电话号码"></el-table-column>
               <el-table-column prop="address" align="left" label="联系地址"></el-table-column>
-              <!-- <el-table-column
-                prop="department.name"
-                align="left"
-                
-                label="所属部门">
-              </el-table-column>
-              <el-table-column
-                
-                align="left"
-                prop="position.name"
-                label="职位">
-              </el-table-column>
-              <el-table-column
-                prop="jobLevel.name"
-                
-                align="left"
-                label="职称">
-              </el-table-column>-->
-
               <el-table-column align="left" prop="tiptopDegree" label="最高学历"></el-table-column>
               <el-table-column fixed="right" label="操作" width="120px;">
                 <template slot-scope="scope">
@@ -269,7 +235,6 @@
                     style="padding: 3px 4px 3px 4px;margin: 2px"
                     size="mini"
                   >编辑</el-button>
-
                   <el-button
                     type="danger"
                     style="padding: 3px 4px 3px 4px;margin: 2px"
