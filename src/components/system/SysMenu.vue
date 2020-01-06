@@ -14,8 +14,7 @@
             <!-- 表格 -->
             <el-table :data="tableData" style="width: 100%" :cell-style="tableHeaderColor">
               <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
-              <el-table-column prop="iconCls" align="left" fixed label="图标">
-              </el-table-column>
+              <el-table-column prop="iconCls" align="left" fixed label="图标"></el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
               <el-table-column prop="url" align="left" fixed label="请求路径"></el-table-column>
               <el-table-column prop="component" align="left" fixed label="模块名称"></el-table-column>
@@ -75,11 +74,7 @@
             <el-col :span="24">
               <div>
                 <el-form-item label="菜单类型：">
-                  <el-radio-group
-                    v-model="form.stateValue"
-                    :disabled="isDisabled"
-                    @change="typeChange"
-                  >
+                  <el-radio-group v-model="stateValue" :disabled="isDisabled" @change="typeChange">
                     <el-radio label="1">菜单</el-radio>
                     <el-radio label="0">目录</el-radio>
                   </el-radio-group>
@@ -91,7 +86,7 @@
             <el-col :span="24">
               <div>
                 <el-form-item label="上级菜单：">
-                  <el-select v-model="form.value" placeholder="请选择">
+                  <el-select v-model="form.parentId" placeholder="请选择">
                     <el-option
                       v-for="item in parentData"
                       :key="item.id"
@@ -168,7 +163,7 @@
             <el-col :span="24">
               <div>
                 <el-form-item label="是否有效：">
-                  <el-radio-group v-model="typeValue">
+                  <el-radio-group v-model="enabled">
                     <el-radio label="1">有效</el-radio>
                     <el-radio label="0">无效</el-radio>
                   </el-radio-group>
@@ -191,22 +186,17 @@ export default {
     return {
       tableData: [],
       parentData: [],
-      typeValue: "1",
+      enabled: "1",
+      stateValue: "1",
       form: {
-        value: "",
         component: "",
-        stateValue: "1",
-        parent: "",
         url: "",
         parentId: "",
         name: "",
         path: ""
       },
       form1: {
-        value: "",
         component: "",
-        stateValue: "1",
-        parent: "",
         url: "",
         parentId: "",
         name: "",
@@ -232,15 +222,18 @@ export default {
   methods: {
     addEmp() {
       //添加菜单
-      console.log(this.isEdit);
-      this.$set(this.form, "typeValue", this.typeValue);
+      this.$set(this.form, "enabled", this.enabled);
       if (!this.isEdit) {
-        
-        this.postRequest("/system/role/addMenu",this.form).then(res=>{
-          console.log(res);
+        this.postRequest("/system/role/addMenu", this.form).then(res => {
+          this.form = this.form1;
+          this.EditVisible = false;
+        });
+      } else {
+        this.postRequest("/system/role/upMenu", this.form).then(res => {
+          this.form = this.form1;
+          this.EditVisible = false;
         });
       }
-      console.log(this.form);
     },
     getAllParent() {
       this.getRequest("/system/role/getAllParent").then(res => {
@@ -256,10 +249,11 @@ export default {
       }
     },
     typeChange() {
-      var val = this.form.stateValue;
+      var val = this.stateValue;
       if (val == "1") {
         this.isType = true;
       } else {
+        this.form.parentId = "";
         this.isType = false;
       }
     },
@@ -321,7 +315,9 @@ export default {
     showAddEmpView() {
       this.isEdit = false;
       this.form = this.form1;
-      this.form.stateValue = "1";
+      this.enabled = "1";
+      this.stateValue = "1";
+      this.stateValue = "1";
       this.dialogTitle = "添加菜单";
       this.isDisabled = false;
       this.EditVisible = true;
@@ -331,15 +327,15 @@ export default {
       this.isEdit = true;
       this.dialogTitle = "编辑菜单";
       this.form = row;
-      if (row.enabled) this.typeValue = "1";
-      else this.typeValue = "0";
+      if (row.enabled) this.enabled = "1";
+      else this.enabled = "0";
       this.isDisabled = true; //菜单类型不可选
       if (row.parent == "菜单") {
-        this.form.stateValue = "1";
+        this.stateValue = "1";
         this.isType = true; //是否显示下拉框
-        this.form.value = row.parentId;
+        this.form.parentId = row.parentId;
       } else {
-        this.form.stateValue = "0";
+        this.stateValue = "0";
         this.isType = false;
       }
       this.EditVisible = true;
@@ -366,11 +362,5 @@ export default {
 .slide-fade-leave-to {
   transform: translateX(10px);
   opacity: 0;
-}
-.activeClass {
-  color: rgb(255, 65, 65);
-}
-.errorClass {
-  color: rgb(29, 253, 96);
 }
 </style>

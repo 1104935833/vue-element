@@ -844,7 +844,6 @@ export default {
           this.keywords
       ).then(resp => {
         this.tableLoading = false;
-        console.log(resp);
         if (resp && resp.status == 200) {
           var data = resp.data;
           _this.emps = data.users;
@@ -878,21 +877,12 @@ export default {
       this.getRequest("/employee/basic/count?keywords=" + this.keywords).then(
         resp => {
           if (resp && resp.status == 200) {
-            console.log(resp);
             _this.totalCount = resp.data.count;
-            // var data = resp.data;
-            // _this.nations = data.nations;
-            // _this.politics = data.politics;
-            // _this.deps = data.deps;
-            // _this.positions = data.positions;
-            // _this.joblevels = data.joblevels;
-            // _this.emp.workID = data.workID;
           }
         }
       );
     },
     showEditEmpView(row) {
-      console.log(row);
       this.dialogTitle = "编辑员工";
       this.emp = row;
       this.emp.birthday = this.formatDate(row.birthday);
@@ -906,16 +896,10 @@ export default {
       this.emp.departmentName = row.department.name;
       this.emp.jobLevelId = row.jobLevel.id;
       this.emp.posId = row.position.id;
-      //        delete this.emp.department;
-      //        delete this.emp.jobLevel;
-      //        delete this.emp.position;
-      //        delete this.emp.nation;
-      //        delete this.emp.politicsStatus;
       delete this.emp.salary;
       delete this.emp.workAge;
       delete this.emp.notWorkDate;
       this.dialogVisible = true;
-      console.log(this.emp);
     },
     template() {
       window.open("/test/template", "_parent");
