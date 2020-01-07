@@ -12,7 +12,7 @@
         <el-main style="padding-left: 0px;padding-top: 0px">
           <div>
             <!-- 表格 -->
-            <el-table :data="tableData" style="width: 100%" :cell-style="tableHeaderColor">
+            <el-table :data="tableData" v-loading="tableLoading" style="width: 100%" :cell-style="tableHeaderColor">
               <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
               <el-table-column prop="iconCls" align="left" fixed label="图标"></el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
