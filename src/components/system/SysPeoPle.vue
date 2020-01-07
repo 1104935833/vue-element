@@ -386,16 +386,28 @@
                 </el-form-item>
               </div>
             </el-col>
-            <el-col :span="7">
+            <el-col :span="7" v-if="this.isEdit">
               <div>
-                <el-form-item label="用户名:" prop="username">
+                <el-form-item label="工号:" prop="workID">
                   <el-input
+                  
                     prefix-icon="el-icon-edit"
-                    v-model="emp.username"
+                    v-model="emp.workID"
+                    disabled
                     size="mini"
                     style="width: 180px"
                     placeholder="请输入员工身份证号码..."
                   ></el-input>
+                </el-form-item>
+              </div>
+            </el-col>
+            <el-col :span="7">
+              <div>
+                <el-form-item label="是否有效:" prop="enabled">
+                  <el-radio-group v-model="emp.enabled">
+                    <el-radio :label=1>有效</el-radio>
+                    <el-radio style="margin-left: 15px" :label=0>无效</el-radio>
+                  </el-radio-group>
                 </el-form-item>
               </div>
             </el-col>
@@ -414,7 +426,7 @@
 export default {
   data() {
     return {
-      isEdit:false,
+      isEdit: false,
       options: [],
       props: {
         label: "name"
@@ -454,6 +466,7 @@ export default {
         birthday: "",
         idCard: "",
         email: "",
+        enabled:1,
         tree: "",
         phone: "",
         address: "",
@@ -463,6 +476,7 @@ export default {
         name: "",
         username: "",
         gender: "1",
+        enabled: 1,
         birthday: "",
         idCard: "",
         email: "",
@@ -506,22 +520,28 @@ export default {
     this.initData();
     this.loadEmps();
     this.getRequest("/system/role/treepeople", { name: "理工分院" }).then(
-        res => {
-          this.options = res.data;
-        }
-      );
+      res => {
+        this.options = res.data;
+      }
+    );
   },
   methods: {
     addEmp() {
-      if(!this.isEdit)
+      if (!this.isEdit)
+        this.postRequest("/employee/basic/adduser", this.emp).then(res => {
+          this.dialogVisible=false;
+          this.initData();
+          this.loadEmps();
+        });
+      else {
+        console.log(this.emp);
+        this.postRequest("/employee/basic/edituser", this.emp).then(res => {
+          this.dialogVisible=false;
 
-        this.postRequest("/employee/basic/adduser", this.emp).then(res => {});
-      else
-      {
-        console.log(this.emp)
-this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
+          this.initData();
+          this.loadEmps();
+        });
       }
-        
     },
     handleCheckChange(data, checked, indeterminate) {
       this.keywords = checked.data.name;
@@ -582,7 +602,7 @@ this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
     },
     cancelSearch() {
       this.advanceSearchViewVisible = false;
-      this.emps=this.empinit;
+      this.emps = this.empinit;
       this.beginDateScope = "";
       this.loadEmps();
     },
@@ -662,6 +682,8 @@ this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
     },
     cancelEidt() {
       this.dialogVisible = false;
+       this.initData();
+      this.loadEmps();
     },
     showDepTree() {
       this.showOrHidePop = !this.showOrHidePop;
@@ -692,8 +714,9 @@ this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
       );
     },
     showEditEmpView(row) {
-      this.isEdit=true;
+      this.isEdit = true;
       this.dialogTitle = "编辑员工";
+      console.log(row)
       this.emp = row;
       this.emp.birthday = this.formatDate(row.birthday);
       this.dialogVisible = true;
@@ -702,11 +725,10 @@ this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
       window.open("/test/template", "_parent");
     },
     showAddEmpView() {
-      this.isEdit=false;
+      this.isEdit = false;
       this.dialogTitle = "添加员工";
       this.emp = this.empinit;
       this.dialogVisible = true;
-      
     }
   }
 };
