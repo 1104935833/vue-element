@@ -2,7 +2,7 @@
   <div>
     <el-container>
       <el-aside width="200px" style="background-color: rgb(238, 241, 246);margin-right:20px;">
-        <div  class="tree">
+        <div class="tree">
           <el-tree
             :props="props"
             :load="loadNode"
@@ -315,11 +315,8 @@
                 </el-form-item>
               </div>
             </el-col>
-            
           </el-row>
           <el-row>
-           
-            
             <el-col :span="7">
               <div>
                 <el-form-item label="电子邮箱:" prop="email">
@@ -346,7 +343,7 @@
                 </el-form-item>
               </div>
             </el-col>
-             
+
             <el-col :span="6">
               <div>
                 <el-form-item label="电话号码:" prop="phone">
@@ -362,8 +359,6 @@
             </el-col>
           </el-row>
           <el-row>
-           
-              
             <el-col :span="7">
               <div>
                 <el-form-item label="身份证号码:" prop="idCard">
@@ -377,21 +372,38 @@
                 </el-form-item>
               </div>
             </el-col>
-            <el-col :span="8">
+            <el-col :span="7">
               <div>
-                <el-form-item label="是否有效:" prop="gender">
-                  <el-radio-group v-model="emp.gender">
-                    <el-radio label="1">有效</el-radio>
-                    <el-radio style="margin-left: 15px" label="0">无效</el-radio>
-                  </el-radio-group>
+                <el-form-item label="所在教研室:" prop="idCard">
+                  <el-select v-model="emp.tree" placeholder="请选择">
+                    <el-option
+                      v-for="item in options"
+                      :key="item.tree_code"
+                      :label="item.name"
+                      :value="item.tree_code"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
+            </el-col>
+            <el-col :span="7">
+              <div>
+                <el-form-item label="用户名:" prop="username">
+                  <el-input
+                    prefix-icon="el-icon-edit"
+                    v-model="emp.username"
+                    size="mini"
+                    style="width: 180px"
+                    placeholder="请输入员工身份证号码..."
+                  ></el-input>
                 </el-form-item>
               </div>
             </el-col>
           </el-row>
-         
+
           <span slot="footer" class="dialog-footer">
             <el-button size="mini" @click="cancelEidt">取 消</el-button>
-            <el-button size="mini" type="primary" @click="addEmp('addEmpForm')">确 定</el-button>
+            <el-button size="mini" type="primary" @click="addEmp()">确 定</el-button>
           </span>
         </el-dialog>
       </div>
@@ -402,10 +414,13 @@
 export default {
   data() {
     return {
+      isEdit:false,
+      options: [],
       props: {
         label: "name"
       },
       count: 1,
+      emps: [],
       keywords: "",
       fileUploadBtnText: "导入数据",
       beginDateScope: "",
@@ -420,7 +435,7 @@ export default {
       joblevels: [],
       totalCount: -1,
       currentPage: 1,
-      
+
       deps: [],
       defaultProps: {
         label: "name",
@@ -434,10 +449,24 @@ export default {
       showOrHidePop2: false,
       emp: {
         name: "",
-        gender: "",
+        username: "",
+        gender: "1",
         birthday: "",
         idCard: "",
         email: "",
+        tree: "",
+        phone: "",
+        address: "",
+        workID: ""
+      },
+      empinit: {
+        name: "",
+        username: "",
+        gender: "1",
+        birthday: "",
+        idCard: "",
+        email: "",
+        tree: "",
         phone: "",
         address: "",
         workID: ""
@@ -469,23 +498,36 @@ export default {
           }
         ],
         phone: [{ required: true, message: "必填:电话号码", trigger: "blur" }],
-        address: [
-          { required: true, message: "必填:联系地址", trigger: "blur" }
-        ],
+        address: [{ required: true, message: "必填:联系地址", trigger: "blur" }]
       }
     };
   },
   mounted: function() {
     this.initData();
     this.loadEmps();
+    this.getRequest("/system/role/treepeople", { name: "理工分院" }).then(
+        res => {
+          this.options = res.data;
+        }
+      );
   },
   methods: {
+    addEmp() {
+      if(!this.isEdit)
+
+        this.postRequest("/employee/basic/adduser", this.emp).then(res => {});
+      else
+      {
+        console.log(this.emp)
+this.postRequest("/employee/basic/edituser", this.emp).then(res => {});
+      }
+        
+    },
     handleCheckChange(data, checked, indeterminate) {
       this.keywords = checked.data.name;
       this.currentPage = 1;
       this.loadEmps();
       this.initData();
-      console.log(data, checked, indeterminate);
     },
     // 加载树
     loadNode(node, resolve) {
@@ -540,7 +582,7 @@ export default {
     },
     cancelSearch() {
       this.advanceSearchViewVisible = false;
-      this.emptyEmpData();
+      this.emps=this.empinit;
       this.beginDateScope = "";
       this.loadEmps();
     },
@@ -611,7 +653,6 @@ export default {
           "&size=10&keywords=" +
           this.keywords
       ).then(resp => {
-        console.log(resp)
         this.tableLoading = false;
         if (resp && resp.status == 200) {
           var data = resp.data;
@@ -621,7 +662,6 @@ export default {
     },
     cancelEidt() {
       this.dialogVisible = false;
-      this.emptyEmpData();
     },
     showDepTree() {
       this.showOrHidePop = !this.showOrHidePop;
@@ -652,68 +692,21 @@ export default {
       );
     },
     showEditEmpView(row) {
+      this.isEdit=true;
       this.dialogTitle = "编辑员工";
       this.emp = row;
       this.emp.birthday = this.formatDate(row.birthday);
-      this.emp.conversionTime = this.formatDate(row.conversionTime);
-      this.emp.beginContract = this.formatDate(row.beginContract);
-      this.emp.endContract = this.formatDate(row.endContract);
-      this.emp.beginDate = this.formatDate(row.beginDate);
-      this.emp.nationId = row.nation.id;
-      this.emp.politicId = row.politicsStatus.id;
-      this.emp.departmentId = row.department.id;
-      this.emp.departmentName = row.department.name;
-      this.emp.jobLevelId = row.jobLevel.id;
-      this.emp.posId = row.position.id;
-      delete this.emp.salary;
-      delete this.emp.workAge;
-      delete this.emp.notWorkDate;
       this.dialogVisible = true;
     },
     template() {
       window.open("/test/template", "_parent");
     },
     showAddEmpView() {
+      this.isEdit=false;
       this.dialogTitle = "添加员工";
+      this.emp = this.empinit;
       this.dialogVisible = true;
-      var _this = this;
-      this.getRequest("/").then(resp => {
-        if (resp && resp.status == 200) {
-          _this.emp.workID = resp.data;
-        }
-      });
-    },
-    emptyEmpData() {
-      this.emp = {
-        name: "",
-        gender: "",
-        birthday: "",
-        idCard: "",
-        wedlock: "",
-        nationId: "",
-        nativePlace: "",
-        politicId: "",
-        email: "",
-        phone: "",
-        address: "",
-        departmentId: "",
-        departmentName: "所属部门...",
-        jobLevelId: "",
-        posId: "",
-        engageForm: "",
-        tiptopDegree: "",
-        specialty: "",
-        school: "",
-        beginDate: "",
-        workState: "",
-        workID: "",
-        contractTerm: "",
-        conversionTime: "",
-        notWorkDate: "",
-        beginContract: "",
-        endContract: "",
-        workAge: ""
-      };
+      
     }
   }
 };
@@ -743,5 +736,4 @@ export default {
   background-color: white;
   /*width:200px;*/
 }
-
 </style>
