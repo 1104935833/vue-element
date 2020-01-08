@@ -452,7 +452,7 @@ export default {
   mounted: function() {
     this.initData();
     this.loadEmps();
-    this.getRequest("/system/role/treepeople", { name: "理工分院" }).then(
+    this.getRequest("/employee/basic/treepeople", { name: "理工分院" }).then(
       res => {
         this.options = res.data;
       }
@@ -487,7 +487,7 @@ export default {
     loadNode(node, resolve) {
       if (node.level === 0) {
         var data;
-        this.getRequest("/system/role/treepeople", { name: "" }).then(res => {
+        this.getRequest("/employee/basic/treepeople", { name: "" }).then(res => {
           data = res.data;
           return resolve(data);
         });
@@ -496,7 +496,7 @@ export default {
       setTimeout(() => {
         var data;
         if (node.level == 1) {
-          this.getRequest("/system/role/treepeople", {
+          this.getRequest("/employee/basic/treepeople", {
             name: node.data.name
           }).then(res => {
             data = res.data;
@@ -504,7 +504,7 @@ export default {
           });
         } else if (node.level == 2) {
           var data;
-          this.getRequest("/system/role/treepeople", {
+          this.getRequest("/employee/basic/treepeople", {
             name: node.data.name
           }).then(res => {
             data = res.data;

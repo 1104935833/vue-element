@@ -14,7 +14,11 @@
             <!-- 表格 -->
             <el-table :data="tableData" v-loading="tableLoading" style="width: 100%" :cell-style="tableHeaderColor">
               <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
-              <el-table-column prop="iconCls" align="left" fixed label="图标"></el-table-column>
+              <el-table-column  align="left" fixed label="图标">
+                <template slot-scope="scope">
+              <i v-bind:class="[scope.row.iconCls]" ></i>
+                </template>
+              </el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
               <el-table-column prop="url" align="left" fixed label="请求路径"></el-table-column>
               <el-table-column prop="component" align="left" fixed label="模块名称"></el-table-column>
