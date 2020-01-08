@@ -27,7 +27,7 @@
               :disabled="advanceSearchViewVisible"
               @keyup.enter.native="searchEmp"
               prefix-icon="el-icon-search"
-              ref="search"
+              v-model="empsearch.name"
             ></el-input>
             <el-button
               type="primary"
@@ -84,116 +84,49 @@
                 v-show="advanceSearchViewVisible"
               >
                 <el-row>
+                  <el-col :span="4">
+                    工号:
+                    <el-input
+                      v-model="empsearch.workID"
+                      style="width: 130px"
+                      size="mini"
+                      placeholder="工号"
+                    ></el-input>
+                  </el-col>
+                  <el-col :span="4">
+                    姓名:
+                    <el-input v-model="empsearch.name" style="width: 130px" size="mini" placeholder="姓名"></el-input>
+                  </el-col>
                   <el-col :span="5">
-                    政治面貌:
-                    <el-select
-                      v-model="emp.politicId"
+                    身份证号码:
+                    <el-input
+                      v-model="empsearch.idCard"
                       style="width: 130px"
                       size="mini"
-                      placeholder="政治面貌"
-                    >
-                      <el-option
-                        v-for="item in politics"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                      ></el-option>
-                    </el-select>
+                      placeholder="身份证号码"
+                    ></el-input>
                   </el-col>
-                  <el-col :span="4">
-                    民族:
-                    <el-select
-                      v-model="emp.nationId"
-                      style="width: 130px"
-                      size="mini"
-                      placeholder="请选择民族"
-                    >
-                      <el-option
-                        v-for="item in nations"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                      ></el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="4">
-                    职位:
-                    <el-select
-                      v-model="emp.posId"
-                      style="width: 130px"
-                      size="mini"
-                      placeholder="请选择职位"
-                    >
-                      <el-option
-                        v-for="item in positions"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                      ></el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="4">
-                    职称:
-                    <el-select
-                      v-model="emp.jobLevelId"
-                      style="width: 130px"
-                      size="mini"
-                      placeholder="请选择职称"
-                    >
-                      <el-option
-                        v-for="item in joblevels"
-                        :key="item.id"
-                        :label="item.name"
-                        :value="item.id"
-                      ></el-option>
-                    </el-select>
-                  </el-col>
-                  <el-col :span="7">
-                    聘用形式:
-                    <el-radio-group v-model="emp.engageForm">
-                      <el-radio label="劳动合同">劳动合同</el-radio>
-                      <el-radio style="margin-left: 15px" label="劳务合同">劳务合同</el-radio>
-                    </el-radio-group>
-                  </el-col>
-                </el-row>
-                <el-row style="margin-top: 10px">
                   <el-col :span="5">
                     所属部门:
-                    <el-popover
-                      v-model="showOrHidePop2"
-                      placement="right"
-                      title="请选择部门"
-                      trigger="manual"
-                    >
-                      <el-tree
-                        :data="deps"
-                        :default-expand-all="true"
-                        :props="defaultProps"
-                        :expand-on-click-node="false"
-                        @node-click="handleNodeClick2"
-                      ></el-tree>
-                      <div
-                        slot="reference"
-                        style="width: 130px;height: 26px;display: inline-flex;font-size:13px;border: 1px;border-radius: 5px;border-style: solid;padding-left: 13px;box-sizing:border-box;border-color: #dcdfe6;cursor: pointer;align-items: center"
-                        @click="showDepTree2"
-                        v-bind:style="{color: depTextColor}"
-                      >{{emp.departmentName}}</div>
-                    </el-popover>
+                    <el-select style="width: 130px;" v-model="empsearch.tree" placeholder="请选择">
+                      <el-option value="">请选择</el-option>
+                      <el-option
+                        v-for="item in options"
+                        :key="item.tree_code"
+                        :label="item.name"
+                        :value="item.tree_code"
+                      ></el-option>
+                    </el-select>
                   </el-col>
-                  <el-col :span="10">
-                    入职日期:
-                    <el-date-picker
-                      v-model="beginDateScope"
-                      unlink-panels
-                      size="mini"
-                      type="daterange"
-                      value-format="yyyy-MM-dd"
-                      range-separator="至"
-                      start-placeholder="开始日期"
-                      end-placeholder="结束日期"
-                    ></el-date-picker>
+                  <el-col :span="4">
+                    有否有效:
+                    <el-radio-group v-model="empsearch.enabled">
+                      <el-radio :label=1>有效</el-radio>
+                      <el-radio style="margin-left: 15px" :label=0>无效</el-radio>
+                    </el-radio-group>
                   </el-col>
-                  <el-col :span="5" :offset="4">
+                  
+                  <el-col :span="3" :offset="18">
                     <el-button size="mini" @click="cancelSearch">取消</el-button>
                     <el-button
                       icon="el-icon-search"
@@ -295,8 +228,8 @@
               <div>
                 <el-form-item label="性别:" prop="gender">
                   <el-radio-group v-model="emp.gender">
-                    <el-radio label="男">男</el-radio>
-                    <el-radio style="margin-left: 15px" label="女">女</el-radio>
+                    <el-radio :label=1>男</el-radio>
+                    <el-radio style="margin-left: 15px" :label=0>女</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </div>
@@ -324,7 +257,7 @@
                     prefix-icon="el-icon-message"
                     v-model="emp.email"
                     size="mini"
-                    style="width: 150px"
+                    style="width: 190px"
                     placeholder="电子邮箱地址..."
                   ></el-input>
                 </el-form-item>
@@ -375,7 +308,7 @@
             <el-col :span="7">
               <div>
                 <el-form-item label="所在教研室:" prop="idCard">
-                  <el-select v-model="emp.tree" placeholder="请选择">
+                  <el-select style="width:150px;" v-model="emp.tree" placeholder="请选择">
                     <el-option
                       v-for="item in options"
                       :key="item.tree_code"
@@ -390,7 +323,6 @@
               <div>
                 <el-form-item label="工号:" prop="workID">
                   <el-input
-                  
                     prefix-icon="el-icon-edit"
                     v-model="emp.workID"
                     disabled
@@ -405,8 +337,8 @@
               <div>
                 <el-form-item label="是否有效:" prop="enabled">
                   <el-radio-group v-model="emp.enabled">
-                    <el-radio :label=1>有效</el-radio>
-                    <el-radio style="margin-left: 15px" :label=0>无效</el-radio>
+                    <el-radio :label="1">有效</el-radio>
+                    <el-radio style="margin-left: 15px" :label="0">无效</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </div>
@@ -462,29 +394,30 @@ export default {
       emp: {
         name: "",
         username: "",
-        gender: "1",
+        gender: 1,
         birthday: "",
         idCard: "",
         email: "",
-        enabled:1,
+        enabled: 1,
         tree: "",
         phone: "",
         address: "",
         workID: ""
       },
-      empinit: {
+      empsearch: {
         name: "",
         username: "",
-        gender: "1",
-        enabled: 1,
+        gender: 1,
         birthday: "",
         idCard: "",
         email: "",
+        enabled: 1,
         tree: "",
         phone: "",
         address: "",
         workID: ""
       },
+      
       rules: {
         name: [{ required: true, message: "必填:姓名", trigger: "blur" }],
         gender: [{ required: true, message: "必填:性别", trigger: "blur" }],
@@ -529,15 +462,16 @@ export default {
     addEmp() {
       if (!this.isEdit)
         this.postRequest("/employee/basic/adduser", this.emp).then(res => {
-          this.dialogVisible=false;
+          this.dialogVisible = false;
           this.initData();
           this.loadEmps();
+          this.initEmp();
         });
       else {
         console.log(this.emp);
         this.postRequest("/employee/basic/edituser", this.emp).then(res => {
-          this.dialogVisible=false;
-
+          this.dialogVisible = false;
+          this.initEmp();
           this.initData();
           this.loadEmps();
         });
@@ -602,15 +536,16 @@ export default {
     },
     cancelSearch() {
       this.advanceSearchViewVisible = false;
-      this.emps = this.empinit;
+      this.initEmp();
       this.beginDateScope = "";
       this.loadEmps();
+      this.initData();
     },
     showAdvanceSearchView() {
       this.advanceSearchViewVisible = !this.advanceSearchViewVisible;
-      this.keywords = "";
       if (!this.advanceSearchViewVisible) {
-        this.emptyEmpData();
+        this.initEmp();
+        
         this.beginDateScope = "";
         this.loadEmps();
       }
@@ -654,12 +589,18 @@ export default {
         this.loadEmps();
       });
     },
+    // 搜索
     searchEmp() {
-      this.keywords = this.$refs.search.currentValue;
-      this.currentPage = 1;
-      this.initData();
-      this.loadEmps();
+      this.tableLoading = true;
+      this.$set(this.empsearch, "page", this.currentPage);
+      this.postRequest("/employee/basic/searchinfo",this.empsearch).then(res=>{
+        this.tableLoading = false;
+        this.emps=res.data.users;
+        this.totalCount = res.data.count;
+      })
+      this.initEmp();
     },
+
     currentChange(currentChange) {
       this.currentPage = currentChange;
       this.loadEmps();
@@ -682,7 +623,7 @@ export default {
     },
     cancelEidt() {
       this.dialogVisible = false;
-       this.initData();
+      this.initData();
       this.loadEmps();
     },
     showDepTree() {
@@ -716,7 +657,6 @@ export default {
     showEditEmpView(row) {
       this.isEdit = true;
       this.dialogTitle = "编辑员工";
-      console.log(row)
       this.emp = row;
       this.emp.birthday = this.formatDate(row.birthday);
       this.dialogVisible = true;
@@ -727,8 +667,37 @@ export default {
     showAddEmpView() {
       this.isEdit = false;
       this.dialogTitle = "添加员工";
-      this.emp = this.empinit;
+      this.initEmp();
       this.dialogVisible = true;
+    },
+    initEmp(){
+      this.emp={
+        name: "",
+        username: "",
+        gender: 1,
+        birthday: "",
+        idCard: "",
+        email: "",
+        enabled: 1,
+        tree: "",
+        phone: "",
+        address: "",
+        workID: ""
+      },
+      this.empsearch={
+        name: "",
+        username: "",
+        gender: 1,
+        birthday: "",
+        idCard: "",
+        email: "",
+        enabled: 1,
+        tree: "",
+        phone: "",
+        address: "",
+        workID: ""
+      }
+      this.currentPage=1
     }
   }
 };
@@ -742,7 +711,15 @@ export default {
 .slide-fade-enter-active {
   transition: all 0.8s ease;
 }
-
+.el-input__inner {
+    
+    height: 30px;
+    
+}
+.el-input__icon {
+    
+    line-height: 10px;
+}
 .slide-fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
 }
