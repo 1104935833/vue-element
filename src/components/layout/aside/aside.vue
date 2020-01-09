@@ -19,7 +19,10 @@
             <template v-for="(item,index) in this.routes" v-if="!item.hidden">
               <el-submenu :key="index" :index="index+''">
               <template slot="title">
-                  <i :class="item.iconCls" style="color: #20a0ff;width: 14px;"></i>
+                <svg-icon :icon-class="item.iconCls" style="height: 30px;width: 30px;" />
+                  <i :class="item.iconCls" style="color: #20a0ff;width: 14px;">
+                    
+                  </i>
                   <span slot="title">{{item.name}}</span>
               </template>
               <el-menu-item width="180px"

@@ -12,11 +12,16 @@
         <el-main style="padding-left: 0px;padding-top: 0px">
           <div>
             <!-- 表格 -->
-            <el-table :data="tableData" v-loading="tableLoading" style="width: 100%" :cell-style="tableHeaderColor">
+            <el-table
+              :data="tableData"
+              v-loading="tableLoading"
+              style="width: 100%"
+              :cell-style="tableHeaderColor"
+            >
               <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
-              <el-table-column  align="left" fixed label="图标">
+              <el-table-column align="left" fixed label="图标">
                 <template slot-scope="scope">
-              <i v-bind:class="[scope.row.iconCls]" ></i>
+                  <i v-bind:class="[scope.row.iconCls]"></i>
                 </template>
               </el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
@@ -161,6 +166,14 @@
                 </el-form-item>
               </div>
             </el-col>
+            <el-col :span="24" v-if="!isType">
+              <div>
+                <el-form-item label="目录图标:">
+                  <el-button type="button" @click="centerDialogVisible = true">选择目录图标</el-button>
+                  <svg-icon :icon-class="this.form.iconCls" style="height: 40px;width: 40px;"  />
+                </el-form-item>
+              </div>
+            </el-col>
           </el-row>
 
           <el-row>
@@ -180,32 +193,43 @@
             <el-button size="mini" type="primary" @click="addEmp()">确 定</el-button>
           </span>
         </el-dialog>
+        <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" style="height:800px;" center>
+          <div class="icon-body">
+            <div class="icon-list">
+              <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)" >
+                <svg-icon :icon-class="item" style="height: 30px;width: 16px;"  />
+                <span style="height: 35px;">{{ item }}</span>
+              </div>
+            </div>
+          </div>
+        </el-dialog>
       </div>
     </el-form>
   </div>
 </template>
 <script>
+import icons from './IconSelect/requireIcons'
 export default {
+  name: 'IconSelect',
   data() {
     return {
+      name: '',
+      iconList: icons,
+      centerDialogVisible: false,
       tableData: [],
       parentData: [],
       enabled: "1",
       stateValue: "1",
+      
       form: {
         component: "",
+        iconCls:"",
         url: "",
         parentId: "",
         name: "",
         path: ""
       },
-      form1: {
-        component: "",
-        url: "",
-        parentId: "",
-        name: "",
-        path: ""
-      },
+      
       isDisabled: false,
       isEdit: false,
       count: 1,
@@ -224,19 +248,46 @@ export default {
     this.getAllParent();
   },
   methods: {
+    filterIcons() {
+      if (this.name) {
+        this.iconList = this.iconList.filter(item => item.includes(this.name))
+      } else {
+        this.iconList = icons
+      }
+    },
+    selectedIcon(name) {
+      this.centerDialogVisible=false;
+      this.form.iconCls=name
+    },
+    reset() {
+      this.name = ''
+      this.iconList = icons
+    },
     addEmp() {
       //添加菜单
       this.$set(this.form, "enabled", this.enabled);
       if (!this.isEdit) {
         this.postRequest("/system/role/addMenu", this.form).then(res => {
-          this.form = this.form1;
+          this.init();
           this.EditVisible = false;
         });
       } else {
         this.postRequest("/system/role/upMenu", this.form).then(res => {
-          this.form = this.form1;
+          this.init();
           this.EditVisible = false;
         });
+      }
+    },
+    init(){
+      this.form={
+        
+        component: "",
+        iconCls:"",
+        url: "",
+        parentId: "",
+        name: "",
+        path: ""
+      
       }
     },
     getAllParent() {
@@ -281,7 +332,7 @@ export default {
         .catch(() => {});
     },
     cancelEidt() {
-      this.form = this.form1;
+      this.init();
 
       this.EditVisible = false;
     },
@@ -318,7 +369,7 @@ export default {
     },
     showAddEmpView() {
       this.isEdit = false;
-      this.form = this.form1;
+      this.init();
       this.enabled = "1";
       this.stateValue = "1";
       this.stateValue = "1";
@@ -348,7 +399,7 @@ export default {
   }
 };
 </script>
-<style>
+<style rel="stylesheet/scss" lang="scss" scoped>
 .el-dialog__body {
   padding-top: 0px;
   padding-bottom: 0px;
@@ -367,4 +418,29 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
+  .icon-body {
+    width: 100%;
+    height: 400px;
+    padding: 10px;
+    .icon-list {
+      margin-top:-30px;
+      height: 400px;
+      float: left;
+      overflow-y: scroll;
+      div {
+        height: 40px;
+        line-height:50px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        width: 33%;
+        float: left;
+      }
+      span {
+        display: inline-block;
+        vertical-align: -0.15em;
+        fill: currentColor;
+        overflow: hidden;
+      }
+    }
+  }
 </style>

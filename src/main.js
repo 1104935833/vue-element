@@ -14,6 +14,7 @@ import { initMenu } from './utils/utils'
 import { isNotNullORBlank } from './utils/utils'
 import './utils/filter_utils'
 import 'font-awesome/css/font-awesome.min.css'
+import './assets/icons' // icon
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
