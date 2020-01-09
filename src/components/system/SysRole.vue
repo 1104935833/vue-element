@@ -1,20 +1,11 @@
 <template>
   <div style="margin-top: 10px">
     <el-tabs v-model="defaultTab" type="card">
-      <el-tab-pane label="部门管理" name="depMana">
+      <el-tab-pane label="用户权限分配" name="depMana">
         <dep-mana></dep-mana>
       </el-tab-pane>
-      <el-tab-pane label="职位管理" name="positionMana">
+      <el-tab-pane label="权限菜单分配" name="positionMana">
         <pos-mana state="position"></pos-mana>
-      </el-tab-pane>
-      <el-tab-pane label="职称管理" name="jobTitleMana">
-        <pos-mana state="jobtitle"></pos-mana>
-      </el-tab-pane>
-      <el-tab-pane label="奖惩规则" name="ecCfg">
-        <ec-mana></ec-mana>
-      </el-tab-pane>
-      <el-tab-pane label="权限组" name="menuRole">
-        <menu-role></menu-role>
       </el-tab-pane>
     </el-tabs>
   </div>
