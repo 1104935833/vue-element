@@ -33,6 +33,7 @@ export default {
       }
     },
     selectedIcon(name) {
+      console.log(name)
       this.$emit('selected', name)
       document.body.click()
     },
