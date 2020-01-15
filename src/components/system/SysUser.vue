@@ -46,7 +46,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button type="primary" @click="edit()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -54,10 +54,20 @@
 <script>
 export default {
   methods: {
+    edit(){
+      let node=this.$refs.tree.getCheckedNodes();
+      var nodes=new Array()
+      for (let i = 0; i < node.length; i++) {
+        nodes[i]=node[i].id;
+      }
+      this.post("/system/role/editPart",{form:this.form,nodes:nodes}).then(res=>{
+        this.dialogFormVisible = false;
+      });
+    },
     //初始化选中的菜单
     initNodes(id) {
       this.getRequest("/system/role/getPartMenuById", { id: id }).then(res => {
-        console.log(res.data);
+        // console.log(res.data);
         this.$refs.tree.setCheckedNodes(res.data.part);
       });
     },
@@ -74,7 +84,8 @@ export default {
       rows.splice(index, 1);
     },
     handleClick(row) {
-      this.form = row;
+      
+      this.form = JSON.parse(JSON.stringify(row));
       this.dialogFormVisible = true;
       this.openFullScreen1();
       this.getCheckedNodes(row.id);
@@ -84,8 +95,17 @@ export default {
       setTimeout(() => {
         this.fullscreenLoading = false;
       }, 1500);
-    }
+    },
+    initForm(){
+      this.form={
+        id: "",
+        name: "",
+        nameZh: "",
+        menu: ""
+      }
+    },
   },
+ 
   data() {
     return {
       data: [],

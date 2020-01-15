@@ -89,3 +89,16 @@ export const getRequest = (url, params) => {
         params: params
     });
 }
+export const post = (url, params) => {
+    return axios({
+        method: 'post',
+        url: `${base}${url}`,
+        data: params,
+        transformRequest: [function(data) {
+            return JSON.stringify(data);;
+        }],
+        headers: {
+            'Content-Type': 'application/json;charset=UTF-8'
+        }
+    });
+}
