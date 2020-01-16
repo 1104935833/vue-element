@@ -29,7 +29,12 @@
               <el-table-column prop="component" align="left" fixed label="模块名称"></el-table-column>
               <el-table-column prop="name" align="left" fixed label="标题"></el-table-column>
               <el-table-column prop="parent" align="left" fixed label="类型"></el-table-column>
-              <el-table-column prop="type" align="left" fixed label="状态"></el-table-column>
+              <el-table-column align="left" fixed label="状态">
+                <template slot-scope="scope">
+                  <span v-if="scope.row.type=='有效'" style="color:green">{{scope.row.type}}</span>
+                  <span v-if="scope.row.type=='无效'" style="color:red">{{scope.row.type}}</span>
+                </template>
+              </el-table-column>
               <el-table-column label="操作" width="300px">
                 <template slot-scope="scope">
                   <el-button size="mini" @click="showEditView(scope.$index, scope.row)">编辑</el-button>
