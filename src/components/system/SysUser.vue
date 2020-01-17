@@ -1,6 +1,7 @@
 <template>
   <!-- v-loading="fullloading" -->
   <div style="margin-top: 10px">
+    <el-button type="success" size="mini" style="margin-bottom:10px;" @click="showAddPart()">添加</el-button>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column align="center" prop="id" label="角色编码"></el-table-column>
       <el-table-column align="center" prop="name" label="角色名称"></el-table-column>
@@ -45,7 +46,7 @@
     <el-dialog title="角色修改" width="500px" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="角色编码">
-          <el-input v-model="form.id"></el-input>
+          <el-input v-model="form.id" disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="角色名称">
           <el-input v-model="form.name"></el-input>
@@ -77,16 +78,38 @@
         <el-button type="primary" @click="edit()">确 定</el-button>
       </div>
     </el-dialog>
+    <el-dialog title="角色添加" width="500px" :visible.sync="dialogAddVisible">
+      <el-form :model="form">
+        <el-form-item label="角色名称">
+          <el-input
+            placeholder="请输入内容"
+            v-model="form.name"
+          >
+            <template slot="prepend">ROLE_</template>
+          </el-input>
+        </el-form-item>
+        <el-form-item label="角色说明">
+          <el-input v-model="form.nameZh" ></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogAddVisible = false">取 消</el-button>
+        <el-button type="primary" @click="add()">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 <script>
+  import {isNotNullORBlank} from '../../utils/utils';
 export default {
   data() {
     return {
+      
+      submitId: "", //分配用户提交时的角色编码
       Transferdata: [],
       value: [],
       rightTransData: [], //定义一个空数组保存选中的值
-      menudata:[],
+      menudata: [],
       defaultProps: {
         children: "children",
         label: "label"
@@ -99,31 +122,56 @@ export default {
       },
       tableData: [],
       dialogUserVisible: false,
+      dialogAddVisible: false,
       dialogFormVisible: false,
-      fullscreenLoading: false//分配菜单下面的加载
+      fullscreenLoading: false //分配菜单下面的加载
     };
   },
   methods: {
+    add() {
+      if(isNotNullORBlank(this.form.name) && isNotNullORBlank(this.form.nameZh)){//非空判断
+        this.postRequest("/system/role/addPart", {
+          name: 'ROLE_'+this.form.name,
+          nameZh: this.form.nameZh
+        }).then(res => {
+          if (res.msg == "添加成功!" && status == 200) {
+          }
+          this.dialogAddVisible = false;
+        });
+      }
+    },
+    showAddPart() {
+      this.initForm();
+      this.dialogAddVisible = true;
+    },
     // 初始化分配用户的所有人员
-    initTransfer(row){
-      this.Transferdata=[];
-      this.value=[];
-      this.getRequest("/system/role/getTrandferUser",{rid:row.id}).then(res=>{
-        let leftLabel = res.data.leftLabel;
-        let leftValue = res.data.leftValue;
-        let rightVlaue = res.data.rightValue;
-        for (let i = 0; i < leftLabel.length; i++) {
-          this.Transferdata.push({
-            label: leftLabel[i],
-            value: leftValue[i]
-          });
-        };
-        this.value=rightVlaue
-      });
+    initTransfer(row) {
+      this.Transferdata = [];
+      this.value = [];
+      this.submitId = row.id;
+      this.getRequest("/system/role/getTrandferUser", { rid: row.id }).then(
+        res => {
+          let leftLabel = res.data.leftLabel;
+          let leftValue = res.data.leftValue;
+          let rightVlaue = res.data.rightValue;
+          for (let i = 0; i < leftLabel.length; i++) {
+            this.Transferdata.push({
+              label: leftLabel[i],
+              value: leftValue[i]
+            });
+          }
+          this.value = rightVlaue;
+        }
+      );
     },
     // 分配用户提交
     submit() {
-      console.log(this.value);
+      this.postRequest("/system/role/editPartUser", {
+        parts: this.value,
+        partId: this.submitId
+      }).then(res => {
+        this.dialogUserVisible = false;
+      });
     },
     // 显示分配用户dialog
     transferClick(row) {
@@ -132,18 +180,20 @@ export default {
     },
     // 编辑
     edit() {
-      let node = this.$refs.tree.getCheckedNodes();
-      var nodes = new Array();
-      for (let i = 0; i < node.length; i++) {
-        nodes[i] = node[i].id;
+      if(isNotNullORBlank(this.form.name) && isNotNullORBlank(this.form.nameZh)){//非空判断
+        let node = this.$refs.tree.getCheckedNodes();
+        var nodes = new Array();
+        for (let i = 0; i < node.length; i++) {
+          nodes[i] = node[i].id;
+        }
+        this.post("/system/role/editPart", {
+          form: this.form,
+          nodes: nodes
+        }).then(res => {
+          this.initAllRole();
+          this.dialogFormVisible = false;
+        });
       }
-      this.post("/system/role/editPart", {
-        form: this.form,
-        nodes: nodes
-      }).then(res => {
-        this.initAllRole();
-        this.dialogFormVisible = false;
-      });
     },
     //初始化选中的菜单
     initNodes(id) {
