@@ -1,11 +1,11 @@
 <template>
     <div>
-        <div style="padding-bottom:30px;">
+        <!-- <div style="padding-bottom:30px;">
             <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item >首页</el-breadcrumb-item>
                 <el-breadcrumb-item v-text="this.$router.currentRoute.name"></el-breadcrumb-item>
             </el-breadcrumb>
-        </div>
+        </div> -->
         <div>
             <keep-alive>
             <router-view v-if="this.$route.meta.keepAlive"></router-view>
