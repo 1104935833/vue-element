@@ -94,5 +94,10 @@ import layoutMain from './layout/main'
     background-color: #f0f2f5;
   }
 
-
+.el-main {
+  padding: 0px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 10px;
+}
 </style>

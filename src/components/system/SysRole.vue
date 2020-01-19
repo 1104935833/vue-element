@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 10px">
+  <div>
     <el-tabs v-model="defaultTab" type="card">
       <el-tab-pane label="用户权限分配" name="depMana">
         <dep-mana></dep-mana>

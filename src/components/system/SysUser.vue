@@ -1,6 +1,6 @@
 <template>
   <!-- v-loading="fullloading" -->
-  <div style="margin-top: 10px">
+  <div>
     <el-button type="success" size="mini" style="margin-bottom:10px;" @click="showAddPart()">添加</el-button>
     <el-table :data="tableData" stripe style="width: 100%">
       <el-table-column align="center" prop="id" label="角色编码"></el-table-column>
