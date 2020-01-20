@@ -109,7 +109,7 @@
         font-size: 18px;
       }
       .el-menu-item {
-        background-color: #020f1d !important;
+        background-color: #03152A !important;
         border-bottom: 1px solid #020f1d;
         &:hover {
           color: #ffffff !important;
