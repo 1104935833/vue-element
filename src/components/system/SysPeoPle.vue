@@ -452,7 +452,7 @@ export default {
   mounted: function() {
     this.initData();
     this.loadEmps();
-    this.getRequest("/employee/basic/treepeople", { name: "理工分院" }).then(
+    this.getRequest("/system/user/treepeople", { name: "理工分院" }).then(
       res => {
         this.options = res.data;
       }
@@ -461,15 +461,14 @@ export default {
   methods: {
     addEmp() {
       if (!this.isEdit)
-        this.postRequest("/employee/basic/adduser", this.emp).then(res => {
+        this.postRequest("/system/user/adduser", this.emp).then(res => {
           this.dialogVisible = false;
           this.initData();
           this.loadEmps();
           this.initEmp();
         });
       else {
-        console.log(this.emp);
-        this.postRequest("/employee/basic/edituser", this.emp).then(res => {
+        this.postRequest("/system/user/edituser", this.emp).then(res => {
           this.dialogVisible = false;
           this.initEmp();
           this.initData();
@@ -487,7 +486,7 @@ export default {
     loadNode(node, resolve) {
       if (node.level === 0) {
         var data;
-        this.getRequest("/employee/basic/treepeople", { name: "" }).then(res => {
+        this.getRequest("/system/user/treepeople", { name: "" }).then(res => {
           data = res.data;
           return resolve(data);
         });
@@ -496,7 +495,7 @@ export default {
       setTimeout(() => {
         var data;
         if (node.level == 1) {
-          this.getRequest("/employee/basic/treepeople", {
+          this.getRequest("/system/user/treepeople", {
             name: node.data.name
           }).then(res => {
             data = res.data;
@@ -504,7 +503,7 @@ export default {
           });
         } else if (node.level == 2) {
           var data;
-          this.getRequest("/employee/basic/treepeople", {
+          this.getRequest("/system/user/treepeople", {
             name: node.data.name
           }).then(res => {
             data = res.data;
@@ -532,7 +531,7 @@ export default {
       this.fileUploadBtnText = "正在导入";
     },
     exportEmps() {
-      window.open("/employee/basic/exportEmp", "_parent");
+      window.open("/system/user/exportEmp", "_parent");
     },
     cancelSearch() {
       this.advanceSearchViewVisible = false;
@@ -584,7 +583,7 @@ export default {
         .catch(() => {});
     },
     doDelete(id) {
-      this.getRequest("/employee/basic/delByUserId", { id: id }).then(res => {
+      this.getRequest("/system/user/delByUserId", { id: id }).then(res => {
         this.initData();
         this.loadEmps();
       });
@@ -593,7 +592,7 @@ export default {
     searchEmp() {
       this.tableLoading = true;
       this.$set(this.empsearch, "page", this.currentPage);
-      this.postRequest("/employee/basic/searchinfo",this.empsearch).then(res=>{
+      this.postRequest("/system/user/searchinfo",this.empsearch).then(res=>{
         this.tableLoading = false;
         this.emps=res.data.users;
         this.totalCount = res.data.count;
@@ -609,7 +608,7 @@ export default {
       var _this = this;
       this.tableLoading = true;
       this.getRequest(
-        "/employee/basic/getUserByPage?page=" +
+        "/system/user/getUserByPage?page=" +
           this.currentPage +
           "&size=10&keywords=" +
           this.keywords
@@ -646,7 +645,7 @@ export default {
     },
     initData() {
       var _this = this;
-      this.getRequest("/employee/basic/count?keywords=" + this.keywords).then(
+      this.getRequest("/system/user/count?keywords=" + this.keywords).then(
         resp => {
           if (resp && resp.status == 200) {
             _this.totalCount = resp.data.count;

@@ -27,7 +27,7 @@
         },
         checked: true,
         loginForm: {
-          username: 'admin',
+          username: '00000048',
           password: '123456'
         },
         loading: false

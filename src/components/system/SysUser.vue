@@ -46,7 +46,7 @@
     <el-dialog title="角色修改" width="500px" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="角色编码">
-          <el-input v-model="form.id" disabled="true"></el-input>
+          <el-input v-model="form.id" disabled></el-input>
         </el-form-item>
         <el-form-item label="角色名称">
           <el-input v-model="form.name"></el-input>
@@ -81,15 +81,12 @@
     <el-dialog title="角色添加" width="500px" :visible.sync="dialogAddVisible">
       <el-form :model="form">
         <el-form-item label="角色名称">
-          <el-input
-            placeholder="请输入内容"
-            v-model="form.name"
-          >
+          <el-input placeholder="请输入内容" v-model="form.name">
             <template slot="prepend">ROLE_</template>
           </el-input>
         </el-form-item>
         <el-form-item label="角色说明">
-          <el-input v-model="form.nameZh" ></el-input>
+          <el-input v-model="form.nameZh"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -100,11 +97,10 @@
   </div>
 </template>
 <script>
-  import {isNotNullORBlank} from '../../utils/utils';
+import { isNotNullORBlank } from "../../utils/utils";
 export default {
   data() {
     return {
-      
       submitId: "", //分配用户提交时的角色编码
       Transferdata: [],
       value: [],
@@ -129,9 +125,13 @@ export default {
   },
   methods: {
     add() {
-      if(isNotNullORBlank(this.form.name) && isNotNullORBlank(this.form.nameZh)){//非空判断
-        this.postRequest("/system/role/addPart", {
-          name: 'ROLE_'+this.form.name,
+      if (
+        isNotNullORBlank(this.form.name) &&
+        isNotNullORBlank(this.form.nameZh)
+      ) {
+        //非空判断
+        this.postRequest("/system/part/addPart", {
+          name: "ROLE_" + this.form.name,
           nameZh: this.form.nameZh
         }).then(res => {
           if (res.msg == "添加成功!" && status == 200) {
@@ -149,7 +149,7 @@ export default {
       this.Transferdata = [];
       this.value = [];
       this.submitId = row.id;
-      this.getRequest("/system/role/getTrandferUser", { rid: row.id }).then(
+      this.getRequest("/system/part/getTrandferUser", { rid: row.id }).then(
         res => {
           let leftLabel = res.data.leftLabel;
           let leftValue = res.data.leftValue;
@@ -166,7 +166,7 @@ export default {
     },
     // 分配用户提交
     submit() {
-      this.postRequest("/system/role/editPartUser", {
+      this.postRequest("/system/part/editPartUser", {
         parts: this.value,
         partId: this.submitId
       }).then(res => {
@@ -180,13 +180,18 @@ export default {
     },
     // 编辑
     edit() {
-      if(isNotNullORBlank(this.form.name) && isNotNullORBlank(this.form.nameZh)){//非空判断
-        let node = this.$refs.tree.getCheckedNodes();
+      if (
+        isNotNullORBlank(this.form.name) &&
+        isNotNullORBlank(this.form.nameZh)
+      ) {
+        //非空判断
+        let node = this.$refs.tree.getCheckedNodes(true,false);
         var nodes = new Array();
         for (let i = 0; i < node.length; i++) {
           nodes[i] = node[i].id;
         }
-        this.post("/system/role/editPart", {
+        console.log(nodes)
+        this.post("/system/part/editPart", {
           form: this.form,
           nodes: nodes
         }).then(res => {
@@ -197,14 +202,13 @@ export default {
     },
     //初始化选中的菜单
     initNodes(id) {
-      this.getRequest("/system/role/getPartMenuById", { id: id }).then(res => {
-        // console.log(res.data);
-        this.$refs.tree.setCheckedNodes(res.data.part);
+      this.getRequest("/system/part/getPartMenuById", { id: id }).then(res => {
+        this.$refs.tree.setCheckedKeys(res.data.part);
       });
     },
     //获取所有菜单
     getCheckedNodes(id) {
-      this.getRequest("/system/role/getPartMenuById", { id: "" }).then(res => {
+      this.getRequest("/system/part/getPartMenuById", { id: "" }).then(res => {
         if (res.statusText == "OK" && res.status == 200) {
           this.menudata = res.data.part;
           this.initNodes(id);
@@ -223,7 +227,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.getRequest("/system/role/delPart", {
+          this.getRequest("/system/part/delPart", {
             id: row.id,
             state: state
           }).then(res => {
@@ -258,7 +262,7 @@ export default {
     // 获取所有权限列表AllRole
     initAllRole() {
       this.tableData = [];
-      this.getRequest("/system/role/getAllRole").then(res => {
+      this.getRequest("/system/part/getAllRole").then(res => {
         this.tableData = res.data.role;
       });
     }

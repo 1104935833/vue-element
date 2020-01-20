@@ -22,6 +22,7 @@
               <el-table-column align="left" fixed label="图标">
                 <template slot-scope="scope">
                   <i v-bind:class="[scope.row.iconCls]"></i>
+                  <svg-icon :icon-class="scope.row.iconCls+''" style="height: 15px;width: 15px;"  />
                 </template>
               </el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
@@ -272,12 +273,12 @@ export default {
       //添加菜单
       this.$set(this.form, "enabled", this.enabled);
       if (!this.isEdit) {
-        this.postRequest("/system/role/addMenu", this.form).then(res => {
+        this.postRequest("/system/menu/addMenu", this.form).then(res => {
           this.init();
           this.EditVisible = false;
         });
       } else {
-        this.postRequest("/system/role/upMenu", this.form).then(res => {
+        this.postRequest("/system/menu/upMenu", this.form).then(res => {
           this.init();
           this.EditVisible = false;
         });
@@ -296,7 +297,7 @@ export default {
       }
     },
     getAllParent() {
-      this.getRequest("/system/role/getAllParent").then(res => {
+      this.getRequest("/system/menu/getAllParent").then(res => {
         this.parentData = res.data;
       });
     },
@@ -327,7 +328,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.getRequest("/system/role/menuhide", {
+          this.getRequest("/system/menu/menuhide", {
             id: row.id,
             type: type
           }).then(res => {
@@ -348,7 +349,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.getRequest("/system/role/menudel", { id: row.id }).then(res => {
+          this.getRequest("/system/menu/menudel", { id: row.id }).then(res => {
             this.loadEmps();
           });
         })
@@ -361,7 +362,7 @@ export default {
     loadEmps() {
       var _this = this;
       this.tableLoading = true;
-      this.getRequest("/system/role/getAllMenus?page=" + this.currentPage).then(
+      this.getRequest("/system/menu/getAllMenus?page=" + this.currentPage).then(
         resp => {
           this.tableLoading = false;
           if (resp && resp.status == 200) {
