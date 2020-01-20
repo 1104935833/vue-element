@@ -1,5 +1,4 @@
 <template>
-  <!-- v-loading="fullloading" -->
   <div>
     <el-button type="success" size="mini" style="margin-bottom:10px;" @click="showAddPart()">添加</el-button>
     <el-table :data="tableData" stripe style="width: 100%">

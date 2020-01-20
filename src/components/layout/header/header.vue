@@ -15,7 +15,7 @@
       <ul class="personal">
         <li>
           <el-badge :is-dot="this.$store.state.nfDot">
-            <i class="fa fa-bell-o" style="cursor: pointer"></i>
+            <i class="fa fa-bell-o" style="cursor: pointer" @click="this.toPadding"></i><!-- 提醒 -->
           </el-badge>
         </li>
         <li>
@@ -27,8 +27,8 @@
               style="width: 40px;height: 40px;margin-right: 5px;margin-left: 5px;border-radius: 40px"/></i>-->
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人中心</el-dropdown-item>
-              <el-dropdown-item>设置</el-dropdown-item>
+              <el-dropdown-item command="/sys/center">个人中心</el-dropdown-item>
+              <el-dropdown-item command="/sys/setting">设置</el-dropdown-item>
               <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -55,6 +55,9 @@ export default {
     }
   },
   methods: {
+    toPadding(){
+this.$router.replace({path:'/sys/padding'});
+    },
     collapse() {
       this.$store.dispatch("collapse");
     },
@@ -78,6 +81,8 @@ export default {
               message: "取消"
             });
           });
+      }else{
+        this.$router.replace({path:cmd});
       }
     }
   },

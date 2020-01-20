@@ -11,11 +11,11 @@
   </div>
 </template>
 <script>
-  import MenuRole from './basic/MenuRole.vue'
-  import DepMana from './basic/DepMana.vue'
-  import ECMana from './basic/ECMana.vue'
-  import JobTitleMana from './basic/JobTitleMana.vue'
-  import PosMana from './basic/PosMana.vue'
+  // import MenuRole from './basic/MenuRole.vue'
+  // import DepMana from './basic/DepMana.vue'
+  // import ECMana from './basic/ECMana.vue'
+  // import JobTitleMana from './basic/JobTitleMana.vue'
+  // import PosMana from './basic/PosMana.vue'
   export default {
     data() {
       return {
