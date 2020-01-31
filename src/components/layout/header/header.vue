@@ -11,7 +11,6 @@
           <el-breadcrumb-item>{{routername}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-
       <ul class="personal">
         <li>
           <el-dropdown @command="handleCommand">
@@ -21,7 +20,7 @@
             </el-badge>
             <el-dropdown-menu slot="dropdown">
               <template >
-                <el-dropdown-item v-for="(i) in [{id:1,path:'/sys/1'}]" v-bind:key="i.id" :command="i.path">{{i.id}}</el-dropdown-item>
+                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.name" :command="i.url">{{i.name}}</el-dropdown-item>
               </template>
             </el-dropdown-menu>
           </el-dropdown>
@@ -54,7 +53,8 @@ export default {
       routername: "主页",
       menuName: "",
       isDotCount: false,
-      o:'/sys/center'
+      o:'/sys/center',
+      peddingList:[{name:"暂无消息"}]
     };
   },
   components: { tabNav },
@@ -66,17 +66,34 @@ export default {
     ) {
       _this.getRequest("/logout");
       _this.$store.commit("logout");
-      location.reload();
+      location.rseload();
       _this.$router.replace({ path: "/" });
     }
+   
   },
-  // mounted() {
-  //   this.intervalid1 = setInterval(() => {
-  //     this.isDotCount = !this.isDotCount;
-  //     console.log(this.isDotCount);
-  //   }, 2000);
-  // },
+  mounted() {
+    // this.intervalid1 = setInterval(() => {
+    //   // this.isDotCount = !this.isDotCount;
+    //   // console.log(this.isDotCount);
+    //    this.getpedding();
+    // }, 2000);
+    
+    this.getpedding();
+  },
   methods: {
+    getpedding(){
+      this.getRequest("/getPeddingName").then(res=>{
+        if(res.data.list.length>0){
+          this.isDotCount=true;
+          this.peddingList = res.data.list;
+          }else{
+            this.isDotCount=false;
+            this.peddingList=[{name:"暂无消息"}]
+          }
+
+        // console.log(res);
+      });
+    },
     collapse() {
       this.$store.dispatch("collapse");
     },
