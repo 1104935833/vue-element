@@ -189,7 +189,6 @@ export default {
         for (let i = 0; i < node.length; i++) {
           nodes[i] = node[i].id;
         }
-        console.log(nodes)
         this.post("/system/part/editPart", {
           form: this.form,
           nodes: nodes
@@ -203,6 +202,7 @@ export default {
     initNodes(id) {
       this.getRequest("/system/part/getPartMenuById", { id: id }).then(res => {
         this.$refs.tree.setCheckedKeys(res.data.part);
+        this.fullscreenLoading = false;
       });
     },
     //获取所有菜单
@@ -239,17 +239,10 @@ export default {
     handleClick(row) {
       this.form = JSON.parse(JSON.stringify(row));
       this.dialogFormVisible = true;
-      this.openFullScreen1();
+      this.fullscreenLoading = true;
       this.getCheckedNodes(row.id);
     },
-    // 一跳出编辑的dialog，不会立马显示menu
-    openFullScreen1() {
-      this.fullscreenLoading = true;
-      setTimeout(() => {
-        this.fullscreenLoading = false;
-      }, 1500);
-    },
-    // 情况form表单
+    // 清空form表单
     initForm() {
       this.form = {
         id: "",
