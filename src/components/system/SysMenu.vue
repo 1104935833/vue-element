@@ -101,7 +101,7 @@
             <el-col :span="24">
               <div>
                 <el-form-item label="上级菜单：">
-                  <el-select v-model="form.parentId" placeholder="请选择">
+                  <el-select v-model="form.parentId" placeholder="请选择" @focus="this.getAllParent">
                     <el-option
                       v-for="item in parentData"
                       :key="item.id"
