@@ -3,7 +3,7 @@
     <el-container>
       <el-header style="padding: 0px;display:flex;justify-content:flex-start;align-items: center">
         <el-input
-          placeholder="输入员工名搜索员工...?"
+          placeholder="输入员工名搜索员工..."
           style="width: 300px;margin: 0px;padding: 0px;"
           size="mini"
           prefix-icon="el-icon-search"
