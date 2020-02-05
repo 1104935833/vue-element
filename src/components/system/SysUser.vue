@@ -18,11 +18,14 @@
           <span>|</span>
           <el-button type="text" @click="handleClick(scope.row)">编辑</el-button>
           <span>|</span>
-          <el-button type="text" @click="transferClick(scope.row)">分配用户</el-button>
+          <el-button type="text" @click="transferClick(scope.row,1)">分配用户</el-button>
+          <span>|</span>
+          <el-button type="text" @click="transferClick(scope.row,2)">设置管理员</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-dialog title="分配用户" width="600px" :visible.sync="dialogUserVisible">
+  <!-- 分配用户与管理员 -->
+    <el-dialog :title="title" width="600px" :visible.sync="dialogUserVisible">
       <template>
         <el-transfer
           ref="transfer"
@@ -42,6 +45,7 @@
         <el-button type="primary" @click="submit()">确 定</el-button>
       </div>
     </el-dialog>
+    <!-- dialog -->
     <el-dialog title="角色修改" width="500px" :visible.sync="dialogFormVisible">
       <el-form :model="form">
         <el-form-item label="角色编码">
@@ -103,6 +107,7 @@ export default {
       submitId: "", //分配用户提交时的角色编码
       Transferdata: [],
       value: [],
+      title: "分配用户",
       rightTransData: [], //定义一个空数组保存选中的值
       menudata: [],
       defaultProps: {
@@ -144,38 +149,47 @@ export default {
       this.dialogAddVisible = true;
     },
     // 初始化分配用户的所有人员
-    initTransfer(row) {
+    initTransfer(row, type) {
       this.Transferdata = [];
       this.value = [];
       this.submitId = row.id;
-      this.getRequest("/system/part/getTrandferUser", { rid: row.id }).then(
-        res => {
-          let leftLabel = res.data.leftLabel;
-          let leftValue = res.data.leftValue;
-          let rightVlaue = res.data.rightValue;
-          for (let i = 0; i < leftLabel.length; i++) {
-            this.Transferdata.push({
-              label: leftLabel[i],
-              value: leftValue[i]
-            });
+        this.getRequest("/system/part/getTrandferUser", { rid: row.id,type:type }).then(
+          res => {
+            let leftLabel = res.data.leftLabel;
+            let leftValue = res.data.leftValue;
+            let rightVlaue = res.data.rightValue;
+            for (let i = 0; i < leftLabel.length; i++) {
+              this.Transferdata.push({
+                label: leftLabel[i],
+                value: leftValue[i]
+              });
+            }
+            this.value = rightVlaue;
           }
-          this.value = rightVlaue;
-        }
-      );
+        );
     },
     // 分配用户提交
     submit() {
+      let type;
+      if(this.title=="分配用户") type=0; else type=1;
       this.postRequest("/system/part/editPartUser", {
         parts: this.value,
-        partId: this.submitId
+        partId: this.submitId,
+        type:type,
+        length:this.value.length
       }).then(res => {
         this.dialogUserVisible = false;
       });
     },
-    // 显示分配用户dialog
-    transferClick(row) {
+    // 显示分配用户|管理员dialog
+    transferClick(row, type) {
+      if(type=="2"){
+        this.title="设置管理员";
+      }else{
+        this.title="分配用户";
+      }
       this.dialogUserVisible = true;
-      this.initTransfer(row);
+      this.initTransfer(row, type);
     },
     // 编辑
     edit() {
@@ -184,12 +198,11 @@ export default {
         isNotNullORBlank(this.form.nameZh)
       ) {
         //非空判断
-        let node = this.$refs.tree.getCheckedNodes(true,false);
+        let node = this.$refs.tree.getCheckedNodes(true, false);
         var nodes = new Array();
         for (let i = 0; i < node.length; i++) {
           nodes[i] = node[i].id;
         }
-        console.log(nodes)
         this.post("/system/part/editPart", {
           form: this.form,
           nodes: nodes
