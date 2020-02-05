@@ -6,17 +6,24 @@
           <i class="fa fa-indent fa-lg"></i>
         </span>
         <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-          <el-breadcrumb-item >首页</el-breadcrumb-item>
-          <el-breadcrumb-item v-if="menuName!='主页'">{{menuName}}</el-breadcrumb-item>
+          <el-breadcrumb-item>首页</el-breadcrumb-item>
+          <el-breadcrumb-item v-if="menuName!='主页' && menuName!=''">{{menuName}}</el-breadcrumb-item>
           <el-breadcrumb-item>{{routername}}</el-breadcrumb-item>
         </el-breadcrumb>
       </div>
-
       <ul class="personal">
         <li>
-          <el-badge :is-dot="this.$store.state.nfDot">
-            <i class="fa fa-bell-o" style="cursor: pointer" @click="this.toPadding"></i><!-- 提醒 -->
-          </el-badge>
+          <el-dropdown @command="handleCommand">
+            <el-badge :is-dot="isDotCount">
+              <i class="fa fa-bell-o" style="cursor: pointer"></i>
+              <!-- 提醒 -->
+            </el-badge>
+            <el-dropdown-menu slot="dropdown">
+              <template >
+                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.name" :command="i.url">{{i.name}}</el-dropdown-item>
+              </template>
+            </el-dropdown-menu>
+          </el-dropdown>
         </li>
         <li>
           <el-dropdown @command="handleCommand">
@@ -41,8 +48,17 @@
 <script>
 import tabNav from "./tabNav";
 export default {
+  data() {
+    return {
+      routername: "主页",
+      menuName: "",
+      isDotCount: false,
+      o:'/sys/center',
+      peddingList:[{name:"暂无消息"}]
+    };
+  },
   components: { tabNav },
-  created: function() {
+  created() {
     var _this = this;
     if (
       this.$store.state.user.name == undefined ||
@@ -50,13 +66,33 @@ export default {
     ) {
       _this.getRequest("/logout");
       _this.$store.commit("logout");
-      location.reload();
+      location.rseload();
       _this.$router.replace({ path: "/" });
     }
+   
+  },
+  mounted() {
+    // this.intervalid1 = setInterval(() => {
+    //   // this.isDotCount = !this.isDotCount;
+    //   // console.log(this.isDotCount);
+    //    this.getpedding();
+    // }, 2000);
+    
+    this.getpedding();
   },
   methods: {
-    toPadding(){
-this.$router.replace({path:'/sys/padding'});
+    getpedding(){
+      this.getRequest("/getPeddingName").then(res=>{
+        if(res.data.list.length>0){
+          this.isDotCount=true;
+          this.peddingList = res.data.list;
+          }else{
+            this.isDotCount=false;
+            this.peddingList=[{name:"暂无消息"}]
+          }
+
+        // console.log(res);
+      });
     },
     collapse() {
       this.$store.dispatch("collapse");
@@ -81,17 +117,12 @@ this.$router.replace({path:'/sys/padding'});
               message: "取消"
             });
           });
-      }else{
-        this.$router.replace({path:cmd});
+      } else {
+        this.$router.replace({ path: cmd });
       }
     }
   },
-  data() {
-    return {
-      routername: "主页",
-      menuName: ""
-    };
-  },
+
   created: function() {
     this.routername = this.$route.name;
   },
@@ -179,9 +210,13 @@ ul.el-menu {
     }
   }
 }
-.breadcrumb{
+.el-badge__content.is-fixed.is-dot {
+  right: 5px;
+  top: 5px;
+}
+.breadcrumb {
   float: left;
   margin-top: 12px;
-  margin-left:20px;
+  margin-left: 20px;
 }
 </style>

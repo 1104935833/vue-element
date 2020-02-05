@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { Message } from 'element-ui'
+import router from '../router'
 axios.interceptors.request.use(config => {
     return config;
 }, err => {
@@ -9,6 +10,12 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(data => {
     if (data.status && data.status == 200 && data.data.status == 500) {
         Message.error({ message: data.data.msg });
+        if(data.data.msg=="尚未登录或登录已过期，请登录!"){
+            setTimeout(function(){
+             router.push({ path: '/'})
+            },2000) 
+             
+         }
         return;
     }
     if (data.data.msg) {
