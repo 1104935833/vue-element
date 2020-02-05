@@ -34,8 +34,7 @@
               <li>
                 <svg-icon icon-class="anq" />安全设置
                 <div class="user-right">
-                  <a>修改密码</a>
-                  <a>修改邮箱</a>
+                   <el-button size="mini" type="text" @click="dialogFormVisible = true" >修改密码</el-button>
                 </div>
               </li>
             </ul>
@@ -57,7 +56,9 @@
                 <el-form-item label="手机号码">
                   <el-input v-model="form.phone" style="width: 35%"></el-input>
                 </el-form-item>
-
+                <el-form-item label="邮箱">
+                  <el-input v-model="form.email" style="width: 35%"></el-input>
+                </el-form-item>
                 <el-form-item label="性别">
                   <el-radio-group v-model="form.sex">
                     <el-radio label="男">男</el-radio>
@@ -66,8 +67,7 @@
                 </el-form-item>
                
                 <el-form-item>
-                  <el-button type="primary" >立即创建</el-button>
-                  <el-button>取消</el-button>
+                  <el-button type="primary" >修改</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -77,6 +77,27 @@
         </el-card>
       </el-col>
     </el-row>
+
+
+
+    <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
+      <el-form :model="form" >
+        <el-form-item label="手机号" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请输入手机号"></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请输入验证码"></el-input>
+        </el-form-item>
+        <el-form-item label="登录密码" :label-width="formLabelWidth">
+          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请设置6-20位密码"></el-input>
+          
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -85,10 +106,12 @@ export default {
   data() {
     const info=JSON.parse(localStorage.getItem("user"));
     return {
+      dialogFormVisible:false,
       activeName: "first",
       user: info,
       form: {
         phone:info.phone,
+        email:info.email,
         sex: info.gender,
       }
     };
