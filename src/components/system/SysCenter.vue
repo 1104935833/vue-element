@@ -1,133 +1,123 @@
 <template>
-<div>
-  <el-table
-    :data="tableData"
-    style="width: 100%;margin-bottom: 20px;"
-    row-key="id"
-    border
-    default-expand-all
-    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-    <el-table-column
-      prop="date"
-      label="日期"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      sortable
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
+  <div class="app-container">
+    <el-row :gutter="20">
+      <el-col :xs="24" :sm="24" :md="8" :lg="6" :xl="5" style="margin-bottom: 10px">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>个人信息</span>
+          </div>
+          <div>
+            <div style="text-align: center"></div>
+            <ul class="user-info">
+              <li>
+                <div style="height: 100%">
+                  <svg-icon icon-class="login" />登录账号
+                  <div class="user-right">vdv</div>
+                </div>
+              </li>
+              <li>
+                <svg-icon icon-class="user1" />用户昵称
+                <div class="user-right">vd</div>
+              </li>
+              <li>
+                <svg-icon icon-class="phone" />手机号码
+                <div class="user-right">vd</div>
+              </li>
+              <li>
+                <svg-icon icon-class="email" />用户邮箱
+                <div class="user-right">vd</div>
+              </li>
+              <li>
+                <svg-icon icon-class="dept" />所属部门
+                <div class="user-right">vd</div>
+              </li>
+              <li>
+                <svg-icon icon-class="anq" />安全设置
+                <div class="user-right">
+                  <a>修改密码</a>
+                  <a>修改邮箱</a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </el-card>
+      </el-col>
+      <el-col :xs="24" :sm="24" :md="16" :lg="18" :xl="19">
+        <!--    用户资料    -->
+        <el-card class="box-card">
+          <el-tabs v-model="activeName" @tab-click="handleClick">
+            <el-tab-pane label="用户资料" name="first">
+              <el-form ref="form" style="margin-top: 10px;" size="small" label-width="65px">
+                <el-form-item label="昵称" prop="nickName">
+                  <el-input style="width: 35%" />
+                  <span style="color: #C0C0C0;margin-left: 10px;">用户昵称不作为登录使用</span>
+                </el-form-item>
+                <el-form-item label="手机号" prop="phone">
+                  <el-input style="width: 35%;" />
+                  <span style="color: #C0C0C0;margin-left: 10px;">手机号码不能重复</span>
+                </el-form-item>
+                <el-form-item label="性别">
+                  <el-radio-group style="width: 178px">
+                    <el-radio label="男">男</el-radio>
+                    <el-radio label="女">女</el-radio>
+                  </el-radio-group>
+                </el-form-item>
+                <el-form-item label>
+                  <el-button size="mini" type="primary">保存配置</el-button>
+                </el-form-item>
+              </el-form>
+            </el-tab-pane>
 
-  <el-table
-    :data="tableData1"
-    style="width: 100%"
-    row-key="id"
-    border
-    lazy
-    :load="load"
-    :tree-props="{children: 'children', hasChildren: 'hasChildren'}">
-    <el-table-column
-      prop="date"
-      label="日期"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="姓名"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="address"
-      label="地址">
-    </el-table-column>
-  </el-table>
-</div>
+            <el-tab-pane label="业绩汇总" name="second">fdfs</el-tab-pane>
+          </el-tabs>
+        </el-card>
+      </el-col>
+    </el-row>
+  </div>
 </template>
-<script>
-  export default {
-    data() {
+
+ <script>
+export default {
+  data() {
       return {
-        tableData: [{
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          children: [{
-              id: 31,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              id: 32,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-          }]
-        }, {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
-        tableData1: [{
-          id: 1,
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          id: 2,
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          id: 3,
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄',
-          hasChildren: true
-        }, {
-          id: 4,
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }]
-      }
+        activeName: 'second'
+      };
     },
     methods: {
-      load(tree, treeNode, resolve) {
-        setTimeout(() => {
-          resolve([
-            {
-              id: 31,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-              id: 32,
-              date: '2016-05-01',
-              name: '王小虎',
-              address: '上海市普陀区金沙江路 1519 弄'
-            }
-          ])
-        }, 1000)
+      handleClick(tab, event) {
+        // console.log(tab, event);
       }
-    },
-  }
+    }
+};
 </script>
+
+<style rel="stylesheet/scss" lang="scss">
+.avatar-uploader-icon {
+  font-size: 28px;
+  width: 120px;
+  height: 120px;
+  line-height: 120px;
+  text-align: center;
+}
+.avatar {
+  width: 120px;
+  height: 120px;
+  display: block;
+  border-radius: 50%;
+}
+.user-info {
+  padding-left: 0;
+  list-style: none;
+  li {
+    border-bottom: 1px solid #f0f3f4;
+    padding: 11px 0;
+    font-size: 13px;
+  }
+  .user-right {
+    float: right;
+    a {
+      color: #317ef3;
+    }
+  }
+}
+</style>
