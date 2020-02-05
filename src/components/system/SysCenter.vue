@@ -12,24 +12,24 @@
               <li>
                 <div style="height: 100%">
                   <svg-icon icon-class="login" />登录账号
-                  <div class="user-right">vdv</div>
+                  <div class="user-right">{{user.workID}}</div>
                 </div>
               </li>
               <li>
-                <svg-icon icon-class="user1" />用户昵称
-                <div class="user-right">vd</div>
+                <svg-icon icon-class="user1" />用户名
+                <div class="user-right">{{user.name}}</div>
               </li>
               <li>
                 <svg-icon icon-class="phone" />手机号码
-                <div class="user-right">vd</div>
+                <div class="user-right">{{user.phone}}</div>
               </li>
               <li>
                 <svg-icon icon-class="email" />用户邮箱
-                <div class="user-right">vd</div>
+                <div class="user-right">{{user.email}}</div>
               </li>
               <li>
                 <svg-icon icon-class="dept" />所属部门
-                <div class="user-right">vd</div>
+                <div class="user-right">{{user.department}}</div>
               </li>
               <li>
                 <svg-icon icon-class="anq" />安全设置
@@ -47,23 +47,27 @@
         <el-card class="box-card">
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="用户资料" name="first">
-              <el-form ref="form" style="margin-top: 10px;" size="small" label-width="65px">
-                <el-form-item label="昵称" prop="nickName">
-                  <el-input style="width: 35%" />
-                  <span style="color: #C0C0C0;margin-left: 10px;">用户昵称不作为登录使用</span>
+              <el-form
+                ref="form"
+                :model="form"
+                style="margin-top: 10px;"
+                size="small"
+                label-width="80px"
+              >
+                <el-form-item label="手机号码">
+                  <el-input v-model="form.phone" style="width: 35%"></el-input>
                 </el-form-item>
-                <el-form-item label="手机号" prop="phone">
-                  <el-input style="width: 35%;" />
-                  <span style="color: #C0C0C0;margin-left: 10px;">手机号码不能重复</span>
-                </el-form-item>
+
                 <el-form-item label="性别">
-                  <el-radio-group style="width: 178px">
+                  <el-radio-group v-model="form.sex">
                     <el-radio label="男">男</el-radio>
                     <el-radio label="女">女</el-radio>
                   </el-radio-group>
                 </el-form-item>
-                <el-form-item label>
-                  <el-button size="mini" type="primary">保存配置</el-button>
+               
+                <el-form-item>
+                  <el-button type="primary" >立即创建</el-button>
+                  <el-button>取消</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -79,15 +83,21 @@
  <script>
 export default {
   data() {
-      return {
-        activeName: 'second'
-      };
-    },
-    methods: {
-      handleClick(tab, event) {
-        // console.log(tab, event);
+    const info=JSON.parse(localStorage.getItem("user"));
+    return {
+      activeName: "first",
+      user: info,
+      form: {
+        phone:info.phone,
+        sex: info.gender,
       }
+    };
+  },
+  methods: {
+    handleClick(tab, event) {
+      // console.log(tab, event);
     }
+  }
 };
 </script>
 

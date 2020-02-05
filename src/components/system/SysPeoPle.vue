@@ -120,7 +120,7 @@
                   </el-col>
                   <el-col :span="4">
                     有否有效:
-                    <el-radio-group v-model="empsearch.enabled">
+                    <el-radio-group v-model="empsearch.enable">
                       <el-radio :label=1>有效</el-radio>
                       <el-radio style="margin-left: 15px" :label=0>无效</el-radio>
                     </el-radio-group>
@@ -161,7 +161,7 @@
               <el-table-column prop="phone" label="电话号码"></el-table-column>
               <el-table-column prop="address" align="left" label="联系地址"></el-table-column>
               <el-table-column align="left" label="是否有效">
-                <template slot-scope="scope">{{ scope.row.enabled=='1' ?'有效':'无效' }}</template>
+                <template slot-scope="scope">{{ scope.row.enable=='1' ?'有效':'无效' }}</template>
               </el-table-column>
               <el-table-column fixed="right" label="操作" width="120px;">
                 <template slot-scope="scope">
@@ -336,7 +336,7 @@
             <el-col :span="7">
               <div>
                 <el-form-item label="是否有效:" prop="enabled">
-                  <el-radio-group v-model="emp.enabled">
+                  <el-radio-group v-model="emp.enable">
                     <el-radio :label="1">有效</el-radio>
                     <el-radio style="margin-left: 15px" :label="0">无效</el-radio>
                   </el-radio-group>
@@ -398,7 +398,7 @@ export default {
         birthday: "",
         idCard: "",
         email: "",
-        enabled: 1,
+        enable: 1,
         tree: "",
         phone: "",
         address: "",
@@ -411,7 +411,7 @@ export default {
         birthday: "",
         idCard: "",
         email: "",
-        enabled: 1,
+        enable: 1,
         tree: "",
         phone: "",
         address: "",

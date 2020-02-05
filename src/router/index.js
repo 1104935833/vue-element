@@ -4,7 +4,6 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Center from '@/components/system/SysCenter'
 import Setting from '@/components/system/SysSetting'
-import Padding from '@/components/system/SysPadding'
 Vue.use(Router)
 
 const router = new Router({
@@ -34,15 +33,6 @@ const router = new Router({
                 path: '/sys/setting',
                 name: '设置',
                 component: Setting,
-                hidden: true,
-                meta: {
-                    keepAlive: false,
-                    requireAuth: true
-                }
-            }, {
-                path: '/sys/padding',
-                name: '消息',
-                component: Padding,
                 hidden: true,
                 meta: {
                     keepAlive: false,
