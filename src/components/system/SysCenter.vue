@@ -34,7 +34,7 @@
               <li>
                 <svg-icon icon-class="anq" />安全设置
                 <div class="user-right">
-                   <el-button size="mini" type="text" @click="dialogFormVisible = true" >修改密码</el-button>
+                  <el-button size="mini" type="text" @click="dialogFormVisible = true">修改密码</el-button>
                 </div>
               </li>
             </ul>
@@ -61,13 +61,13 @@
                 </el-form-item>
                 <el-form-item label="性别">
                   <el-radio-group v-model="form.sex">
-                    <el-radio label="男">男</el-radio>
-                    <el-radio label="女">女</el-radio>
+                    <el-radio label="0">男</el-radio>
+                    <el-radio label="1">女</el-radio>
                   </el-radio-group>
                 </el-form-item>
-               
+
                 <el-form-item>
-                  <el-button type="primary" >修改</el-button>
+                  <el-button type="primary" @click="changeInfo()">修改</el-button>
                 </el-form-item>
               </el-form>
             </el-tab-pane>
@@ -78,24 +78,24 @@
       </el-col>
     </el-row>
 
-
-
     <el-dialog title="修改密码" :visible.sync="dialogFormVisible">
-      <el-form :model="form" >
-        <el-form-item label="手机号" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请输入手机号"></el-input>
+      <el-form>
+        <el-form-item label="手机号">
+          <el-input v-model="phone" style="width:35%" placeholder="请输入手机号"></el-input>
         </el-form-item>
-        <el-form-item label="验证码" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请输入验证码"></el-input>
+        <el-form-item label="验证码">
+          <el-input v-model="yzm" style="width:25%" placeholder="请输入验证码"></el-input>
+          <el-button type="warning" size="mini" style="width:10%" @click="getYZM()">获取验证码</el-button>
+          <br />
+          <span ref="input1" />
         </el-form-item>
-        <el-form-item label="登录密码" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" style="width:35%"  placeholder="请设置6-20位密码"></el-input>
-          
+        <el-form-item label="登录密码">
+          <el-input v-model="newPwd" style="width:35%" placeholder="请设置6-20位密码"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+        <el-button @click="cancelPwd()">取 消</el-button>
+        <el-button type="primary" @click="editPwd()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -104,19 +104,59 @@
  <script>
 export default {
   data() {
-    const info=JSON.parse(localStorage.getItem("user"));
+    const info = JSON.parse(localStorage.getItem("user"));
     return {
-      dialogFormVisible:false,
+      dialogFormVisible: false,
       activeName: "first",
       user: info,
       form: {
-        phone:info.phone,
-        email:info.email,
-        sex: info.gender,
-      }
+        phone: info.phone,
+        email: info.email,
+        sex: info.gender
+      },
+      disable: true,
+      phone: info.phone,
+      yzm: "",
+      newPwd: ""
     };
   },
   methods: {
+    changeInfo() {
+      this.post("/center/changeInfo", { info: this.form }).then(res => {
+        if (res.data.msg == "修改成功") {
+          let info =JSON.stringify(res.data.obj);
+          window.localStorage.setItem('user', info);
+          this.user = JSON.parse(info);
+        }
+      });
+    },
+    cancelPwd() {
+      this.dialogFormVisible = false;
+      this.phone = info.phone;
+      this.yzm = "";
+      this.newPwd = "";
+    },
+    editPwd() {
+      // this.dialogFormVisible = false;
+      if (this.yzm.length < 6) {
+        this.$refs.input1.innerText = "请先输入验证码";
+      } else {
+        this.postRequest("/center/editPwd", {
+          yzm: this.yzm,
+          newPwd: this.newPwd
+        }).then(res => {
+          if (res.data.msg == "修改成功") {
+            this.dialogFormVisible = false;
+            this.phone = info.phone;
+            this.yzm = "";
+            this.newPwd = "";
+          }
+        });
+      }
+    },
+    getYZM() {
+      this.getRequest("/center/getYzm", { phone: this.phone });
+    },
     handleClick(tab, event) {
       // console.log(tab, event);
     }

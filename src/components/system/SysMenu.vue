@@ -280,8 +280,10 @@ export default {
       } else {
         this.postRequest("/system/menu/upMenu", this.form).then(res => {
           this.init();
+          this.loadEmps();
           this.EditVisible = false;
         });
+        
       }
     },
     init(){

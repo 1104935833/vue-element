@@ -152,7 +152,9 @@
               <el-table-column type="selection" align="left"></el-table-column>
               <el-table-column prop="name" align="left" fixed label="姓名"></el-table-column>
               <el-table-column prop="workID" align="left" label="工号"></el-table-column>
-              <el-table-column prop="gender" label="性别"></el-table-column>
+              <el-table-column  label="性别">
+                <template slot-scope="scope">{{ scope.row.gender=='1' ?'男':'女' }}</template>
+              </el-table-column>
               <el-table-column align="left" label="出生日期">
                 <template slot-scope="scope">{{ scope.row.birthday | formatDate}}</template>
               </el-table-column>
@@ -228,8 +230,9 @@
               <div>
                 <el-form-item label="性别:" prop="gender">
                   <el-radio-group v-model="emp.gender">
-                    <el-radio :label=1>男</el-radio>
-                    <el-radio style="margin-left: 15px" :label=0>女</el-radio>
+                    
+                    <el-radio label='1'>男</el-radio>
+                    <el-radio style="margin-left: 15px" label='0'>女</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </div>
