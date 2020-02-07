@@ -45,7 +45,10 @@
         <!--    用户资料    -->
         <el-card class="box-card">
           <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="用户资料" name="first">
+            <el-tab-pane label="业绩汇总" name="first">
+              <Demo></Demo>
+            </el-tab-pane>
+            <el-tab-pane label="用户资料" name="second">
               <el-form
                 ref="form"
                 :model="form"
@@ -72,7 +75,7 @@
               </el-form>
             </el-tab-pane>
 
-            <el-tab-pane label="业绩汇总" name="second">fdfs</el-tab-pane>
+            
           </el-tabs>
         </el-card>
       </el-col>
@@ -85,7 +88,14 @@
         </el-form-item>
         <el-form-item label="验证码">
           <el-input v-model="yzm" style="width:25%" placeholder="请输入验证码"></el-input>
-          <el-button type="warning" size="mini" style="width:10%" @click="getYZM()">获取验证码</el-button>
+          <span class="register-msg-btn" v-show="!show">{{count}} s</span>
+          <el-button
+            type="warning"
+            size="mini"
+            style="width:10%"
+            v-show="show"
+            @click="getYZM()"
+          >获取验证码</el-button>
           <br />
           <span ref="input1" />
         </el-form-item>
@@ -102,7 +112,12 @@
 </template>
 
  <script>
+import demo from "./centerChart/Chart.vue";
+
 export default {
+  components: {
+    Demo: demo //将别名demo 变成 组件 Demo
+  },
   data() {
     const info = JSON.parse(localStorage.getItem("user"));
     return {
@@ -117,29 +132,32 @@ export default {
       disable: true,
       phone: info.phone,
       yzm: "",
-      newPwd: ""
+      newPwd: "",
+      show: true,
+      count: "",
+      timer: null
     };
   },
   methods: {
     changeInfo() {
       this.post("/center/changeInfo", { info: this.form }).then(res => {
         if (res.data.msg == "修改成功") {
-          let info =JSON.stringify(res.data.obj);
-          window.localStorage.setItem('user', info);
+          let info = JSON.stringify(res.data.obj);
+          window.localStorage.setItem("user", info);
           this.user = JSON.parse(info);
         }
       });
     },
     cancelPwd() {
       this.dialogFormVisible = false;
-      this.phone = info.phone;
+      this.phone = JSON.parse(localStorage.getItem("user")).phone;
       this.yzm = "";
       this.newPwd = "";
     },
     editPwd() {
       // this.dialogFormVisible = false;
-      if (this.yzm.length < 6) {
-        this.$refs.input1.innerText = "请先输入验证码";
+      if (!/^[1234567890]\d{6}$/.test(this.yzm)) {
+        this.$message.error("验证码错误");
       } else {
         this.postRequest("/center/editPwd", {
           yzm: this.yzm,
@@ -155,7 +173,28 @@ export default {
       }
     },
     getYZM() {
-      this.getRequest("/center/getYzm", { phone: this.phone });
+      if (!/^1[3456789]\d{9}$/.test(this.phone)) {
+        this.$message.error("请输入正确的手机号");
+      } else {
+        this.show = false;
+        const TIME_COUNT = 10;
+        if (!this.timer) {
+          this.count = TIME_COUNT;
+          this.show = false;
+
+          this.getRequest("/center/getYzm", { phone: this.phone });
+
+          this.timer = setInterval(() => {
+            if (this.count > 0 && this.count <= TIME_COUNT) {
+              this.count--;
+            } else {
+              this.show = true;
+              clearInterval(this.timer);
+              this.timer = null;
+            }
+          }, 1000);
+        }
+      }
     },
     handleClick(tab, event) {
       // console.log(tab, event);
