@@ -84,38 +84,31 @@
                 v-show="advanceSearchViewVisible"
               >
                 <el-row>
-                  <el-col :span="4">
-                    工号:
-                    <el-input
-                      v-model="empsearch.workID"
-                      style="width: 130px"
-                      size="mini"
-                      placeholder="工号"
-                    ></el-input>
-                  </el-col>
-                  <el-col :span="4">
-                    姓名:
-                    <el-input v-model="empsearch.name" style="width: 130px" size="mini" placeholder="姓名"></el-input>
+                  <el-col :span="5">
+                    业绩名称:
+                      <el-input v-model="emp.name" style="width: 130px" size="mini" placeholder="请输入">
+                      </el-input>
                   </el-col>
                   <el-col :span="5">
-                    身份证号码:
-                    <el-input
-                      v-model="empsearch.idCard"
-                      style="width: 130px"
-                      size="mini"
-                      placeholder="身份证号码"
-                    ></el-input>
+                    业绩类别:
+                    <el-input v-model="emp.category" style="width: 130px" size="mini" placeholder="请输入">
+                    </el-input>
                   </el-col>
-                  <el-col :span="5">
-                    所属部门:
-                    <el-select style="width: 130px;" v-model="empsearch.tree" placeholder="请选择">
-                      <el-option value="">请选择</el-option>
-                      <el-option
-                        v-for="item in options"
-                        :key="item.tree_code"
-                        :label="item.name"
-                        :value="item.tree_code"
-                      ></el-option>
+                  <el-col :span="4">
+                    级别:
+                    <el-input v-model="emp.rank" style="width: 130px" size="mini" placeholder="请输入">
+                    </el-input>
+                  </el-col>
+                  <el-col :span="4">
+                    完成者:
+                    <el-input v-model="emp.consummator" style="width: 120px" size="mini" placeholder="请输入">
+                    </el-input>
+                  </el-col>
+                  <el-col :span="6">
+                    是否第一作者:
+                    <el-select v-model="emp.firstauthor" style="width: 130px" size="mini" placeholder="请选择">
+                      <el-option label="是" value="yes"></el-option>
+                      <el-option label="否" value="no"></el-option>
                     </el-select>
                   </el-col>
                   <el-col :span="4">
@@ -405,7 +398,14 @@ export default {
         tree: "",
         phone: "",
         address: "",
-        workID: ""
+        workID: "",
+        number: '',
+        birthday: '',
+        category: '',
+        consummator: '',
+        rank: '',
+        firstauthor: '',
+        auditsituation:''
       },
       empsearch: {
         name: "",
@@ -418,7 +418,15 @@ export default {
         tree: "",
         phone: "",
         address: "",
-        workID: ""
+        workID: "",
+        number: '',
+        birthday: '',
+        category: '',
+        name: '',
+        consummator: '',
+        rank: '',
+        firstauthor: '',
+        auditsituation:''
       },
       
       rules: {
@@ -684,7 +692,14 @@ export default {
         tree: "",
         phone: "",
         address: "",
-        workID: ""
+        workID: "",
+        number: '',
+        birthday: '',
+        category: '',
+        consummator: '',
+        rank: '',
+        firstauthor: '',
+        auditsituation:''
       },
       this.empsearch={
         name: "",
@@ -697,7 +712,14 @@ export default {
         tree: "",
         phone: "",
         address: "",
-        workID: ""
+        workID: "",
+        number: '',
+        birthday: '',
+        category: '',
+        consummator: '',
+        rank: '',
+        firstauthor: '',
+        auditsituation:''
       }
       this.currentPage=1
     }
