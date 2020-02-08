@@ -43,11 +43,11 @@ export const formatRoutes = (routes) => {
                 if (component.startsWith("Home")) {
                     require(['../components/' + component + '.vue'], resolve)
                 } else if (component.startsWith("Emp")) {
-                    require(['../components/emp/' + component + '.vue'], resolve)
+                    require(['../components/personalinf/' + component + '.vue'], resolve)
                 } else if (component.startsWith("Per")) {
-                    require(['../components/personnel/' + component + '.vue'], resolve)
-                } else if (component.startsWith("Sal")) {
-                    require(['../components/salary/' + component + '.vue'], resolve)
+                    require(['../components/achievementInput/' + component + '.vue'], resolve)
+                } else if (component.startsWith("Exa")) {
+                    require(['../components/Examine/' + component + '.vue'], resolve)
                 } else if (component.startsWith("Sta")) {
                     require(['../components/statistics/' + component + '.vue'], resolve)
                 } else if (component.startsWith("Sys")) {
