@@ -141,7 +141,7 @@
             <el-table-column prop="complete_author" width="70" label="完成者"></el-table-column>
             <el-table-column width="60" prop="grade" label="级别"></el-table-column>
             <el-table-column prop="performance_point" width="80" label="业绩点"></el-table-column>
-            <el-table-column prop="performance_point" width="100" label="审核情况"></el-table-column>
+            <el-table-column prop="audit_condition" width="100" label="审核情况"></el-table-column>
             <el-table-column prop="material_condition" width="130" align="left" label="佐证材料上交情况"></el-table-column>
             <el-table-column prop="note" label="备注"></el-table-column>
           </el-table>
