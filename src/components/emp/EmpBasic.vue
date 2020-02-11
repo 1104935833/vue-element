@@ -43,10 +43,7 @@
 export default {
   data() {
     return {
-      value1:5,
-      
       office: [],
-
       form: {
         name: "",
         gender: "",
