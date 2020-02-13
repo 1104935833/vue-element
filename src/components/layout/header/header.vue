@@ -35,7 +35,7 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="/sys/center">个人中心</el-dropdown-item>
-              <el-dropdown-item command="/sys/setting">设置</el-dropdown-item>
+              <!-- <el-dropdown-item command="/sys/setting">设置</el-dropdown-item> -->
               <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
