@@ -56,6 +56,8 @@ export const formatRoutes = (routes) => {
                     require(['../components/system/IconSelect/' + component + '.vue'], resolve)
                 } else if (component.startsWith("pedding")) {
                     require(['../components/pedding/' + component + '.vue'], resolve)
+                } else if (component.startsWith("Audit")) {
+                    require(['../components/audit/' + component + '.vue'], resolve)
                 }
             },
             name: name,
