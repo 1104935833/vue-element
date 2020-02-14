@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      综合信息统计
+      业绩汇总
     </h1>
   </div>
 </template>

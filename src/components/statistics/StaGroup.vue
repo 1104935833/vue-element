@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>
-      人事记录统计
+    <h1 alig="center">
+      集体业绩
     </h1>
   </div>
 </template>
