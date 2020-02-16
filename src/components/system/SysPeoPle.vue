@@ -97,7 +97,7 @@
                     姓名:
                     <el-input v-model="empsearch.name" style="width: 130px" size="mini" placeholder="姓名"></el-input>
                   </el-col>
-                  <el-col :span="5">
+                  <!-- <el-col :span="5">
                     身份证号码:
                     <el-input
                       v-model="empsearch.idCard"
@@ -105,7 +105,7 @@
                       size="mini"
                       placeholder="身份证号码"
                     ></el-input>
-                  </el-col>
+                  </el-col> -->
                   <el-col :span="5">
                     所属部门:
                     <el-select style="width: 130px;" v-model="empsearch.tree" placeholder="请选择">
@@ -155,13 +155,13 @@
               <el-table-column  label="性别">
                 <template slot-scope="scope">{{ scope.row.gender=='1' ?'男':'女' }}</template>
               </el-table-column>
-              <el-table-column align="left" label="出生日期">
+              <!-- <el-table-column align="left" label="出生日期">
                 <template slot-scope="scope">{{ scope.row.birthday | formatDate}}</template>
-              </el-table-column>
-              <el-table-column prop="idCard" align="left" label="身份证号码"></el-table-column>
+              </el-table-column> -->
+              <!-- <el-table-column prop="idCard" align="left" label="身份证号码"></el-table-column> -->
               <el-table-column prop="email" align="left" label="电子邮件"></el-table-column>
               <el-table-column prop="phone" label="电话号码"></el-table-column>
-              <el-table-column prop="address" align="left" label="联系地址"></el-table-column>
+              <!-- <el-table-column prop="address" align="left" label="联系地址"></el-table-column> -->
               <el-table-column align="left" label="是否有效">
                 <template slot-scope="scope">{{ scope.row.enable=='1' ?'有效':'无效' }}</template>
               </el-table-column>
@@ -237,7 +237,7 @@
                 </el-form-item>
               </div>
             </el-col>
-            <el-col :span="6">
+            <!-- <el-col :span="6">
               <div>
                 <el-form-item label="出生日期:" prop="birthday">
                   <el-date-picker
@@ -250,7 +250,7 @@
                   ></el-date-picker>
                 </el-form-item>
               </div>
-            </el-col>
+            </el-col> -->
           </el-row>
           <el-row>
             <el-col :span="7">
@@ -266,7 +266,7 @@
                 </el-form-item>
               </div>
             </el-col>
-            <el-col :span="7">
+            <!-- <el-col :span="7">
               <div>
                 <el-form-item label="联系地址:" prop="address">
                   <el-input
@@ -278,7 +278,7 @@
                   ></el-input>
                 </el-form-item>
               </div>
-            </el-col>
+            </el-col> -->
 
             <el-col :span="6">
               <div>
@@ -295,7 +295,7 @@
             </el-col>
           </el-row>
           <el-row>
-            <el-col :span="7">
+            <!-- <el-col :span="7">
               <div>
                 <el-form-item label="身份证号码:" prop="idCard">
                   <el-input
@@ -307,7 +307,7 @@
                   ></el-input>
                 </el-form-item>
               </div>
-            </el-col>
+            </el-col> -->
             <el-col :span="7">
               <div>
                 <el-form-item label="所在教研室:" prop="idCard">
