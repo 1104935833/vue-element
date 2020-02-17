@@ -54,7 +54,7 @@
             <el-upload
               :show-file-list="false"
               accept="application/vnd.ms-excel"
-              action="/employee/basic/importEmp"
+              action="/system/user/importEmp"
               :on-success="fileUploadSuccess"
               :on-error="fileUploadError"
               :disabled="fileUploadBtnText=='正在导入'"
@@ -158,7 +158,18 @@
               <!-- <el-table-column align="left" label="出生日期">
                 <template slot-scope="scope">{{ scope.row.birthday | formatDate}}</template>
               </el-table-column> -->
-              <!-- <el-table-column prop="idCard" align="left" label="身份证号码"></el-table-column> -->
+              <el-table-column prop="office_id" align="left" label="办公室">
+                <template slot-scope="scope" class="select">
+                  <el-select  disabled  v-model="scope.row.office_id">
+                    <el-option
+                      v-for="item in officeOption"
+                      :key="item.office"
+                      :label="item.office"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </template>
+              </el-table-column>
               <el-table-column prop="email" align="left" label="电子邮件"></el-table-column>
               <el-table-column prop="phone" label="电话号码"></el-table-column>
               <!-- <el-table-column prop="address" align="left" label="联系地址"></el-table-column> -->
@@ -231,9 +242,22 @@
                 <el-form-item label="性别:" prop="gender">
                   <el-radio-group v-model="emp.gender">
                     
-                    <el-radio label='1'>男</el-radio>
-                    <el-radio style="margin-left: 15px" label='0'>女</el-radio>
+                    <el-radio label="1">男</el-radio>
+                    <el-radio style="margin-left: 15px" label="0">女</el-radio>
                   </el-radio-group>
+                </el-form-item>
+              </div>
+            </el-col>
+            <el-col :span="7">
+              <div>
+                <el-form-item label="电子邮箱:" prop="email">
+                  <el-input
+                    prefix-icon="el-icon-message"
+                    v-model="emp.email"
+                    size="mini"
+                    style="width: 190px"
+                    placeholder="电子邮箱地址..."
+                  ></el-input>
                 </el-form-item>
               </div>
             </el-col>
@@ -253,19 +277,7 @@
             </el-col> -->
           </el-row>
           <el-row>
-            <el-col :span="7">
-              <div>
-                <el-form-item label="电子邮箱:" prop="email">
-                  <el-input
-                    prefix-icon="el-icon-message"
-                    v-model="emp.email"
-                    size="mini"
-                    style="width: 190px"
-                    placeholder="电子邮箱地址..."
-                  ></el-input>
-                </el-form-item>
-              </div>
-            </el-col>
+            
             <!-- <el-col :span="7">
               <div>
                 <el-form-item label="联系地址:" prop="address">
@@ -293,21 +305,6 @@
                 </el-form-item>
               </div>
             </el-col>
-          </el-row>
-          <el-row>
-            <!-- <el-col :span="7">
-              <div>
-                <el-form-item label="身份证号码:" prop="idCard">
-                  <el-input
-                    prefix-icon="el-icon-edit"
-                    v-model="emp.idCard"
-                    size="mini"
-                    style="width: 180px"
-                    placeholder="请输入员工身份证号码..."
-                  ></el-input>
-                </el-form-item>
-              </div>
-            </el-col> -->
             <el-col :span="7">
               <div>
                 <el-form-item label="所在教研室:" prop="idCard">
@@ -336,6 +333,24 @@
                 </el-form-item>
               </div>
             </el-col>
+          </el-row>
+          <el-row>
+            
+            <el-col :span="7">
+              <div>
+                <el-form-item label="办公室:" prop="idCard">
+                  <el-select style="width:150px;" v-model="emp.office_id" placeholder="请选择">
+                    <el-option
+                      v-for="item in officeOption"
+                      :key="item.office"
+                      :label="item.office"
+                      :value="item.id"
+                    ></el-option>
+                  </el-select>
+                </el-form-item>
+              </div>
+            </el-col>
+            
             <el-col :span="7">
               <div>
                 <el-form-item label="是否有效:" prop="enabled">
@@ -363,6 +378,7 @@ export default {
     return {
       isEdit: false,
       options: [],
+      officeOption:[],
       props: {
         label: "name"
       },
@@ -397,10 +413,9 @@ export default {
       emp: {
         name: "",
         username: "",
-        gender: 1,
-        birthday: "",
-        idCard: "",
+        gender: "1",
         email: "",
+        office_id:"",
         enable: 1,
         tree: "",
         phone: "",
@@ -410,9 +425,8 @@ export default {
       empsearch: {
         name: "",
         username: "",
-        gender: 1,
-        birthday: "",
-        idCard: "",
+        gender: "1",
+        office_id:"",
         email: "",
         enable: 1,
         tree: "",
@@ -460,8 +474,12 @@ export default {
         this.options = res.data;
       }
     );
+    
+    
   },
+ 
   methods: {
+   
     addEmp() {
       if (!this.isEdit)
         this.postRequest("/system/user/adduser", this.emp).then(res => {
@@ -568,7 +586,7 @@ export default {
         .then(() => {
           var ids = "";
           for (var i = 0; i < this.multipleSelection.length; i++) {
-            ids += this.multipleSelection[i].id + ",";
+            ids += this.multipleSelection[i].user_id + ",";
           }
           this.doDelete(ids);
         })
@@ -581,7 +599,7 @@ export default {
         type: "warning"
       })
         .then(() => {
-          this.doDelete(row.id);
+          this.doDelete(row.user_id);
         })
         .catch(() => {});
     },
@@ -657,10 +675,10 @@ export default {
       );
     },
     showEditEmpView(row) {
+      console.log(row)
       this.isEdit = true;
       this.dialogTitle = "编辑员工";
       this.emp = row;
-      this.emp.birthday = this.formatDate(row.birthday);
       this.dialogVisible = true;
     },
     template() {
@@ -676,9 +694,8 @@ export default {
       this.emp={
         name: "",
         username: "",
-        gender: 1,
-        birthday: "",
-        idCard: "",
+        gender: "1",
+        office_id:"",
         email: "",
         enabled: 1,
         tree: "",
@@ -689,9 +706,8 @@ export default {
       this.empsearch={
         name: "",
         username: "",
-        gender: 1,
-        birthday: "",
-        idCard: "",
+        gender: "1",
+        office_id:"",
         email: "",
         enabled: 1,
         tree: "",
@@ -701,6 +717,14 @@ export default {
       }
       this.currentPage=1
     }
+  },
+  created(){
+    this.getRequest("/system/user/office",).then(
+      res => {
+        
+        this.officeOption = res.data;
+      }
+    );
   }
 };
 </script>
@@ -736,5 +760,20 @@ export default {
   height: 700px;
   background-color: white;
   /*width:200px;*/
+}
+.el-select .el-input.is-disabled .el-input__inner {
+    cursor: text;
+    border: 0px;
+}
+.cell .el-select .el-icon-arrow-up:before {
+    content: none;
+}
+.el-input.is-disabled .el-input__inner {
+    background-color: transparent;
+    color: #606266;
+    cursor: text;
+}
+.cell .el-input.is-disabled .el-input__icon {
+    cursor: text;
 }
 </style>
