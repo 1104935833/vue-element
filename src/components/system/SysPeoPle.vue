@@ -221,10 +221,10 @@
           style="padding: 0px;"
           :close-on-click-modal="false"
           :visible.sync="dialogVisible"
-          width="60%"
+          width="50%"
         >
           <el-row>
-            <el-col :span="7">
+            <el-col :span="5">
               <div>
                 <el-form-item label="姓名:" prop="name">
                   <el-input
@@ -241,9 +241,8 @@
               <div>
                 <el-form-item label="性别:" prop="gender">
                   <el-radio-group v-model="emp.gender">
-                    
                     <el-radio label="1">男</el-radio>
-                    <el-radio style="margin-left: 15px" label="0">女</el-radio>
+                    <el-radio label="0">女</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </div>
@@ -261,45 +260,18 @@
                 </el-form-item>
               </div>
             </el-col>
-            <!-- <el-col :span="6">
-              <div>
-                <el-form-item label="出生日期:" prop="birthday">
-                  <el-date-picker
-                    v-model="emp.birthday"
-                    size="mini"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    style="width: 150px"
-                    type="date"
-                    placeholder="出生日期"
-                  ></el-date-picker>
-                </el-form-item>
-              </div>
-            </el-col> -->
+         
           </el-row>
           <el-row>
-            
-            <!-- <el-col :span="7">
-              <div>
-                <el-form-item label="联系地址:" prop="address">
-                  <el-input
-                    prefix-icon="el-icon-edit"
-                    v-model="emp.address"
-                    size="mini"
-                    style="width: 200px"
-                    placeholder="联系地址..."
-                  ></el-input>
-                </el-form-item>
-              </div>
-            </el-col> -->
-
-            <el-col :span="6">
+         
+            <el-col :span="5">
               <div>
                 <el-form-item label="电话号码:" prop="phone">
                   <el-input
                     prefix-icon="el-icon-phone"
                     v-model="emp.phone"
                     size="mini"
-                    style="width: 200px"
+                    style="width: 130px"
                     placeholder="电话号码..."
                   ></el-input>
                 </el-form-item>
@@ -319,7 +291,7 @@
                 </el-form-item>
               </div>
             </el-col>
-            <el-col :span="7" v-if="this.isEdit">
+            <el-col :span="5" v-if="this.isEdit">
               <div>
                 <el-form-item label="工号:" prop="workID">
                   <el-input
@@ -327,7 +299,7 @@
                     v-model="emp.workID"
                     disabled
                     size="mini"
-                    style="width: 180px"
+                    style="width: 130px"
                     placeholder="请输入员工身份证号码..."
                   ></el-input>
                 </el-form-item>
@@ -336,7 +308,7 @@
           </el-row>
           <el-row>
             
-            <el-col :span="7">
+            <el-col :span="5">
               <div>
                 <el-form-item label="办公室:" prop="idCard">
                   <el-select style="width:150px;" v-model="emp.office_id" placeholder="请选择">
@@ -356,7 +328,7 @@
                 <el-form-item label="是否有效:" prop="enabled">
                   <el-radio-group v-model="emp.enable">
                     <el-radio :label="1">有效</el-radio>
-                    <el-radio style="margin-left: 15px" :label="0">无效</el-radio>
+                    <el-radio :label="0">无效</el-radio>
                   </el-radio-group>
                 </el-form-item>
               </div>

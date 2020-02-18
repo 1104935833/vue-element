@@ -6,8 +6,8 @@
             <p v-else>教师业绩管理系统</p>
         </div>
         <el-menu class="el-menu-vertical"
-            background-color="#03152A"
-            text-color="rgba(255,255,255,.7)"
+            background-color="rgba(32,229,194,.3)"
+            text-color="rgba(63,63,63,.7)"
             active-text-color="#ffffff"
             :collapse="$store.getters.isCollapse"
             :collapse-transition="true"
@@ -77,7 +77,7 @@
     flex-direction: column;
     border-right: solid 1px #e6e6e6;
     .logo-name {
-      background-color: #03152A !important;
+      background-color: #b3eee4 !important;
       @extend %w100;
       font-weight: 300;
       z-index: 999;
@@ -86,7 +86,7 @@
         line-height: 50px;
         text-align: center;
         font-size: 16px;
-        color: #5e6d82;
+        color: #030303;
       }
     }
     .el-menu-vertical:not(.el-menu--collapse) {
@@ -109,15 +109,25 @@
         font-size: 18px;
       }
       .el-menu-item {
-        background-color: #03152A !important;
-        border-bottom: 1px solid #020f1d;
+        background-color: rgb(200,240,233) !important;
+        border-bottom: 1px solid rgba(32,229,194,.2);
         &:hover {
-          color: #ffffff !important;
-          background-color: #375573 !important;
+          color: #000 !important;
+          
+          background-color: #8becdb !important;
+        }
+      }
+      .el-submenu__title {
+         background-color: #b3eee4 !important;
+        border-bottom: 1px solid rgba(32,229,194,.2);
+         &:hover {
+          color: #000 !important;
+          
+          background-color: #8becdb !important;
         }
       }
       .el-menu-item.is-active {
-        background-color: #56a9ff !important
+        background-color: #149680 !important
       }
       .is-opened > .el-submenu__title > .el-icon-arrow-down {
         color: #ffffff;

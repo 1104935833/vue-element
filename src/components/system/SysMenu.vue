@@ -14,15 +14,15 @@
             <!-- 表格 -->
             <el-table
               :data="tableData"
-              v-loading="tableLoading"
-              style="width: 100%"
-              :cell-style="tableHeaderColor"
+              style="width: 100%;margin-bottom: 20px;"
+              row-key="id"
+              :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
             >
-              <el-table-column prop="id" align="left" fixed label="id"></el-table-column>
+              <!-- <el-table-column prop="id" align="left" fixed label="id"></el-table-column> -->
               <el-table-column align="left" fixed label="图标">
                 <template slot-scope="scope">
                   <i v-bind:class="[scope.row.iconCls]"></i>
-                  <svg-icon :icon-class="scope.row.iconCls+''" style="height: 15px;width: 15px;"  />
+                  <svg-icon :icon-class="scope.row.iconCls+''" style="height: 15px;width: 15px;" />
                 </template>
               </el-table-column>
               <el-table-column prop="path" align="left" fixed label="访问路径"></el-table-column>
@@ -61,7 +61,7 @@
               </el-table-column>
             </el-table>
 
-            <div style="display: flex;justify-content: space-between;margin: 2px">
+            <!-- <div style="display: flex;justify-content: space-between;margin: 2px">
               <el-pagination
                 background
                 :page-size="10"
@@ -70,7 +70,7 @@
                 layout="prev, pager, next"
                 :total="totalCount"
               ></el-pagination>
-            </div>
+            </div> -->
           </div>
         </el-main>
       </el-container>
@@ -101,7 +101,7 @@
             <el-col :span="24">
               <div>
                 <el-form-item label="上级菜单：">
-                  <el-select v-model="form.parentId" placeholder="请选择" @focus="this.getAllParent" >
+                  <el-select v-model="form.parentId" placeholder="请选择" @focus="this.getAllParent">
                     <el-option
                       v-for="item in parentData"
                       :key="item.id"
@@ -176,7 +176,7 @@
               <div>
                 <el-form-item label="目录图标:">
                   <el-button type="button" @click="centerDialogVisible = true">选择目录图标</el-button>
-                  <svg-icon :icon-class="this.form.iconCls" style="height: 40px;width: 40px;"  />
+                  <svg-icon :icon-class="this.form.iconCls" style="height: 40px;width: 40px;" />
                 </el-form-item>
               </div>
             </el-col>
@@ -199,11 +199,17 @@
             <el-button size="mini" type="primary" @click="addEmp()">确 定</el-button>
           </span>
         </el-dialog>
-        <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" style="height:800px;" center>
+        <el-dialog
+          title="提示"
+          :visible.sync="centerDialogVisible"
+          width="30%"
+          style="height:800px;"
+          center
+        >
           <div class="icon-body">
             <div class="icon-list">
-              <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)" >
-                <svg-icon :icon-class="item" style="height: 30px;width: 16px;"  />
+              <div v-for="(item, index) in iconList" :key="index" @click="selectedIcon(item)">
+                <svg-icon :icon-class="item" style="height: 30px;width: 16px;" />
                 <span style="height: 35px;">{{ item }}</span>
               </div>
             </div>
@@ -214,28 +220,28 @@
   </div>
 </template>
 <script>
-import icons from './IconSelect/requireIcons'
+import icons from "./IconSelect/requireIcons";
 export default {
-  name: 'IconSelect',
+  name: "IconSelect",
   data() {
     return {
-      name: '',
+      name: "",
       iconList: icons,
       centerDialogVisible: false,
       tableData: [],
       parentData: [],
       enabled: "1",
       stateValue: "1",
-      
+
       form: {
         component: "",
-        iconCls:"",
+        iconCls: "",
         url: "",
         parentId: "",
         name: "",
         path: ""
       },
-      
+
       isDisabled: false,
       isEdit: false,
       count: 1,
@@ -256,18 +262,18 @@ export default {
   methods: {
     filterIcons() {
       if (this.name) {
-        this.iconList = this.iconList.filter(item => item.includes(this.name))
+        this.iconList = this.iconList.filter(item => item.includes(this.name));
       } else {
-        this.iconList = icons
+        this.iconList = icons;
       }
     },
     selectedIcon(name) {
-      this.centerDialogVisible=false;
-      this.form.iconCls=name
+      this.centerDialogVisible = false;
+      this.form.iconCls = name;
     },
     reset() {
-      this.name = ''
-      this.iconList = icons
+      this.name = "";
+      this.iconList = icons;
     },
     addEmp() {
       //添加菜单
@@ -278,25 +284,23 @@ export default {
           this.EditVisible = false;
         });
       } else {
-        this.postRequest("/system/menu/upMenu", this.form).then(res => {
+        console.log(this.form);
+        this.post("/system/menu/upMenu", {form:this.form}).then(res => {
           this.init();
           this.loadEmps();
           this.EditVisible = false;
         });
-        
       }
     },
-    init(){
-      this.form={
-        
+    init() {
+      this.form = {
         component: "",
-        iconCls:"",
+        iconCls: "",
         url: "",
         parentId: "",
         name: "",
         path: ""
-      
-      }
+      };
     },
     getAllParent() {
       this.getRequest("/system/menu/getAllParent").then(res => {
@@ -364,7 +368,7 @@ export default {
     loadEmps() {
       var _this = this;
       this.tableLoading = true;
-      this.getRequest("/system/menu/getAllMenus?page=" + this.currentPage).then(
+      this.getRequest("/system/menu/getAllMenus").then(
         resp => {
           this.tableLoading = false;
           if (resp && resp.status == 200) {
@@ -426,29 +430,29 @@ export default {
   transform: translateX(10px);
   opacity: 0;
 }
-  .icon-body {
-    width: 100%;
+.icon-body {
+  width: 100%;
+  height: 400px;
+  padding: 10px;
+  .icon-list {
+    margin-top: -30px;
     height: 400px;
-    padding: 10px;
-    .icon-list {
-      margin-top:-30px;
-      height: 400px;
+    float: left;
+    overflow-y: scroll;
+    div {
+      height: 40px;
+      line-height: 50px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      width: 33%;
       float: left;
-      overflow-y: scroll;
-      div {
-        height: 40px;
-        line-height:50px;
-        margin-bottom: 10px;
-        cursor: pointer;
-        width: 33%;
-        float: left;
-      }
-      span {
-        display: inline-block;
-        vertical-align: -0.15em;
-        fill: currentColor;
-        overflow: hidden;
-      }
+    }
+    span {
+      display: inline-block;
+      vertical-align: -0.15em;
+      fill: currentColor;
+      overflow: hidden;
     }
   }
+}
 </style>
