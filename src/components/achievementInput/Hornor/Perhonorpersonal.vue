@@ -6,113 +6,64 @@
         <h1 align="center">个人荣誉</h1>
       </el-col>
     </el-row>
-    <!-- 第二行 -->
-    <!--<el-row>
-        <el-col :span="12">
-          <el-row>
+    <el-row style="padding: 10px 0;">
+      <el-col :span="8">&nbsp;</el-col>
+      <el-col :span="11">
+        <el-form ref="form" :model="form" label-width="80px">
+          <el-form-item label="荣誉类型">
+            <el-select
+              v-model="form.personalHonorType"
+              placeholder="请选择"
+              @change="this.changeOption"
+              style="width:100%"
+            >
+              <el-option
+                v-for="item in optionsType"
+                :key="item.id"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="荣誉名称">
+            <el-select
+              v-model="form.personalHonorName"
+              multiple
+              placeholder="请选择"
+              :disabled="isDisable"
+              style="width:100%"
+            >
+              <el-option
+                v-for="item in optionsName"
+                :key="item.id"
+                :label="item.label"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-form-item>
+          <el-form-item label="获得时间">
             <el-col>
-              <h5 align="center">工会</h5>
+              <el-date-picker
+                v-model="form.personalGainTime"
+                type="date"
+                placeholder="选择日期"
+                style="width:100%"
+              ></el-date-picker>
             </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">巾帼文明示范岗先进个人</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">事业家庭兼顾型先进个人</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">师德标兵</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">三育人先进个人</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">“杭州教育工匠”暨“最美思政教师</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">最美班主任</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">优秀共产党员</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">工会活动积极分子</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">优秀工会工作者</el-checkbox>
-            </el-col>
-          </el-row>
-          <el-row>
+          </el-form-item>
+          <!-- 调用后端接口的路径 -->
+          <el-form-item label="材料上传">
             <el-col>
-              <h5 align="center">人事</h5>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">年度考核优秀</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">优秀教师</el-checkbox>
-            </el-col>
-            <el-col :span="12">
-              <el-checkbox v-model="checked">优秀教育工作者</el-checkbox>
-            </el-col>
-          </el-row>
-          <el-row>
-            <el-col>
-              <h5 align="center">组织</h5>
-            </el-col>
-          </el-row>
-        </el-col>
-        <el-col :span="12">
-          <el-row>
-            <el-col>
-              <el-checkbox v-model="checked">巾帼文明示范岗先进集体</el-checkbox>
-            </el-col>
-          </el-row>
-        </el-col>
-    </el-row>-->
-    <el-row>
-      <el-col :span="12">
-        <el-row>
-          <el-col style="text-algin:center">
-            <el-form ref="form" :model="form" label-width="80px">
-              <el-form-item label="荣誉类型">
-                <el-select v-model="a" placeholder="请选择" @change="this.tf">
-                  <el-option
-                    v-for="item in form.options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="荣誉名称">
-                <el-select v-model="rongyuleixing" multiple placeholder="请选择" :disabled="f">
-                  <el-option
-                    v-for="item in form.options"
-                    :key="item.value"
-                    :label="item.label"
-                    :value="item.value"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-
-              <el-form-item label="获得时间">
-                <el-col :span="11">
-                  <el-date-picker
-                    v-model="value1"
-                    type="date"
-                    placeholder="选择日期">
-                  </el-date-picker>
-                </el-col>
-              </el-form-item>
-              <!-- 调用后端接口的路径 -->
               <el-upload
+                ref="file"
                 class="upload-demo"
                 drag
-                action="https://jsonplaceholder.typicode.com/posts/"
+                acceept="application/pdf"
+                action="/common/file"
+                :on-success="handleSuccess"
+                accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+                :on-remove="handleRemove"
+                :on-error="handleError"
                 multiple
               >
                 <i class="el-icon-upload"></i>
@@ -120,16 +71,22 @@
                   将文件拖到此处，或
                   <em>点击上传</em>
                 </div>
-                <div class="el-upload__tip" slot="tip">上传佐证材料</div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
               </el-upload>
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit">立即创建</el-button>
-                <el-button>取消</el-button>
-              </el-form-item>
-            </el-form>
-          </el-col>
-        </el-row>
+            </el-col>
+          </el-form-item>
+
+          <el-form-item v-if="msgType!=1">
+            <el-button type="primary" @click="onSubmit">提交</el-button>
+            <el-button @click="clear">取消</el-button>
+          </el-form-item>
+          <el-form-item v-if="msgType==1">
+            <el-button type="primary" @click="onSubmit">通过</el-button>
+            <el-button @click="clear">不通过</el-button>
+          </el-form-item>
+        </el-form>
       </el-col>
+      <el-col :span="5"></el-col>
     </el-row>
   </div>
 </template>
@@ -137,61 +94,88 @@
 export default {
   data() {
     return {
-      a: "", //页面选择传递数据的来源
-      rongyuleixing: "",
-      f: true,
+      isDisable: true,
       form: {
-        name: "",
-        region: "",
-        date1: "",
-        date2: "",
-        delivery: false,
-        type: [],
-        resource: "",
-        desc: "",
-        options: []
-      }
+        personalHonorType: "", //页面选择传递数据的来源
+        personalHonorName: "",
+        personalGainTime: "",
+        type: "" //1个人、2集体
+      },
+      optionsType: [],
+      optionsName: [],
+      msgType: ""
     };
+  },
+  mounted() {
+    this.msgType = this.$attrs.msgType;
   },
   created() {
     this.init();
   },
   methods: {
-    onSubmit() {
-      console.log("submit!");
+    clear() {
+      this.form = {
+        personalHonorType: "",
+        personalHonorName: "",
+        personalGainTime: "",
+        type: ""
+      };
     },
-    tf() {
-      console.log(this.a);
-      this.f = false;
+    onSubmit() {
+      this.form.type = 1;
+      this.postRequest("/honer/insertHoner", this.form).then(res => {
+        this.clear();
+      });
+    },
+    changeOption() {
+      this.form.honorName = "";
+      this.getRequest("/common/getOption", {
+        option: "honer",
+        title: "",
+        value: this.form.personalHonorType
+      }).then(res => {
+        this.optionsName = res.data.options;
+      });
+      this.isDisable = false;
     },
     init() {
-      this.form.options = [
-        {
-          value: "工会",
-          label: "工会"
-        },
-        {
-          value: "人事",
-          label: "人事"
-        },
-        {
-          value: "组织",
-          label: "组织"
-        },
-        {
-          value: "综保",
-          label: "综保"
-        },
-        {
-          value: "科研",
-          label: "科研"
-        },
-        {
-          value: "教务",
-          label: "教务"
+      this.getRequest("/common/getOption", {
+        option: "honer",
+        title: "researchSelf",
+        value: ""
+      }).then(res => {
+        this.optionsType = res.data.options;
+      });
+    },
+    handleSuccess(response, file, fileList) {
+      if (file.status == "success") {
+        this.$message({ message: "文件上传成功", type: "success" });
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      //文件移除钩子
+      this.getRequest("/common/delFile", { fileName: file.response }).then(
+        res => {
+          if (res.data == "success") {
+            this.$message({ message: "文件移除成功", type: "success" });
+          } else {
+            this.$message.error("文件删除失败");
+          }
         }
-      ];
+      );
+    },
+    handleError(err, file, fileList) {
+      //上传失败钩子
+      this.$message.error("文件上传失败");
+    },
+    handlePreview(file) {
+      //点击文件列表中已上传的文件时的钩子
+      // console.log(file);
     }
   }
 };
 </script>
+
