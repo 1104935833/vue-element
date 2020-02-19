@@ -12,7 +12,7 @@
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="荣誉类型">
             <el-select
-              v-model="form.honorType"
+              v-model="form.personalHonorType"
               placeholder="请选择"
               @change="this.changeOption"
               style="width:100%"
@@ -27,7 +27,7 @@
           </el-form-item>
           <el-form-item label="荣誉名称">
             <el-select
-              v-model="form.honorName"
+              v-model="form.personalHonorName"
               multiple
               placeholder="请选择"
               :disabled="isDisable"
@@ -44,7 +44,7 @@
           <el-form-item label="获得时间">
             <el-col>
               <el-date-picker
-                v-model="form.honorTime"
+                v-model="form.personalGainTime"
                 type="date"
                 placeholder="选择日期"
                 style="width:100%"
@@ -76,9 +76,13 @@
             </el-col>
           </el-form-item>
 
-          <el-form-item>
+          <el-form-item v-if="msgType!=1">
             <el-button type="primary" @click="onSubmit">提交</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="clear">取消</el-button>
+          </el-form-item>
+          <el-form-item v-if="msgType==1">
+            <el-button type="primary" @click="onSubmit">通过</el-button>
+            <el-button @click="clear">不通过</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -92,27 +96,43 @@ export default {
     return {
       isDisable: true,
       form: {
-        honorType: "", //页面选择传递数据的来源
-        honorName: "",
-        honorTime: ""
+        personalHonorType: "", //页面选择传递数据的来源
+        personalHonorName: "",
+        personalGainTime: "",
+        type: "" //1个人、2集体
       },
       optionsType: [],
-      optionsName: []
+      optionsName: [],
+      msgType: ""
     };
+  },
+  mounted() {
+    this.msgType = this.$attrs.msgType;
   },
   created() {
     this.init();
   },
   methods: {
+    clear() {
+      this.form = {
+        personalHonorType: "",
+        personalHonorName: "",
+        personalGainTime: "",
+        type: ""
+      };
+    },
     onSubmit() {
-      this.postRequest("/honer/")
+      this.form.type = 1;
+      this.postRequest("/honer/insertHoner", this.form).then(res => {
+        this.clear();
+      });
     },
     changeOption() {
-      this.form.honorName="";
+      this.form.honorName = "";
       this.getRequest("/common/getOption", {
         option: "honer",
         title: "",
-        value: this.form.honorType
+        value: this.form.personalHonorType
       }).then(res => {
         this.optionsName = res.data.options;
       });

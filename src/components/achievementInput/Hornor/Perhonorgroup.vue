@@ -80,10 +80,13 @@
               </el-upload>
             </el-col>
           </el-form-item>
-
-          <el-form-item>
+          <el-form-item v-if="msgType!=1">
             <el-button type="primary" @click="onSubmit">提交</el-button>
-            <el-button>取消</el-button>
+            <el-button @click="clear">取消</el-button>
+          </el-form-item>
+          <el-form-item v-if="msgType==1">
+            <el-button type="primary" @click="onSubmit">通过</el-button>
+            <el-button @click="clear">不通过</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -102,18 +105,35 @@ export default {
         honorTime: "", //获得时间
         organizName: "", //组织名称
         organizMember: "", //组织成员
-        type:""//个人、集体
+        type: "" //1个人、2集体
       },
       optionsType: [],
-      optionsName: []
+      optionsName: [],
+      msgType: ""
     };
+  },
+  mounted() {
+    this.msgType = this.$attrs.msgType;
   },
   created() {
     this.init();
   },
   methods: {
+    clear() {
+      this.form = {
+        honorType: "", //荣誉类型
+        honorName: "", //荣誉类型
+        honorTime: "", //获得时间
+        organizName: "", //组织名称
+        organizMember: "", //组织成员
+        type: "" //1个人、2集体
+      };
+    },
     onSubmit() {
-      console.log(this.form);
+      this.form.type = 2;
+      this.postRequest("/honer/insertHoner", this.form).then(res => {
+        this.clear();
+      });
     },
     changeOption() {
       this.form.honorName = "";
