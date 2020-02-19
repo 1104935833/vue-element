@@ -1,43 +1,65 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="12">
-        著作名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        所属学科：
+      <el-col>
+        论文标题：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        主&nbsp;题&nbsp;词：
+        第一作者：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="12">
-        联系电话：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        作者名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
+        通讯作者：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
+      <el-col>
+        第一作者类型:
+        <el-radio v-model="radio" label="1">本校老师</el-radio>
+        <el-radio v-model="radio" label="2">本校学生</el-radio>
+        <el-radio v-model="radio" label="3">外校人员</el-radio>
+      </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12">
-        著作完成时间：
+        发表刊物/论文集：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        发表出版时间：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        学校署名：
+        <el-radio v-model="radio" label="1">第一单位</el-radio>
+        <el-radio v-model="radio" label="2">非第一单位</el-radio>
+      </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12">
-        出版册数：
+        卷号：
         <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        页码范围：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        等级:
+        <el-radio v-model="radio" label="1">一级</el-radio>
+        <el-radio v-model="radio" label="2">二级</el-radio>
+        <el-radio v-model="radio" label="3">三级</el-radio>
+        <el-radio v-model="radio" label="4">EI</el-radio>
+        <el-radio v-model="radio" label="5">SCI</el-radio>
+        <el-radio v-model="radio" label="6">CSSCI</el-radio>
       </el-col>
     </el-row>
     <el-row>
@@ -74,7 +96,7 @@
 export default {
   data() {
     return {
-      input: ""
+      radio: ""
     };
   }
 };

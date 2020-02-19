@@ -1,42 +1,58 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="12">
-        著作名称：
+      <el-col>
+        项目名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
-      <el-col :span="12">
-        所属学科：
+    </el-row>
+    <el-row>
+      <el-col>
+        发明单位：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        项目负责人：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        专利名称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        专利证号：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        主&nbsp;题&nbsp;词：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        联系电话：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        作者名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        著作完成时间：
+        起始时间：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
       <el-col :span="12">
-        出版册数：
+        结束时间：
+        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        受让单位名称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        受让单位法定代表人：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        受让单位联系方式或通讯地址：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
@@ -74,7 +90,7 @@
 export default {
   data() {
     return {
-      input: ""
+      radio: ""
     };
   }
 };
