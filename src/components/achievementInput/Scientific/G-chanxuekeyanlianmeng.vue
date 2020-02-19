@@ -4,14 +4,14 @@
       <!--第1行-->
       <el-col :span="10">
         <div>
-          依托学校：
+          联盟名称(全称)：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          学科名称：
+          联盟协议生效时间：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -20,14 +20,14 @@
     <el-row>
       <el-col :span="10">
         <div class="grid-content bg-purple">
-          联系人：
+          技术领域：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          联系电话：
+          联盟理事长：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -37,7 +37,7 @@
       <!--第3行第1列-->
       <el-col :span="10">
         <div class="grid-content bg-purple">
-          申报学科名称：
+          所在单位：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -45,7 +45,7 @@
       <!--第3行第2列-->
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          学科带头人：
+          联系方式：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -55,7 +55,7 @@
       <!--第4行第1列-->
       <el-col>
         <div class="grid-content bg-purple">
-          获得学位授权情况（名称、时间）：
+          联盟常设机构的依托单位名称：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -64,7 +64,7 @@
     <el-row>
       <el-col>
         <div class="grid-content bg-purple">
-          学科第三方评价情况（各类国际国内权威学科评估等）：
+          常设机构通讯地址：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>

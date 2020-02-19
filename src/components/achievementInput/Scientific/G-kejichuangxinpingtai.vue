@@ -4,14 +4,14 @@
       <!--第1行-->
       <el-col :span="10">
         <div>
-          依托学校：
+          项目名称：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          学科名称：
+          申报单位：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -20,14 +20,14 @@
     <el-row>
       <el-col :span="10">
         <div class="grid-content bg-purple">
-          联系人：
+          计划类别：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          联系电话：
+          专题名称：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -37,7 +37,7 @@
       <!--第3行第1列-->
       <el-col :span="10">
         <div class="grid-content bg-purple">
-          申报学科名称：
+          支持单位：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -45,7 +45,7 @@
       <!--第3行第2列-->
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          学科带头人：
+          申报时间：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
@@ -53,75 +53,107 @@
     <!--第4行-->
     <el-row>
       <!--第4行第1列-->
-      <el-col>
+      <el-col :span="10">
         <div class="grid-content bg-purple">
-          获得学位授权情况（名称、时间）：
+          组织单位：
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+        </div>
+      </el-col>
+      <el-col :span="2">&nbsp;</el-col>
+      <el-col :span="12">
+          <div class="grid-content bg-purple">
+          联系地址：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
     <!--第5行-->
     <el-row>
-      <el-col>
-        <div class="grid-content bg-purple">
-          学科第三方评价情况（各类国际国内权威学科评估等）：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
-        </div>
-      </el-col>
-    </el-row>
-    <!--第6行-->
-    <el-row>
-        <el-col>
-            <el-row>
-      <!--第6行第1列-->
       <el-col :span="10">
         <div class="grid-content bg-purple">
-          批准部门：
+          申报时间：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
-      <!--第6行第1列-->
       <el-col :span="12">
         <div class="grid-content bg-purple">
-          批准时间：
+          申报单位名称：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
-        </el-col>
-    </el-row>
-    <!--第7行-->
+    
     <el-row>
-        <el-col align="center">
-            上传佐证材料：
-        </el-col>
+      
+    </el-row>
+    <el-row>
+      <el-col :span="10">
+        <div class="grid-content bg-purple">
+          负责人：
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+        </div>
+      </el-col>
+      <el-col :span="2">&nbsp;</el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple">
+          联系方式：
+          <el-input v-model="input" placeholder="请输入内容"></el-input>
+        </div>
+      </el-col>
+    </el-row>
+    <!--第9行-->
+    <el-row>
+      <el-col>
+        <el-row>
+          <!--第9行第1列-->
+          <el-col :span="10">
+            <div class="grid-content bg-purple">
+              批准部门：
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </div>
+          </el-col>
+          <el-col :span="2">&nbsp;</el-col>
+          <!--第9行第1列-->
+          <el-col :span="12">
+            <div class="grid-content bg-purple">
+              批准时间：
+              <el-input v-model="input" placeholder="请输入内容"></el-input>
+            </div>
+          </el-col>
+        </el-row>
+      </el-col>
+    </el-row>
+    <!--第8行-->
+    <el-row>
+      <el-col align="center">上传佐证材料：</el-col>
     </el-row>
     <!--上传文件-->
     <el-row>
       <el-col :span="24" align="center">
-          <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        multiple
-      >
-        <i class="el-icon-upload"></i>
-        
-        <div class="el-upload__text">
-          将文件拖到此处，或<em>点击上传</em>
-        </div>
-      </el-upload>
+        <el-upload
+          class="upload-demo"
+          drag
+          action="https://jsonplaceholder.typicode.com/posts/"
+          multiple
+        >
+          <i class="el-icon-upload"></i>
+
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+        </el-upload>
       </el-col>
     </el-row>
     <!--提交重置-->
     <el-row>
-        <el-col :span="12" align="center">
-            <el-button >提  交</el-button>
-        </el-col>
-        <el-col :span="12" align="center">
-            <el-button >重  置</el-button>
-        </el-col>
+      <el-col :span="12" align="center">
+        <el-button>提 交</el-button>
+      </el-col>
+      <el-col :span="12" align="center">
+        <el-button>重 置</el-button>
+      </el-col>
     </el-row>
   </div>
 </template>
