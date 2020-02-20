@@ -95,7 +95,7 @@ export default {
       peddingList: [],
       totalCount: -1,
       currentPage: 1,
-      type: 1
+      type: ""
     };
   },
   created() {
@@ -123,7 +123,7 @@ export default {
       this.getRequest("/getTableName", { tableId: row.table_id }).then(res => {
         this.message1 = res.data.tableName;
         this.dialogVisible = true;
-        this.type = 1;
+        this.type = {message:this.message1,type:1,tableid:row.table_id};
       });
     },
     getpeddingList() {
