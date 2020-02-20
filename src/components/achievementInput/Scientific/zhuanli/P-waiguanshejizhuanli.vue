@@ -2,61 +2,61 @@
   <div>
     <el-row>
       <el-col>
-        Íâ¹ÛÉè¼Æ×¨ÀûÃû³Æ£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        å¤–è§‚è®¾è®¡ä¸“åˆ©åç§°ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        Éè¼ÆÈË£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        è®¾è®¡äººï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
       <el-col :span="12">
-        ÁªÏµµç»°£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        è”ç³»ç”µè¯ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        ÉêÇëÈË£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ç”³è¯·äººï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
       <el-col :span="12">
-        ÉêÇëºÅ£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        ÉêÇëÈËÍ¨Ñ¶µØÖ·£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ç”³è¯·å·ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        ×¨Àû´úÀí»ú¹¹Ãû³Æ£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ç”³è¯·äººé€šè®¯åœ°å€ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        ×¨Àû´úÀí»ú¹¹ËùÔÚµØÇø£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ä¸“åˆ©ä»£ç†æœºæž„åç§°ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        ä¸“åˆ©ä»£ç†æœºæž„æ‰€åœ¨åœ°åŒºï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        ´úÀí»ú¹¹´úÂë£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ä»£ç†æœºæž„ä»£ç ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
       <el-col :span="12">
-        ×¨ÀûºÅ£º
-        <el-input placeholder="ÇëÊäÈë..."></el-input>
+        ä¸“åˆ©å·ï¼š
+        <el-input placeholder="è¯·è¾“å…¥..."></el-input>
       </el-col>
     </el-row>
     <el-row>
         <el-col align="center">
-            ÉÏ´«×ôÖ¤²ÄÁÏ£º
+            ä¸Šä¼ ä½è¯ææ–™ï¼š
         </el-col>
     </el-row>
     <el-row>
@@ -69,17 +69,17 @@
         <i class="el-icon-upload"></i>
 
         <div class="el-upload__text">
-          ½«ÎÄ¼þÍÏµ½´Ë´¦£¬»ò<em>µã»÷ÉÏ´«</em>
+          å°†æ–‡ä»¶æ‹–åˆ°æ­¤å¤„ï¼Œæˆ–<em>ç‚¹å‡»ä¸Šä¼ </em>
         </div>
       </el-upload>
       </el-col>
     </el-row>
     <el-row>
         <el-col :span="12" align="center">
-            <el-button >Ìá  ½»</el-button>
+            <el-button >æ  äº¤</el-button>
         </el-col>
         <el-col :span="12" align="center">
-            <el-button >ÖØ  ÖÃ</el-button>
+            <el-button >é‡  ç½®</el-button>
         </el-col>
     </el-row>
   </div>
