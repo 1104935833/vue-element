@@ -76,7 +76,7 @@
             </el-col>
           </el-form-item>
 
-          <el-form-item v-if="msgType!=1">
+          <el-form-item v-if="msgType==undefined">
             <el-button type="primary" @click="onSubmit">提交</el-button>
             <el-button @click="clear">取消</el-button>
           </el-form-item>
@@ -107,7 +107,12 @@ export default {
     };
   },
   mounted() {
-    this.msgType = this.$attrs.msgType;
+   let msg=this.$attrs.msgType;
+    if(msg ===undefined){
+      this.msgType = undefined;
+    }
+    else
+      this.msgType =msg.type;
   },
   created() {
     this.init();

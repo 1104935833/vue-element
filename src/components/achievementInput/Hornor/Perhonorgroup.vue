@@ -109,12 +109,16 @@ export default {
       },
       optionsType: [],
       optionsName: [],
-      msgType: ""
+      msgType :""
     };
   },
   mounted() {
-    this.msgType = this.$attrs.msgType.type;
-     console.log(this.msgType)
+    let msg=this.$attrs.msgType;
+    if(msg ===undefined){
+      this.msgType = undefined;
+    }
+    else
+      this.msgType =msg.type;
   },
   created() {
     this.init();
