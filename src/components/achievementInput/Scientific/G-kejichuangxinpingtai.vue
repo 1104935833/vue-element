@@ -61,7 +61,7 @@
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
-          <div class="grid-content bg-purple">
+        <div class="grid-content bg-purple">
           联系地址：
           <el-input v-model="input" placeholder="请输入内容"></el-input>
         </div>
@@ -83,10 +83,8 @@
         </div>
       </el-col>
     </el-row>
-    
-    <el-row>
-      
-    </el-row>
+
+    <el-row></el-row>
     <el-row>
       <el-col :span="10">
         <div class="grid-content bg-purple">
@@ -149,10 +147,15 @@
     <!--提交重置-->
     <el-row>
       <el-col :span="12" align="center">
-        <el-button>提 交</el-button>
-      </el-col>
-      <el-col :span="12" align="center">
-        <el-button>重 置</el-button>
+        <div v-if="msgType==undefined">
+          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <el-button @click=" clear">取消</el-button>
+        </div>
+
+        <div v-if="msgType==1">
+          <el-button type="primary" @click="onSubmit">通过</el-button>
+          <el-button @click="clear">不通过</el-button>
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -161,7 +164,8 @@
 export default {
   data() {
     return {
-      input: ""
+      input: "",
+      msgType:2,
     };
   }
 };
