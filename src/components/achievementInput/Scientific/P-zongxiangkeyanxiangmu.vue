@@ -2,41 +2,49 @@
   <div>
     <el-row>
       <el-col :span="12">
-        著作名称：
-        <el-input placeholder="请输入..."></el-input>
+        日期：
+        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
       <el-col :span="12">
-        所属学科：
-        <el-input placeholder="请输入..."></el-input>
+        所在部门：
+      <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        主&nbsp;题&nbsp;词：
+        项目负责人：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
+      <el-col :span="12">
+        职称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12">
         联系电话：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
-    </el-row>
-    <el-row>
       <el-col :span="12">
-        作者名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
+        申请总额：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
-        著作完成时间：
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+      <el-col>
+        项目名称：
+        <el-input placeholder="请输入..."></el-input>
       </el-col>
-      <el-col :span="12">
-        出版册数：
+    </el-row>
+    <el-row>
+      <el-col>
+        项目依托单位：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        项目类型：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
@@ -74,7 +82,7 @@
 export default {
   data() {
     return {
-      input: ""
+      radio: ""
     };
   }
 };

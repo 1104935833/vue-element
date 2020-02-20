@@ -1,42 +1,86 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="12">
-        著作名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        所属学科：
+      <el-col>
+        软件全称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        主&nbsp;题&nbsp;词：
+        软件简称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="12">
-        联系电话：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12">
-        作者名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
+        版本号：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
-        著作完成时间：
+        开发完成日期：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
+    </el-row>
+    <el-row>
       <el-col :span="12">
-        出版册数：
+        编程语言：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        源程序量：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        硬件环境：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        软件环境：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        著作人姓名：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        著作人通讯地址：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        申请人：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        代理人：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        专利代理机构名称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        专利代理机构所在地区：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="12">
+        代理机构代码：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="12">
+        专利号：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
@@ -74,7 +118,7 @@
 export default {
   data() {
     return {
-      input: ""
+      radio: ""
     };
   }
 };

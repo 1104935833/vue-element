@@ -80,7 +80,7 @@
               </el-upload>
             </el-col>
           </el-form-item>
-          <el-form-item v-if="msgType!=1">
+          <el-form-item v-if="msgType==undefined">
             <el-button type="primary" @click="onSubmit">提交</el-button>
             <el-button @click="clear">取消</el-button>
           </el-form-item>
@@ -113,7 +113,8 @@ export default {
     };
   },
   mounted() {
-    this.msgType = this.$attrs.msgType;
+    this.msgType = this.$attrs.msgType.type;
+     console.log(this.msgType)
   },
   created() {
     this.init();
