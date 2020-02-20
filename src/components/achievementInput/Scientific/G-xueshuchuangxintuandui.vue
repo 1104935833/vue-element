@@ -74,7 +74,8 @@
     </el-row>
     <el-row>
         <el-col>&nbsp;</el-col>
-        <el-col align="center">
+        <el-col>
+          等级：
             <el-radio v-model="radio" label="1">国家级</el-radio>
             <el-radio v-model="radio" label="2">省部级</el-radio>
             <el-radio v-model="radio" label="3">市厅级</el-radio>
