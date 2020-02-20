@@ -2,36 +2,36 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="论文">
-        <Lunwen></Lunwen>
+        <Paper></Paper>
       </el-tab-pane>
       <el-tab-pane label="专著">
-        <Zhuanzhu></Zhuanzhu>
+        <Monographs></Monographs>
       </el-tab-pane>
       <el-tab-pane label="专利">
-        <Zhuanli></Zhuanli>
+        <Patent></Patent>
       </el-tab-pane>
       <el-tab-pane label="纵向科研项目">
-        <Zhongxiang></Zhongxiang>
+        <Portrait></Portrait>
       </el-tab-pane>
       <el-tab-pane label="横向科研项目">
-        <Henxiang></Henxiang>
+        <Transverse></Transverse>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import lunwen from "./P-lunwen";
-import zhuanzhu from "./P-zhuanzhu";
-import zhuanli from "./P-zhuanli";
-import zhongxiang from "./P-zongxiangkeyanxiangmu";
-import henxiang from "./P-waixiangkeyanxiangmu";
+import paper from "./paper.vue";
+import monographs from "./monographs.vue";
+import patent from "./patent.vue";
+import portrait from "./portrait.vue";
+import transverse from "./transverse.vue";
 export default {
   components:{
-    Lunwen:lunwen,
-    Zhuanzhu:zhuanzhu,
-    Zhongxiang:zhongxiang,
-    Henxiang:henxiang,
-    Zhuanli:zhuanli
+    Paper:paper,
+    Monographs:monographs,
+    Portrait:portrait,
+    Transverse:transverse,
+    Patent:patent
   },
 
 };
