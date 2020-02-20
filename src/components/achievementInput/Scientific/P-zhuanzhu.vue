@@ -1,43 +1,47 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         著作名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
+      <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         所属学科：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         主&nbsp;题&nbsp;词：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
+      <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         联系电话：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="10">
         作者名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
+      <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         总&nbsp;字&nbsp;数：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
+      <el-col :span="10">
+        出版册数：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         著作完成时间：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
-      </el-col>
-      <el-col :span="12">
-        出版册数：
-        <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -61,12 +65,17 @@
       </el-col>
     </el-row>
     <el-row>
-        <el-col :span="12" align="center">
-            <el-button >提  交</el-button>
-        </el-col>
-        <el-col :span="12" align="center">
-            <el-button >重  置</el-button>
-        </el-col>
+      <el-col :span="12" align="center">
+        <div v-if="msgType==undefined">
+          <el-button type="primary" @click="onSubmit">提交</el-button>
+          <el-button @click=" clear">取消</el-button>
+        </div>
+
+        <div v-if="msgType==1">
+          <el-button type="primary" @click="onSubmit">通过</el-button>
+          <el-button @click="clear">不通过</el-button>
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
@@ -74,7 +83,8 @@
 export default {
   data() {
     return {
-      input: ""
+      input: "",
+      msgType:2
     };
   }
 };
