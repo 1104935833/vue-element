@@ -114,6 +114,7 @@ export default {
   },
   mounted() {
     let msg=this.$attrs.msgType;
+    console.log(msg);
     if(msg ===undefined){
       this.msgType = undefined;
     }

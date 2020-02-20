@@ -3,58 +3,58 @@
     <el-row>
       <el-col>
         项目名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.projectName"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         发明单位：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.inventionUnit"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         项目负责人：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.projectLeader"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         专利名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.inventName"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         专利证号：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.patentNumber"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12">
         起始时间：
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
       <el-col :span="12">
         结束时间：
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="form.finishTime" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         受让单位名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.acceptingUniName"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         受让单位法定代表人：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.acceptingUnitRepresentative"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         受让单位联系方式或通讯地址：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.acceptingUnitPhone"></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -96,9 +96,89 @@
 export default {
   data() {
     return {
+      form: {
+        id: "",
+        inventName: "",
+        inventor: "",
+        phone: "",
+        inventAddress: "",
+        applicant: "",
+        agent: "",
+        applicationNumber: "",
+        applicantAddress: "",
+        agencyName: "",
+        agencyAddress: "",
+        agencyCode: "",
+        patentNumber: "",
+        softwareFullName: "",
+        softwareShortName: "",
+        versionNumber: "",
+        startTime: "",
+        finishTime: "",
+        programmingLanguage: "",
+        programAmount: "",
+        hardwareEnvironment: "",
+        softwareEnvironment: "",
+        projectName: "",
+        inventionUnit: "",
+        projectLeader: "",
+        acceptingUniName: "",
+        acceptingUnitRepresentative: "",
+        acceptingUnitPhone: "",
+        acceptingUnitAddress: "",
+        fileId: "",
+        type: ""
+      },
       input: "",
-      msgType:2
+      msgType: 2
     };
+  },
+  mounted() {
+    let msg = this.$attrs.msgType;
+    if (msg === undefined) {
+      this.msgType = undefined;
+    } else this.msgType = msg.type;
+  },
+  created() {},
+  methods: {
+    onSubmit() {
+      this.postRequest("/insertPatentInvent", this.form).then(res => {});
+    },
+    clear() {
+      this.form = {
+        id: "",
+        inventName: "",
+        inventor: "",
+        phone: "",
+        inventAddress: "",
+        applicant: "",
+        agent: "",
+        applicationNumber: "",
+        applicantAddress: "",
+        agencyName: "",
+        agencyAddress: "",
+        agencyCode: "",
+        patentNumber: "",
+        softwareFullName: "",
+        softwareShortName: "",
+        versionNumber: "",
+        startTime: "",
+        finishTime: "",
+        programmingLanguage: "",
+        programAmount: "",
+        hardwareEnvironment: "",
+        softwareEnvironment: "",
+        projectName: "",
+        inventionUnit: "",
+        projectLeader: "",
+        acceptingUniName: "",
+        acceptingUnitRepresentative: "",
+        acceptingUnitPhone: "",
+        acceptingUnitAddress: "",
+        fileId: "",
+        type: ""
+      };
+    }
   }
 };
 </script>
