@@ -30,7 +30,7 @@
     <firstSubject v-if="this.tableName.state=='17'" v-bind="$attrs"></firstSubject>
     <lab v-if="this.tableName.state=='18'" v-bind="$attrs"></lab>
     <monographs v-if="this.tableName.state=='8'" v-bind="$attrs"></monographs>
-    <paper v-if="this.tableName.state=='7'" v-bind="$attrs"></paper>
+    <paper v-if="this.tableName.state=='7'" v-bind="$attrs" v-on:listenToChild="showMsgFromChild"></paper>
     <production v-if="this.tableName.state=='20'" v-bind="$attrs"></production>
     <portrait v-if="this.tableName.state=='10'" v-bind="$attrs"></portrait>
     <technological v-if="this.tableName.state=='19'" v-bind="$attrs"></technological>
@@ -79,7 +79,8 @@ export default {
   },
   data() {
     return {
-      tableName: this.message
+      tableName: this.message,
+      chilData:""
     };
   },
   mounted(){
@@ -87,9 +88,16 @@ export default {
   },
 
   created() {
-    // console.log(this.msgType);
+    // this.showMsgFromChild();
   },
   methods: {
+    sendMsgToGrand(){
+      this.$emit("listenToGrand",this.chilData);
+    },
+    showMsgFromChild(data){
+      this.chilData = data;
+      this.sendMsgToGrand()
+    },
     getComponents(){
         this.tableName= this.message
     }

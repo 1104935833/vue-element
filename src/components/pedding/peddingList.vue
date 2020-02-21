@@ -43,7 +43,7 @@ export default {
       this.getpeddingList();
     },
     showPeddingInfo(row) {
-      console.log(row.tableId);
+      this.$router.push({path:row.url});
     },
     getpeddingList() {
       this.getRequest("/getPeddingName",{page:this.currentPage,size:10}).then(res => {

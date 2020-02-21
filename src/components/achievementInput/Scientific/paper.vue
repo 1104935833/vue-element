@@ -21,9 +21,9 @@
       <el-col>
         第一作者类型:
         <el-radio-group v-model="form.firstAuthorType">
-          <el-radio :label="1">本校老师</el-radio>
-          <el-radio :label="2">本校学生</el-radio>
-          <el-radio :label="9">外校人员</el-radio>
+          <el-radio :label=0>本校老师</el-radio>
+          <el-radio :label=1>本校学生</el-radio>
+          <el-radio :label=2>外校人员</el-radio>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -44,7 +44,6 @@
         <el-radio-group v-model="form.paperSchool">
           <el-radio :label="1">第一单位</el-radio>
           <el-radio :label="2">非第一单位</el-radio>
-          <el-radio :label="9">备选项</el-radio>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -137,7 +136,7 @@ export default {
       input: "",
       radio: "",
       msgType: "",
-      msg: ""
+      msg: "",
     };
   },
   mounted() {
@@ -153,8 +152,14 @@ export default {
   },
   created() {},
   methods: {
+    sendMsgToParent:function(){
+      this.$emit("listenToChild",false);
+    },
     check(state,agree){
-      this.getRequest("/check",{tableId:this.msg.message.table_id,status:state,id:this.msg.tableid.id,agree:agree})
+     
+      this.getRequest("/check",{tableId:this.msg.message.table_id,status:state,id:this.msg.tableid.id,agree:agree}).then(res=>{
+         this.sendMsgToParent();
+      })
     },
     updata() {
       this.post("/updataPaper", {
@@ -175,7 +180,9 @@ export default {
       console.log(this.msg);
     },
     onSubmit() {
-      this.postRequest("/insertPaper", this.form).then(res => {});
+      this.postRequest("/insertPaper", this.form).then(res => {
+        this.clear()
+      });
     },
     clear() {
       this.form = {
