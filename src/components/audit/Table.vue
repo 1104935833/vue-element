@@ -82,10 +82,17 @@ export default {
       tableName: this.message
     };
   },
+  mounted(){
+     this.getComponents();
+  },
 
   created() {
     // console.log(this.msgType);
   },
-  methods: {}
+  methods: {
+    getComponents(){
+        this.tableName= this.message
+    }
+  }
 };
 </script>

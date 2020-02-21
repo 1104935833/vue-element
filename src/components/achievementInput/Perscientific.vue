@@ -25,35 +25,15 @@ import group from "./Scientific/Perscientificgroup";
 export default {
   data() {
     return {
-      form: {
-        options: []
-      },
-      a: ""
+    
     };
   },
   components: {
     Personal: personal,
     Group: group
   },
-  created() {
-    this.init();
-  },
-  methods: {
-    onSubmit() {
-      console.log("submit!");
-    },
-    tf() {
-      console.log(this.a);
-      this.f = false;
-    },
-    init() {
-      this.getRequest("/test/option", {
-        option: "paper",
-        title: "publication_type"
-      }).then(res => {
-        this.form.options = res.data.options;
-      });
-    }
-  }
+ 
+    
+  
 };
 </script>

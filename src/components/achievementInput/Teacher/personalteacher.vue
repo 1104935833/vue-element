@@ -5,24 +5,60 @@
         <xueshengkeyanzhidao></xueshengkeyanzhidao>
       </el-tab-pane>
       <el-tab-pane label="教学技能竞赛">
-        <Jiaoxuejinengjingsai></Jiaoxuejinengjingsai>
+        <jiaoxuejinengjingsai></jiaoxuejinengjingsai>
       </el-tab-pane>
       <el-tab-pane label="学科竞赛指导">
-        <Xuekejingsaizhidao></Xuekejingsaizhidao>
+        <xuekejingsaizhidao></xuekejingsaizhidao>
+      </el-tab-pane>
+      <el-tab-pane label="学科竞赛指导">
+        <jiaogaixiangmu></jiaogaixiangmu>
+      </el-tab-pane>
+      <el-tab-pane label="学科竞赛指导">
+        <jiaoxuechengguojiang></jiaoxuechengguojiang>
+      </el-tab-pane>
+      <el-tab-pane label="学科竞赛指导111111">
+        <jiaoxuejinengjingsai></jiaoxuejinengjingsai>
+      </el-tab-pane>
+      <el-tab-pane label="学科竞赛指导">
+        <jiaoyanjiaogailunwen></jiaoyanjiaogailunwen>
+      </el-tab-pane>
+      <el-tab-pane label="学科竞赛指导">
+        <kechengjiansheyukechenggaige></kechengjiansheyukechenggaige>
+      </el-tab-pane>
+       <el-tab-pane label="学科竞赛指导">
+         <xueshengkeyanzhidao></xueshengkeyanzhidao>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
+
+            
+    
+            
+    
+            
+           
+
 <script>
-import xuekejingsaizhidao from "./P-xuekejingsaizhidao";
+import jiaocaibianxie from "./P-jiaocaibianxie";
+import jiaogaixiangmu from "./P-jiaogaixiangmu";
+import jiaoxuechengguojiang from "./P-jiaoxuechengguojiang";
 import jiaoxuejinengjingsai from "./P-jiaoxuejinengjingsai";
+import jiaoyanjiaogailunwen from "./P-jiaoyanjiaogailunwen";
+import kechengjiansheyukechenggaige from "./P-kechengjiansheyukechenggaige";
+import xuekejingsaizhidao from "./P-xuekejingsaizhidao";
 import xueshengkeyanzhidao from "./P-xueshengkeyanzhidao";
 export default {
   components: {
-    Xuekejingsaizhidao: xuekejingsaizhidao,
-    Jiaoxuejinengjingsai: jiaoxuejinengjingsai,
-    Xueshengkeyanzhidao: xueshengkeyanzhidao
+    jiaocaibianxie: jiaocaibianxie,
+    jiaogaixiangmu: jiaogaixiangmu,
+    jiaoxuechengguojiang: jiaoxuechengguojiang,
+    jiaoxuejinengjingsai: jiaoxuejinengjingsai,
+    jiaoyanjiaogailunwen: jiaoyanjiaogailunwen,
+    kechengjiansheyukechenggaige: kechengjiansheyukechenggaige,
+    xuekejingsaizhidao: xuekejingsaizhidao,
+    xueshengkeyanzhidao: xueshengkeyanzhidao
   }
 };
 </script>

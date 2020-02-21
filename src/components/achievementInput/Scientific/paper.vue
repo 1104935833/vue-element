@@ -78,24 +78,24 @@
     <el-row>
       <el-col :span="24" align="center">
         <el-upload
-                ref="file"
-                class="upload-demo"
-                drag
-                acceept="application/pdf"
-                action="/common/file"
-                :on-success="handleSuccess"
-                accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
-                :on-remove="handleRemove"
-                :on-error="handleError"
-                multiple
-              >
-                <i class="el-icon-upload"></i>
-                <div class="el-upload__text">
-                  将文件拖到此处，或
-                  <em>点击上传</em>
-                </div>
-                <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
-              </el-upload>
+          ref="file"
+          class="upload-demo"
+          drag
+          acceept="application/pdf"
+          action="/common/file"
+          :on-success="handleSuccess"
+          accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+          :on-remove="handleRemove"
+          :on-error="handleError"
+          multiple
+        >
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
+        </el-upload>
       </el-col>
     </el-row>
     <el-row>
@@ -104,10 +104,13 @@
           <el-button type="primary" @click="onSubmit">提交</el-button>
           <el-button @click=" clear">取消</el-button>
         </div>
-
-        <div v-if="msgType==1">
-          <el-button type="primary" @click="onSubmit">通过</el-button>
-          <el-button @click="clear">不通过</el-button>
+        <!-- 修改 -->
+        <div>
+          <el-button type="primary" @click="updata()">修改</el-button>
+        </div>
+        <div v-if="msgType==0 || msgType==1">
+          <el-button type="primary" @click="check('1','1')">通过</el-button>
+          <el-button @click="check('2','0')">不通过</el-button>
         </div>
       </el-col>
     </el-row>
@@ -115,6 +118,7 @@
 </template>
 <script>
 export default {
+  props: ["msgs"],
   data() {
     return {
       form: {
@@ -132,17 +136,44 @@ export default {
       },
       input: "",
       radio: "",
-      msgType: 2
+      msgType: "",
+      msg: ""
     };
   },
   mounted() {
-    let msg = this.$attrs.msgType;
-    if (msg === undefined) {
-      this.msgType = undefined;
-    } else this.msgType = msg.type;
+    this.getComponents();
+    if(this.msgType!=undefined){
+    this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
+      res => {
+        this.form = res.data.res;
+        console.log(this.form);
+      }
+    );
+    }
   },
   created() {},
   methods: {
+    check(state,agree){
+      this.getRequest("/check",{tableId:this.msg.message.table_id,status:state,id:this.msg.tableid.id,agree:agree})
+    },
+    updata() {
+      this.post("/updataPaper", {
+        paper: this.form,
+        tableId: this.msg.tableid.table_id,
+        id: this.msg.tableid.id
+      });
+    },
+    getComponents() {
+      let msg = this.$attrs.msgType;
+
+      if (msg === undefined) {
+        this.msgType = undefined;
+      } else {
+        this.msgType = msg.type;
+        this.msg = msg;
+      }
+      console.log(this.msg);
+    },
     onSubmit() {
       this.postRequest("/insertPaper", this.form).then(res => {});
     },
@@ -160,6 +191,30 @@ export default {
         paperPage: "",
         paperGrade: ""
       };
+    },
+    handleSuccess(response, file, fileList) {
+      console.log(file);
+      if (file.status == "success") {
+        this.$message({ message: "文件上传成功", type: "success" });
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      //文件移除钩子
+      this.getRequest("/common/delFile", {
+        fileName: file.response.obj.fileName,
+        fileId: file.response.obj.fileId
+      }).then(res => {});
+    },
+    handleError(err, file, fileList) {
+      //上传失败钩子
+      this.$message.error("文件上传失败");
+    },
+    handlePreview(file) {
+      //点击文件列表中已上传的文件时的钩子
+      // console.log(file);
     }
   }
 };

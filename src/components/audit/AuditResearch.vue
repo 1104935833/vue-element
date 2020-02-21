@@ -54,7 +54,7 @@
       :total="totalCount"
     ></el-pagination>
     <el-dialog title="审核" :visible.sync="dialogVisible" width="70%">
-      <Table :message="message1" :msgType="type"></Table>
+      <Table v-if="hackReset" :message="message1" :msgType="type"></Table>
     </el-dialog>
   </div>
 </template>
@@ -66,6 +66,7 @@ export default {
   },
   data() {
     return {
+      hackReset: true,
       dialogVisible: false,
       options: [
         {
@@ -102,6 +103,7 @@ export default {
     this.getpeddingList();
   },
   methods: {
+    detctInfo(index, row) {},
     searchEmp() {
       this.getRequest("/getAllAudit", {
         proposer_id: this.proposer_id,
@@ -121,9 +123,13 @@ export default {
     //查看
     showPeddingInfo(row) {
       this.getRequest("/getTableName", { tableId: row.table_id }).then(res => {
+        this.hackReset = false;
+        this.$nextTick(() => {
+          this.hackReset = true;
+        });
         this.message1 = res.data.tableName;
         this.dialogVisible = true;
-        this.type = {message:this.message1,type:1,tableid:row.table_id};
+        this.type = { message: this.message1, type: 1, tableid: row };
       });
     },
     getpeddingList() {
