@@ -160,7 +160,8 @@ export default {
         acceptingUnitPhone: "",
         acceptingUnitAddress: "",
         fileId: "",
-        type: ""
+        type: "",
+        tableState: -1
       },
       input: "",
       msgType: 2
@@ -175,6 +176,7 @@ export default {
   created() {},
   methods: {
     onSubmit() {
+      this.form.tableState=15;
       this.postRequest("/insertPatentInvent", this.form).then(res => {});
     },
     clear() {
@@ -209,7 +211,8 @@ export default {
         acceptingUnitPhone: "",
         acceptingUnitAddress: "",
         fileId: "",
-        type: ""
+        type: "",
+        tableState: -1
       };
     }
   }
