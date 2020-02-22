@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="22">
         <Personal></Personal>
       </el-col>
     </el-row>

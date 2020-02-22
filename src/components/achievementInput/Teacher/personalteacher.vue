@@ -10,23 +10,23 @@
       <el-tab-pane label="学科竞赛指导">
         <xuekejingsaizhidao></xuekejingsaizhidao>
       </el-tab-pane>
-      <el-tab-pane label="学科竞赛指导">
+      <el-tab-pane label="教改项目">
         <jiaogaixiangmu></jiaogaixiangmu>
       </el-tab-pane>
-      <el-tab-pane label="学科竞赛指导">
+      <el-tab-pane label="教学成果奖">
         <jiaoxuechengguojiang></jiaoxuechengguojiang>
       </el-tab-pane>
-      <el-tab-pane label="学科竞赛指导111111">
-        <jiaoxuejinengjingsai></jiaoxuejinengjingsai>
-      </el-tab-pane>
-      <el-tab-pane label="学科竞赛指导">
+      <el-tab-pane label="教研教改论文">
         <jiaoyanjiaogailunwen></jiaoyanjiaogailunwen>
       </el-tab-pane>
-      <el-tab-pane label="学科竞赛指导">
+      <el-tab-pane label="课程建设与课程改革">
         <kechengjiansheyukechenggaige></kechengjiansheyukechenggaige>
       </el-tab-pane>
-       <el-tab-pane label="学科竞赛指导">
-         <xueshengkeyanzhidao></xueshengkeyanzhidao>
+      <el-tab-pane label="教材编写">
+        <jiaocaibianxie></jiaocaibianxie>
+      </el-tab-pane>
+      <el-tab-pane label="专业建设">
+        <zhuanuejianshe></zhuanuejianshe>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -49,6 +49,7 @@ import jiaoyanjiaogailunwen from "./P-jiaoyanjiaogailunwen";
 import kechengjiansheyukechenggaige from "./P-kechengjiansheyukechenggaige";
 import xuekejingsaizhidao from "./P-xuekejingsaizhidao";
 import xueshengkeyanzhidao from "./P-xueshengkeyanzhidao";
+import zhuanuejianshe from "./G-zhuanyejianshe";
 export default {
   components: {
     jiaocaibianxie: jiaocaibianxie,
@@ -58,7 +59,8 @@ export default {
     jiaoyanjiaogailunwen: jiaoyanjiaogailunwen,
     kechengjiansheyukechenggaige: kechengjiansheyukechenggaige,
     xuekejingsaizhidao: xuekejingsaizhidao,
-    xueshengkeyanzhidao: xueshengkeyanzhidao
+    xueshengkeyanzhidao: xueshengkeyanzhidao,
+    zhuanuejianshe: zhuanuejianshe
   }
 };
 </script>
