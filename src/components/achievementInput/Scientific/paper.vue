@@ -21,9 +21,9 @@
       <el-col>
         第一作者类型:
         <el-radio-group v-model="form.firstAuthorType">
-          <el-radio :label=0>本校老师</el-radio>
-          <el-radio :label=1>本校学生</el-radio>
-          <el-radio :label=2>外校人员</el-radio>
+          <el-radio :label="0">本校老师</el-radio>
+          <el-radio :label="1">本校学生</el-radio>
+          <el-radio :label="2">外校人员</el-radio>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -35,15 +35,15 @@
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         发表出版时间：
-        <el-date-picker v-model="form.time" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="form.time" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" @change="dateChangebirthday"></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         学校署名：
         <el-radio-group v-model="form.paperSchool">
-          <el-radio :label="1">第一单位</el-radio>
-          <el-radio :label="2">非第一单位</el-radio>
+          <el-radio label="1">第一单位</el-radio>
+          <el-radio label="2">非第一单位</el-radio>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -62,12 +62,12 @@
       <el-col>
         等级:
         <el-radio-group v-model="form.paperGrade">
-          <el-radio label="1">一级</el-radio>
-          <el-radio label="2">二级</el-radio>
-          <el-radio label="3">三级</el-radio>
-          <el-radio label="4">EI</el-radio>
-          <el-radio label="5">SCI</el-radio>
-          <el-radio label="6">CSSCI</el-radio>
+          <el-radio :label="1">一级</el-radio>
+          <el-radio :label="2">二级</el-radio>
+          <el-radio :label="3">三级</el-radio>
+          <el-radio :label="4">EI</el-radio>
+          <el-radio :label="5">SCI</el-radio>
+          <el-radio :label="6">CSSCI</el-radio>
         </el-radio-group>
       </el-col>
     </el-row>
@@ -99,15 +99,15 @@
     </el-row>
     <el-row>
       <el-col :span="12" align="center">
-        <div v-if="msgType==undefined">
+        <div v-if="buttonShow==1">
           <el-button type="primary" @click="onSubmit">提交</el-button>
           <el-button @click=" clear">取消</el-button>
         </div>
         <!-- 修改 -->
-        <div>
+        <div v-if="buttonShow==3">
           <el-button type="primary" @click="updata()">修改</el-button>
         </div>
-        <div v-if="msgType==0 || msgType==1">
+        <div v-if="buttonShow==2">
           <el-button type="primary" @click="check('1','1')">通过</el-button>
           <el-button @click="check('2','0')">不通过</el-button>
         </div>
@@ -133,33 +133,74 @@ export default {
         paperPage: "",
         paperGrade: ""
       },
-      input: "",
-      radio: "",
       msgType: "",
       msg: "",
+      buttonShow: "",
+      role: ""
     };
   },
   mounted() {
     this.getComponents();
-    if(this.msgType!=undefined){
-    this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
-      res => {
-        this.form = res.data.res;
-        console.log(this.form);
-      }
-    );
+    let tableStatus = this.msg.tableid;
+    let user = JSON.parse(localStorage.getItem("user"));
+    console.log(user.roles);
+    if (this.msgType != undefined) {
+      console.log(this.msg);
+      this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
+        res => {
+          this.form = res.data.res;
+        }
+      );
+      this.getRequest("/common/getUserRole").then(res => {
+        this.role = res.data;
+        console.log(res.data == "");
+        if (
+          (res.data == 6 &&
+            tableStatus.auditor_court_name == undefined &&
+            tableStatus.auditor_research_name != undefined &&
+            tableStatus.audit_status != 0 &&
+            tableStatus.audit_status != 2) ||
+          (tableStatus.auditor_research_name == undefined &&
+            tableStatus.audit_status == 0 &&
+            res.data != 27 &&
+            res.data != "")
+        )
+          this.buttonShow = 2;
+        else if (
+          res.data == 27 ||
+          (res.data == "" && tableStatus.audit_status == 2)
+        ) {
+          this.buttonShow = 3;
+        }
+      });
+    } else {
+      this.buttonShow = 1;
     }
   },
-  created() {},
   methods: {
-    sendMsgToParent:function(){
-      this.$emit("listenToChild",false);
+    dateChangebirthday(val){
+      this.form.time = val;
     },
-    check(state,agree){
-     
-      this.getRequest("/check",{tableId:this.msg.message.table_id,status:state,id:this.msg.tableid.id,agree:agree}).then(res=>{
-         this.sendMsgToParent();
-      })
+    sendMsgToParent: function() {
+      this.$emit("listenToChild", false);
+    },
+    check(state, agree) {
+      console.log(this.msg.tableid.audit_status);
+      if (
+        this.msg.tableid.auditor_research_name == undefined &&
+        this.role == 6
+      ) {
+        this.$message({ type: "error", message: "请等待教研室审核" });
+      } else {
+        this.getRequest("/check", {
+          tableId: this.msg.message.table_id,
+          status: state,
+          id: this.msg.tableid.id,
+          agree: agree
+        }).then(res => {
+          this.sendMsgToParent();
+        });
+      }
     },
     updata() {
       this.post("/updataPaper", {
@@ -177,11 +218,10 @@ export default {
         this.msgType = msg.type;
         this.msg = msg;
       }
-      console.log(this.msg);
     },
     onSubmit() {
       this.postRequest("/insertPaper", this.form).then(res => {
-        this.clear()
+        this.clear();
       });
     },
     clear() {
