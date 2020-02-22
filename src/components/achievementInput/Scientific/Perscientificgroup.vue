@@ -2,36 +2,36 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="重点(一流学科)">
-        <Xueke></Xueke>
+        <FirstSubject></FirstSubject>
       </el-tab-pane>
       <el-tab-pane label="重点实验室">
-        <Shiyanshi></Shiyanshi>
+        <Lab></Lab>
       </el-tab-pane>
       <el-tab-pane label="科技创新平台">
-        <Pintai></Pintai>
+        <Technological></Technological>
       </el-tab-pane>
       <el-tab-pane label="产学科研联盟">
-        <Lianmen></Lianmen>
+        <Production></Production>
       </el-tab-pane>
       <el-tab-pane label="学术创新团队">
-        <Team></Team>
+        <Academic></Academic>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 <script>
-import xueke from "./G-yiliuxueke";
-import shiyanshi from "./G-zhongdianshiyanshi";
-import pintai from "./G-kejichuangxinpingtai";
-import lianmen from "./G-chanxuekeyanlianmeng";
-import team from "./G-xueshuchuangxintuandui";
+import firstSubject from "./firstSubject.vue";
+import lab from "./lab.vue";
+import technological from "./technological.vue";
+import production from "./production.vue";
+import academic from "./academic.vue";
 export default {
   components: {
-    Xueke: xueke,
-    Shiyanshi: shiyanshi,
-    Pintai: pintai,
-    Lianmen: lianmen,
-    Team: team
+    FirstSubject: firstSubject,
+    Lab: lab,
+    Technological: technological,
+    Production: production,
+    Academic: academic
   }
 };
 </script>

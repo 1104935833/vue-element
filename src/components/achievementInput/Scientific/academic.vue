@@ -74,7 +74,8 @@
     </el-row>
     <el-row>
         <el-col>&nbsp;</el-col>
-        <el-col align="center">
+        <el-col>
+          等级：
             <el-radio v-model="radio" label="1">国家级</el-radio>
             <el-radio v-model="radio" label="2">省部级</el-radio>
             <el-radio v-model="radio" label="3">市厅级</el-radio>
@@ -100,9 +101,35 @@
 export default {
   data() {
     return {
+      form:{
+        team_name:"",
+        team_personal:"",
+        direction:"",
+        school_place:"",
+        address:"",
+        head_phone:"",
+        declare_time:"",
+        competent_department:"",
+        level:"",
+        file_id:"",
+      },
       input: "",
       msgType:2,
     };
+  },
+  clear(){
+    this.form = {
+      team_name:"",
+        team_personal:"",
+        direction:"",
+        school_place:"",
+        address:"",
+        head_phone:"",
+        declare_time:"",
+        competent_department:"",
+        level:"",
+        file_id:"",
+    }
   }
 };
 </script>

@@ -2,53 +2,76 @@
   <div>
     <el-row>
       <el-col :span="10">
-        项目负责人：
+        项目名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
-        职称：
+        项目负责人：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
-        所在部门：
-      <el-input placeholder="请输入..."></el-input>
+        所属单位：
+        <el-input placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
-        日期：
+        项目所属专业：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10">
+        讲授的主要课程名称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="2">&nbsp;</el-col>
+      <el-col :span="12">
+        讲授的主要课程类别：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col :span="10">
+        主持的教学研究课题名称：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+      <el-col :span="2">&nbsp;</el-col>
+      <el-col :span="12">
+        主持的教学研究课题来源：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        申报时间：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
-        联系电话：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        申请总额：
-        <el-input placeholder="请输入..."></el-input>
+      <el-col>
+        项目类别:
+        <el-radio v-model="radio" label="1">总体研究</el-radio>
+        <el-radio v-model="radio" label="2">专业大类</el-radio>
+        <el-radio v-model="radio" label="3">教学管理</el-radio>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        项目名称：
-        <el-input placeholder="请输入..."></el-input>
+        申报项目类别:
+        <el-radio v-model="radio" label="1">重点项目</el-radio>
+        <el-radio v-model="radio" label="2">一般项目</el-radio>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        项目依托单位：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        项目类型：
-        <el-input placeholder="请输入..."></el-input>
+        等级:
+        <el-radio v-model="radio" label="1">国家级</el-radio>
+        <el-radio v-model="radio" label="2">省部级</el-radio>
+        <el-radio v-model="radio" label="3">市厅级</el-radio>
+        <el-radio v-model="radio" label="4">校院级</el-radio>
       </el-col>
     </el-row>
     <el-row>
@@ -90,7 +113,8 @@
 export default {
   data() {
     return {
-      input:"",
+      input: "",
+      radio:"",
       msgType:2
     };
   }

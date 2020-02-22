@@ -3,58 +3,58 @@
     <el-row>
       <el-col>
         实用新型专利名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.inventName"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         发明人：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.inventor"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         联系电话：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.phone"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         申请人：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.applicant"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         申请号：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.applicationNumber"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         申请人通讯地址：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.applicantAddress"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         专利代理机构名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.agencyName"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         专利代理机构所在地区：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.agencyAddress"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         代理机构代码：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.agencyCode"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         专利号：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input placeholder="请输入..." v-model="form.patentNumber"></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -96,9 +96,92 @@
 export default {
   data() {
     return {
+      form: {
+        id: "",
+        inventName: "",
+        inventor: "",
+        phone: "",
+        inventAddress: "",
+        applicant: "",
+        agent: "",
+        applicationNumber: "",
+        applicantAddress: "",
+        agencyName: "",
+        agencyAddress: "",
+        agencyCode: "",
+        patentNumber: "",
+        softwareFullName: "",
+        softwareShortName: "",
+        versionNumber: "",
+        startTime: "",
+        finishTime: "",
+        programmingLanguage: "",
+        programAmount: "",
+        hardwareEnvironment: "",
+        softwareEnvironment: "",
+        projectName: "",
+        inventionUnit: "",
+        projectLeader: "",
+        acceptingUniName: "",
+        acceptingUnitRepresentative: "",
+        acceptingUnitPhone: "",
+        acceptingUnitAddress: "",
+        fileId: "",
+        type: "",
+        tableState: -1
+      },
       input: "",
-      msgType:2
+      msgType: 2
     };
+  },
+  mounted() {
+    let msg = this.$attrs.msgType;
+    if (msg === undefined) {
+      this.msgType = undefined;
+    } else this.msgType = msg.type;
+  },
+  created() {},
+  methods: {
+    onSubmit() {
+      this.form.tableState=13;
+      this.postRequest("/insertPatentInvent", this.form).then(res => {});
+    },
+    clear() {
+      this.form = {
+        id: "",
+        inventName: "",
+        inventor: "",
+        phone: "",
+        inventAddress: "",
+        applicant: "",
+        agent: "",
+        applicationNumber: "",
+        applicantAddress: "",
+        agencyName: "",
+        agencyAddress: "",
+        agencyCode: "",
+        patentNumber: "",
+        softwareFullName: "",
+        softwareShortName: "",
+        versionNumber: "",
+        startTime: "",
+        finishTime: "",
+        programmingLanguage: "",
+        programAmount: "",
+        hardwareEnvironment: "",
+        softwareEnvironment: "",
+        projectName: "",
+        inventionUnit: "",
+        projectLeader: "",
+        acceptingUniName: "",
+        acceptingUnitRepresentative: "",
+        acceptingUnitPhone: "",
+        acceptingUnitAddress: "",
+        fileId: "",
+        type: "",
+        tableState: -1
+      };
+    }
   }
 };
 </script>

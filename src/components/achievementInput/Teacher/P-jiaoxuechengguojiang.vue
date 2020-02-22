@@ -1,47 +1,62 @@
 <template>
   <div>
     <el-row>
-      <el-col :span="10">
-        著作名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        所属学科：
+      <el-col>
+        成果名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
-        主&nbsp;题&nbsp;词：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        联系电话：
+      <el-col>
+        成果完成人：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
-        作者名称：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
+      <el-col>
+        成果完成单位：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
-        出版册数：
+      <el-col>
+        成果科类：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        著作完成时间：
+    </el-row>
+    <el-row>
+      <el-col>
+        申报单位：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        代码：
+        <el-input placeholder="请输入..."></el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        申请时间：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        等级:
+        <el-select v-model="region" placeholder="请选择等级">
+          <el-option label="国家级--特等"></el-option>
+          <el-option label="国家级--一等"></el-option>
+          <el-option label="国家级--二等"></el-option>
+          <el-option label="省级--一等"></el-option>
+          <el-option label="省级--二等"></el-option>
+          <el-option label="市厅级--校级"></el-option>
+          <el-option label="市厅级--院级"></el-option>
+          <el-option label="市厅级--一等"></el-option>
+          <el-option label="市厅级--二等"></el-option>
+          <el-option label="市厅级--三等"></el-option>
+        </el-select>
       </el-col>
     </el-row>
     <el-row>
@@ -84,6 +99,8 @@ export default {
   data() {
     return {
       input: "",
+      textarea:"",
+      region:"",
       msgType:2
     };
   }

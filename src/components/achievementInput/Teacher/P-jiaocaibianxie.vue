@@ -2,67 +2,91 @@
   <div>
     <el-row>
       <el-col>
-        论文标题：
+        教材名称：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
-        第一作者：
+        主编姓名：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
-        通讯作者：
+        参编姓名：
         <el-input placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        第一作者类型:
-        <el-radio v-model="radio" label="1">本校老师</el-radio>
-        <el-radio v-model="radio" label="2">本校学生</el-radio>
-        <el-radio v-model="radio" label="3">外校人员</el-radio>
+        本课程在专业课程体系中的地位：
+        <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+        </el-input>
       </el-col>
     </el-row>
     <el-row>
-      <el-col :span="10">
-        发表刊物/论文集：
-        <el-input placeholder="请输入..."></el-input>
+      <el-col>
+        本课程现有教材状况分析：
+        <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+        </el-input>
       </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        发表出版时间：
+    </el-row>
+    <el-row>
+      <el-col>
+        本课程的主要特色与创新：
+        <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        教材目录及编写人员：
+        <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        教材编写计划完成时间：
+        <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="请输入内容"
+            v-model="textarea">
+        </el-input>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col>
+        申报日期：
         <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
-        学校署名：
-        <el-radio v-model="radio" label="1">第一单位</el-radio>
-        <el-radio v-model="radio" label="2">非第一单位</el-radio>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        卷号：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        页码范围：
-        <el-input placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
         等级:
-        <el-radio v-model="radio" label="1">一级</el-radio>
-        <el-radio v-model="radio" label="2">二级</el-radio>
-        <el-radio v-model="radio" label="3">三级</el-radio>
-        <el-radio v-model="radio" label="4">EI</el-radio>
-        <el-radio v-model="radio" label="5">SCI</el-radio>
-        <el-radio v-model="radio" label="6">CSSCI</el-radio>
+        <el-radio v-model="radio" label="1">国家级</el-radio>
+        <el-radio v-model="radio" label="2">省部级</el-radio>
+        <el-radio v-model="radio" label="3">市厅级</el-radio>
+        <el-radio v-model="radio" label="4">校级</el-radio>
+        <el-radio v-model="radio" label="3">院级</el-radio>
+        <el-radio v-model="radio" label="4">未立项</el-radio>
       </el-col>
     </el-row>
     <el-row>
@@ -105,7 +129,8 @@ export default {
   data() {
     return {
       input: "",
-      radio: "",
+      textarea:"",
+      radio:"",
       msgType:2
     };
   }
