@@ -20,7 +20,7 @@
             </el-badge>
             <el-dropdown-menu slot="dropdown">
               <template >
-                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.name" :command="i.url">{{i.name}}</el-dropdown-item>
+                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.id" :command="i.url">{{i.name}}</el-dropdown-item>
               </template>
             </el-dropdown-menu>
           </el-dropdown>
