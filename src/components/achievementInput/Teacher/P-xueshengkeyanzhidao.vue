@@ -3,23 +3,23 @@
     <el-row>
       <el-col :span="10">
         项目名称：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.project_name" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         工程负责人：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.project_leader" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         指导教师：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.tutor" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         联系方式：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -30,7 +30,7 @@
     <el-row>
       <el-col>
         <div>
-          <el-radio-group v-model="radio1">
+          <el-radio-group v-model="form.wnning_grade">
             <el-radio-button label="国家级"></el-radio-button>
             <el-radio-button label="省级"></el-radio-button>
             <el-radio-button label="市厅级"></el-radio-button>
@@ -82,9 +82,29 @@
   export default {
     data () {
       return {
+        form:{
+          id:"",
+          project_name:"",
+          project_leader:"",
+          tutor:"",
+          phone:"",
+          winning_grade:"",
+          file_id:"",
+        },
         radio1: '上海',
         
       };
+    },
+    clear(){
+      this.form={
+        id:"",
+        project_name:"",
+          project_leader:"",
+          tutor:"",
+          phone:"",
+          winning_grade:"",
+          file_id:"",
+      }
     }
   }
 </script>

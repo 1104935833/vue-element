@@ -5,14 +5,14 @@
       <el-col :span="10">
         <div>
           依托学校：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.support_school" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           学科名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.subject_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -21,14 +21,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           联系人：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.contact" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联系电话：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -38,7 +38,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           申报学科名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.declare_subject_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -46,17 +46,28 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           学科带头人：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.subject_leader" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
     <!--第4行-->
     <el-row>
       <!--第4行第1列-->
-      <el-col>
+      <el-col :span="10">
         <div class="grid-content bg-purple">
-          获得学位授权情况（名称、时间）：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          获得学位授权情况（名称）：
+          <el-input v-model="form.incept_name" placeholder="请输入内容"></el-input>
+        </div>
+      </el-col>
+      <el-col :span="2">
+        <div class="grid-content bg-purple">
+          &nbsp;
+        </div>
+      </el-col>
+      <el-col :span="12">
+        <div class="grid-content bg-purple">
+          获得学位授权情况（时间）：
+          <el-input v-model="form.incept_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -65,7 +76,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           学科第三方评价情况（各类国际国内权威学科评估等）：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.subject_third_evaluation" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -77,7 +88,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           批准部门：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.approval_department" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -85,7 +96,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           批准时间：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.approval_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -135,6 +146,7 @@ export default {
   data() {
     return {
       form:{
+        id:"",
         support_school:"",
         subject_name:"",
         contact:"",
@@ -154,6 +166,7 @@ export default {
   },
   claer(){
     this.form={
+      id:"",
       support_school:"",
         subject_name:"",
         contact:"",

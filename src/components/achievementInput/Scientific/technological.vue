@@ -5,14 +5,14 @@
       <el-col :span="10">
         <div>
           项目名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.project_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           申报单位：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.declare_unit" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -21,14 +21,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           计划类别：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.plan_category" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           专题名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.special_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -38,7 +38,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           支持单位：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.support_unit" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -46,7 +46,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           申报时间：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.declare_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -56,14 +56,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           组织单位：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.organization_unit" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联系地址：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.address" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -72,14 +72,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           申报时间：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.decalre_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           申报单位名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.declare_unit_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -89,14 +89,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           负责人：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.head" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联系方式：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -108,7 +108,7 @@
           <el-col :span="10">
             <div class="grid-content bg-purple">
               批准部门：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_department" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
           <el-col :span="2">&nbsp;</el-col>
@@ -116,7 +116,7 @@
           <el-col :span="12">
             <div class="grid-content bg-purple">
               批准时间：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_time" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -165,6 +165,7 @@ export default {
   data() {
     return {
       form:{
+        id:"",
         project_name:"",
         declare_unit:"",
         plan_category:"",
@@ -186,6 +187,7 @@ export default {
   },
   clare(){
     this.form={
+      id:"",
       project_name:"",
         declare_unit:"",
         plan_category:"",

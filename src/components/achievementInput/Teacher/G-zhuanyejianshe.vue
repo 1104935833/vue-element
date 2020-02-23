@@ -3,23 +3,23 @@
         <el-row>
       <el-col :span="10">
         新增专业名称：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.increase_name" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         所在院系：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.department_place" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         专业负责人：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.professional_leader" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         联系方式：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
 
@@ -31,7 +31,7 @@
     <el-row>
       <el-col>
         <div>
-          <el-radio-group v-model="radio2">
+          <el-radio-group v-model="form.grade">
             <el-radio-button label="国家级"></el-radio-button>
             <el-radio-button label="省级"></el-radio-button>
             <el-radio-button label="市厅级"></el-radio-button>
@@ -74,3 +74,30 @@
     </el-row>
     </div>
 </template>
+<script>
+export default {
+  data(){
+    return{form:{
+      id:"",
+      increase_name:"",
+      department_place:"",
+      professional_leader:"",
+      phone:"",
+      grade:"",
+      file_id:"",
+      }
+    }
+  },
+  clear(){
+    this.form={
+      id:"",
+      increase_name:"",
+      department_place:"",
+      professional_leader:"",
+      phone:"",
+      grade:"",
+      file_id:"",
+    }
+  }
+}
+</script>

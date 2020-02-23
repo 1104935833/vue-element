@@ -5,14 +5,14 @@
       <el-col :span="10">
         <div>
           联盟名称(全称)：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.union_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联盟协议生效时间：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.union_effect_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -21,14 +21,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           技术领域：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.technology_field" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联盟理事长：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.union_director" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -38,7 +38,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           所在单位：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.unit_place" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -46,7 +46,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联系方式：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -56,7 +56,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           联盟常设机构的依托单位名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.standing_body_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -65,7 +65,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           常设机构通讯地址：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.standing_body_address" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -77,7 +77,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           批准部门：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.approval_department" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -85,7 +85,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           批准时间：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.approval_time" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -135,6 +135,7 @@ export default {
   data() {
     return {
       form:{
+        id:"",
         union_name:"",
         union_effect_time:"",
         technology_field:"",
@@ -153,6 +154,7 @@ export default {
   },
   clear(){
     this.form={
+      id:"",
       union_name:"",
         union_effect_time:"",
         technology_field:"",

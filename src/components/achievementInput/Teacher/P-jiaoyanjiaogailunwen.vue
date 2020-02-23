@@ -2,31 +2,39 @@
   <div>
     <el-row>
       <el-col>
-        等级:
-        <el-radio v-model="radio" label="1">一级B与理工医一级</el-radio>
-        <el-radio v-model="radio" label="2">二级与EI期刊</el-radio>
-        <el-radio v-model="radio" label="3">三级与EI会议</el-radio>
-        <el-radio v-model="radio" label="3">论文集或增刊</el-radio>
+        名称：
+        <el-input v-model="form.name" placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
-        <el-col align="center">
-            上传佐证材料：
-        </el-col>
+      <el-col>
+        等级:
+        <el-radio-group v-model="form.grade">
+          <el-radio label="1">一级B与理工医一级</el-radio>
+          <el-radio label="2">二级与EI期刊</el-radio>
+          <el-radio label="3">三级与EI会议</el-radio>
+          <el-radio label="3">论文集或增刊</el-radio>
+        </el-radio-group>
+      </el-col>
+    </el-row>
+    <el-row>
+      <el-col align="center">上传佐证材料：</el-col>
     </el-row>
     <el-row>
       <el-col :span="24" align="center">
-          <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        multiple>
-        <i class="el-icon-upload"></i>
+        <el-upload
+          class="upload-demo"
+          drag
+          action="https://jsonplaceholder.typicode.com/posts/"
+          multiple
+        >
+          <i class="el-icon-upload"></i>
 
-        <div class="el-upload__text">
-          将文件拖到此处，或<em>点击上传</em>
-        </div>
-      </el-upload>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+        </el-upload>
       </el-col>
     </el-row>
     <el-row>
@@ -48,10 +56,26 @@
 export default {
   data() {
     return {
+      form:{
+        id:"",
+        name:"",
+        grade:"",
+        file_id:"",
+        create_time:"",
+      },
       input: "",
-      radio:"",
-      msgType:2
+      radio: "",
+      msgType: 2
     };
+  },
+  clear(){
+    this.form={
+      id:"",
+        name:"",
+        grade:"",
+        file_id:"",
+        create_time:"",
+    }
   }
 };
 </script>

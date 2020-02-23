@@ -3,23 +3,23 @@
     <el-row>
       <el-col :span="10">
         所在单位：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.unit_place" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         专业学科：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.professional_subject" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         负责人：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.leader" placeholder="请输入内容"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         联系方式：
-        <el-input v-model="input" placeholder="请输入内容"></el-input>
+        <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
       </el-col>
     </el-row>
     <el-row>
@@ -30,7 +30,7 @@
     <el-row>
       <el-col>
         <div>
-          <el-radio-group v-model="radio1">
+          <el-radio-group v-model="form.winning_grade">
             <el-radio-button label="省级"></el-radio-button>
             <el-radio-button label="校级"></el-radio-button>
             <el-radio-button label="院级"></el-radio-button>
@@ -47,7 +47,7 @@
     <el-row>
       <el-col>
         <div>
-          <el-radio-group v-model="radio2">
+          <el-radio-group v-model="form.prize">
             <el-radio-button label="特等奖"></el-radio-button>
             <el-radio-button label="一等奖"></el-radio-button>
             <el-radio-button label="二等奖"></el-radio-button>
@@ -77,9 +77,29 @@
   export default {
     data () {
       return {
+        form:{
+          id:"",
+          unit_place:"",
+          professional_subject:"",
+          leader:"",
+          phone:"",
+          winning_grade:"",
+          prize:"",
+        },
         radio1: '上海',
         radio2: '上海',
       };
+    },
+    clear(){
+      this.form={
+        id:"",
+          unit_place:"",
+          professional_subject:"",
+          leader:"",
+          phone:"",
+          winning_grade:"",
+          prize:"",
+      }
     }
   }
 </script>
