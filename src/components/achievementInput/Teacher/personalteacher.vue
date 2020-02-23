@@ -48,17 +48,6 @@ import jiaoxuejinengjingsai from "./P-jiaoxuejinengjingsai";
 import jiaoyanjiaogailunwen from "./P-jiaoyanjiaogailunwen";
 import kechengjiansheyukechenggaige from "./P-kechengjiansheyukechenggaige";
 import xuekejingsaizhidao from "./P-xuekejingsaizhidao";
-<<<<<<< HEAD
-import jiaoxuejinengjingsai from "./P-jiaoxuejinengjingsai";
-import xueshengkeyanzhidao from "./P-xueshengkeyanzhidao"
-export default {
-  components: {
-    Xuekejingsaizhidao:xuekejingsaizhidao,
-    Jiaoxuejinengjingsai:jiaoxuejinengjingsai,
-    Xueshengkeyanzhidao:xueshengkeyanzhidao,
-  },
-}
-=======
 import xueshengkeyanzhidao from "./P-xueshengkeyanzhidao";
 import zhuanuejianshe from "./G-zhuanyejianshe";
 export default {
@@ -74,5 +63,4 @@ export default {
     zhuanuejianshe: zhuanuejianshe
   }
 };
->>>>>>> a3aa6a891df37c445f7d2d757ca76e3646d51219
 </script>

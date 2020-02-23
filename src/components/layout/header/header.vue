@@ -20,7 +20,7 @@
             </el-badge>
             <el-dropdown-menu slot="dropdown">
               <template >
-                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.id" :command="i.url">{{i.name}}</el-dropdown-item>
+                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.id" :command="i.url">{{i.id}}-{{i.main}}</el-dropdown-item>
               </template>
             </el-dropdown-menu>
           </el-dropdown>
@@ -83,6 +83,7 @@ export default {
   methods: {
     getpedding(){
       this.getRequest("/getPeddingName").then(res=>{
+        console.log(res.data.list);
         if(res.data.list.length>0){
           this.isDotCount=true;
           this.peddingList = res.data.list;

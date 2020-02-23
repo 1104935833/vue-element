@@ -3,24 +3,24 @@
     <el-row>
       <el-col>
         论文标题：
-        <el-input placeholder="请输入..." v-model="form.paperTitle"></el-input>
+        <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         第一作者：
-        <el-input placeholder="请输入..." v-model="form.firstAuthor"></el-input>
+        <el-input placeholder="请输入..." v-model="form.firstAuthor" :disabled="disable"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         通讯作者：
-        <el-input placeholder="请输入..." v-model="form.correspondenceAuthor"></el-input>
+        <el-input placeholder="请输入..." v-model="form.correspondenceAuthor" :disabled="disable"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         第一作者类型:
-        <el-radio-group v-model="form.firstAuthorType">
+        <el-radio-group v-model="form.firstAuthorType" :disabled="disable">
           <el-radio :label="0">本校老师</el-radio>
           <el-radio :label="1">本校学生</el-radio>
           <el-radio :label="2">外校人员</el-radio>
@@ -30,18 +30,25 @@
     <el-row>
       <el-col :span="10">
         发表刊物/论文集：
-        <el-input placeholder="请输入..." v-model="form.publication"></el-input>
+        <el-input placeholder="请输入..." v-model="form.publication" :disabled="disable"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         发表出版时间：
-        <el-date-picker v-model="form.time" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" @change="dateChangebirthday"></el-date-picker>
+        <el-date-picker :disabled="disable"
+          v-model="form.time"
+          type="date"
+          placeholder="选择日期"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
+          @change="dateChangebirthday"
+        ></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         学校署名：
-        <el-radio-group v-model="form.paperSchool">
+        <el-radio-group v-model="form.paperSchool" :disabled="disable">
           <el-radio label="1">第一单位</el-radio>
           <el-radio label="2">非第一单位</el-radio>
         </el-radio-group>
@@ -50,18 +57,18 @@
     <el-row>
       <el-col :span="10">
         卷号：
-        <el-input placeholder="请输入..." v-model="form.paperVolume"></el-input>
+        <el-input placeholder="请输入..." v-model="form.paperVolume" :disabled="disable"></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         页码范围：
-        <el-input placeholder="请输入..." v-model="form.paperPage"></el-input>
+        <el-input placeholder="请输入..." v-model="form.paperPage" :disabled="disable"></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         等级:
-        <el-radio-group v-model="form.paperGrade">
+        <el-radio-group v-model="form.paperGrade" :disabled="disable">
           <el-radio :label="1">一级</el-radio>
           <el-radio :label="2">二级</el-radio>
           <el-radio :label="3">三级</el-radio>
@@ -131,61 +138,83 @@ export default {
         paperSchool: "",
         paperVolume: "",
         paperPage: "",
-        paperGrade: ""
+        paperGrade: "",
+        fileId:""
       },
       msgType: "",
       msg: "",
       buttonShow: "",
-      role: ""
+      role: "",
+      disable:true
     };
   },
   mounted() {
     this.getComponents();
     let tableStatus = this.msg.tableid;
     let user = JSON.parse(localStorage.getItem("user"));
-    console.log(user.roles);
     if (this.msgType != undefined) {
-      console.log(this.msg);
-      this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
-        res => {
-          this.form = res.data.res;
-        }
-      );
-      this.getRequest("/common/getUserRole").then(res => {
-        this.role = res.data;
-        console.log(res.data == "");
-        if (
-          (res.data == 6 &&
-            tableStatus.auditor_court_name == undefined &&
-            tableStatus.auditor_research_name != undefined &&
-            tableStatus.audit_status != 0 &&
-            tableStatus.audit_status != 2) ||
-          (tableStatus.auditor_research_name == undefined &&
-            tableStatus.audit_status == 0 &&
-            res.data != 27 &&
-            res.data != "")
-        )
-          this.buttonShow = 2;
-        else if (
-          res.data == 27 ||
-          (res.data == "" && tableStatus.audit_status == 2)
-        ) {
-          this.buttonShow = 3;
-        }
-      });
-    } else {
+      if (this.msg.type == 2) {
+        this.form = {
+          id: tableStatus.id,
+          name: tableStatus.name,
+          firstAuthor: tableStatus.first_author,
+          correspondenceAuthor: tableStatus.correspondence_author,
+          firstAuthorType: tableStatus.first_author_type,
+          publication: tableStatus.publication,
+          time: tableStatus.time,
+          paperSchool: tableStatus.paper_school + "",
+          paperVolume: tableStatus.paper_volume,
+          paperPage: tableStatus.paper_page,
+          paperGrade: tableStatus.paper_grade,
+          fileId:tableStatus.file_id
+        };
+        this.disable = true;
+      } else {
+        this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
+          res => {
+            this.form = res.data.res;
+          }
+        );
+        this.getRequest("/common/getUserRole").then(res => {
+          this.role = res.data;
+          if (
+            (res.data == 6 &&
+              tableStatus.auditor_court_name == undefined &&
+              tableStatus.auditor_research_name != undefined &&
+              tableStatus.audit_status != 0 &&
+              tableStatus.audit_status != 2) ||
+            (tableStatus.auditor_research_name == undefined &&
+              tableStatus.audit_status == 0 &&
+              res.data != 27 &&
+              res.data != "")
+          )
+            {this.buttonShow = 2;
+            this.disable = true;}
+          else if (
+            res.data == 27 ||
+              (res.data == "" && tableStatus.audit_status == 2) ||
+            (tableStatus.proposer_name == tableStatus.auditor_research_name &&
+              tableStatus.audit_status == 2)
+          ) {
+            this.buttonShow = 3;
+            this.disable = false;
+
+          }
+        });
+      }
+    } else {//提交
       this.buttonShow = 1;
+      this.disable = false;
     }
   },
   methods: {
-    dateChangebirthday(val){
+    dateChangebirthday(val) {
       this.form.time = val;
     },
     sendMsgToParent: function() {
       this.$emit("listenToChild", false);
     },
     check(state, agree) {
-      console.log(this.msg.tableid.audit_status);
       if (
         this.msg.tableid.auditor_research_name == undefined &&
         this.role == 6
@@ -207,11 +236,12 @@ export default {
         paper: this.form,
         tableId: this.msg.tableid.table_id,
         id: this.msg.tableid.id
+      }).then(res => {
+        this.sendMsgToParent();
       });
     },
     getComponents() {
       let msg = this.$attrs.msgType;
-
       if (msg === undefined) {
         this.msgType = undefined;
       } else {
@@ -236,14 +266,18 @@ export default {
         paperSchool: "",
         paperVolume: "",
         paperPage: "",
-        paperGrade: ""
+        paperGrade: "",
+        fileId:""
       };
+      this.$refs.file.clearFiles();
     },
     handleSuccess(response, file, fileList) {
-      console.log(file);
+      
       if (file.status == "success") {
         this.$message({ message: "文件上传成功", type: "success" });
+        this.form.fileId = file.response.obj.fileId
       }
+      console.log(this.form)
     },
     submitUpload() {
       this.$refs.upload.submit();

@@ -54,7 +54,12 @@
       :total="totalCount"
     ></el-pagination>
     <el-dialog title="审核" :visible.sync="dialogVisible" width="70%">
-      <Table v-if="hackReset" :message="message1" :msgType="type" v-on:listenToGrand="showMsgFromGrand"></Table>
+      <Table
+        v-if="hackReset"
+        :message="message1"
+        :msgType="type"
+        v-on:listenToGrand="showMsgFromGrand"
+      ></Table>
     </el-dialog>
   </div>
 </template>
@@ -103,8 +108,9 @@ export default {
     this.getpeddingList();
   },
   methods: {
-    showMsgFromGrand(data){
-      this.dialogVisible=data
+    showMsgFromGrand(data) {
+      this.dialogVisible = data;
+      this.getpeddingList();
     },
     detctInfo(index, row) {},
     searchEmp() {
