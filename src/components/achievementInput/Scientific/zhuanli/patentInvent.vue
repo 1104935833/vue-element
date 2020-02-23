@@ -15,6 +15,7 @@
           <el-radio :label="2">实用型专利</el-radio>
           <el-radio :label="3">外观设计专利</el-radio>
           <el-radio :label="4">专利转让</el-radio>
+        </el-radio-group>
       </el-col>
     </el-row>
     <el-row>

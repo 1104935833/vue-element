@@ -84,6 +84,7 @@
     <el-row>
       <el-col :span="24" align="center">
         <el-upload
+        :disabled="disable"
           ref="file"
           class="upload-demo"
           drag
@@ -102,19 +103,23 @@
           </div>
           <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
         </el-upload>
+        
+      </el-col>
+      <el-col :span="24" align="center" v-if="form.fileId!=null && form.fileId!=''" class="upload-demo">
+        <a @click="down" href="#">下载材料</a>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12" align="center">
-        <div v-if="buttonShow==1">
+        <div v-if="buttonShow==1"  class="upload-demo">
           <el-button type="primary" @click="onSubmit">提交</el-button>
           <el-button @click=" clear">取消</el-button>
         </div>
         <!-- 修改 -->
-        <div v-if="buttonShow==3">
+        <div v-if="buttonShow==3"  class="upload-demo">
           <el-button type="primary" @click="updata()">修改</el-button>
         </div>
-        <div v-if="buttonShow==2">
+        <div v-if="buttonShow==2"  class="upload-demo">
           <el-button type="primary" @click="check('1','1')">通过</el-button>
           <el-button @click="check('2','0')">不通过</el-button>
         </div>
@@ -151,6 +156,7 @@ export default {
   mounted() {
     this.getComponents();
     let tableStatus = this.msg.tableid;
+    console.log(tableStatus)
     let user = JSON.parse(localStorage.getItem("user"));
     if (this.msgType != undefined) {
       if (this.msg.type == 2) {
@@ -208,6 +214,10 @@ export default {
     }
   },
   methods: {
+    down(){
+window.open("http://localhost:8083/data/access/u_1582444607777.zip", '_self');
+      window.location.href = "http://localhost:8083/data/access/u_1582444607777.zip"; 
+    },
     dateChangebirthday(val) {
       this.form.time = val;
     },
@@ -300,3 +310,12 @@ export default {
   }
 };
 </script>
+
+<style>
+.upload-demo{
+  margin-bottom:30px;
+}
+a{
+  margin-bottom:30px;
+}
+</style>

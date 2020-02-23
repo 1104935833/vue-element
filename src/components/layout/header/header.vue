@@ -12,14 +12,14 @@
         </el-breadcrumb>
       </div>
       <ul class="personal">
-        <li>
-          <el-dropdown @command="handleCommand">
+        <li @click="mouseover">
+          <el-dropdown @command="handleCommand" >
             <el-badge :is-dot="isDotCount">
               <i class="fa fa-bell-o" style="cursor: pointer"></i>
               <!-- 提醒 -->
             </el-badge>
             <el-dropdown-menu slot="dropdown">
-              <template >
+              <template>
                 <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.id" :command="i.url">{{i.id}}-{{i.main}}</el-dropdown-item>
               </template>
             </el-dropdown-menu>
@@ -50,6 +50,7 @@ import tabNav from "./tabNav";
 export default {
   data() {
     return {
+      send:true,
       routername: "主页",
       menuName: "",
       isDotCount: false,
@@ -71,17 +72,15 @@ export default {
     }
    
   },
-  mounted() {
-    // this.intervalid1 = setInterval(() => {
-    //   // this.isDotCount = !this.isDotCount;
-    //   // console.log(this.isDotCount);
-    //    this.getpedding();
-    // }, 2000);
-    
+  mounted() {    
     this.getpedding();
   },
   methods: {
+    mouseover(){
+    this.getpedding();
+    },
     getpedding(){
+      if(this.send==true){
       this.getRequest("/getPeddingName").then(res=>{
         console.log(res.data.list);
         if(res.data.list.length>0){
@@ -89,11 +88,12 @@ export default {
           this.peddingList = res.data.list;
           }else{
             this.isDotCount=false;
-            this.peddingList=[{name:"暂无消息"}]
+            this.peddingList=[{id:'',main:"暂无消息-"}]
           }
 
         // console.log(res);
       });
+      }
     },
     collapse() {
       this.$store.dispatch("collapse");
