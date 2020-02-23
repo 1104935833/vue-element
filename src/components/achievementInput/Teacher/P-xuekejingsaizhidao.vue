@@ -5,14 +5,14 @@
       <el-col :span="10">
         <div>
           竞赛名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.competition_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           主办单位：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.organizer" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -21,14 +21,14 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           参赛人数：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.participating_number" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         <div class="grid-content bg-purple">
           竞赛负责人：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.competition_leader" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -38,7 +38,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           培训主要负责教师：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.responsible_teacher" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -46,7 +46,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           联系方式：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.phone" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -56,7 +56,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           联系地址：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.address" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -65,7 +65,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           常设机构通讯地址：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.agency_address" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -77,7 +77,7 @@
           <el-col :span="10">
             <div class="grid-content bg-purple">
               批准部门：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_department" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
           <el-col :span="2">&nbsp;</el-col>
@@ -85,7 +85,7 @@
           <el-col :span="12">
             <div class="grid-content bg-purple">
               批准时间：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_time" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -99,7 +99,7 @@
     <el-row>
       <el-col>
             <div>
-              <el-select v-model="region" placeholder="请选择等级">
+              <el-select v-model="form.region" placeholder="请选择等级">
                 <el-option label="国家级"></el-option>
                 <el-option label="省部级"></el-option>
                 <el-option label="市厅级"></el-option>
@@ -152,6 +152,21 @@
 export default {
   data() {
     return {
+      form:{
+        id:"",
+        competition_name:"",
+        organizer:"",
+        participating_number:"",
+        competition_leader:"",
+        responsible_teacher:"",
+        phone:"",
+        address:"",
+        agency_address:"",
+        approval_department:"",
+        approval_time:"",
+        grade:"",
+        file_id:"",
+      },
       input: "",
       msgType: 2,
       region: ""
@@ -163,6 +178,23 @@ export default {
       this.msgType = undefined;
     } else {
       this.msgType = msg.type;
+    }
+  },
+  claer(){
+    tis.form={
+      id:"",
+      competition_name:"",
+      organizer:"",
+      participating_number:"",
+      competition_leader:"",
+      responsible_teacher:"",
+      phone:"",
+      address:"",
+      agency_address:"",
+      approval_department:"",
+      approval_time:"",
+      grade:"",
+      file_id:"",
     }
   }
 };

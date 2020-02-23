@@ -5,7 +5,7 @@
       <el-col :span="10">
         <div>
           实验室名称：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.lav_name" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -13,7 +13,7 @@
         <div class="grid-content bg-purple">
           实验室批准建设时间：
           <div class="block">
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="form.lab_approval_time" type="date" placeholder="选择日期"></el-date-picker>
           </div>
         </div>
       </el-col>
@@ -23,7 +23,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           依托学科：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.support_subject" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -31,7 +31,7 @@
         <div class="grid-content bg-purple">
           <div class="block">
             <span>拟申报建设起止时间：</span>
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="form.declare_start_time" type="date" placeholder="选择日期"></el-date-picker>
           </div>
         </div>
       </el-col>
@@ -40,7 +40,7 @@
         <div class="grid-content bg-purple">
           <div class="block">
             <span>拟申报建设起止时间：</span>
-            <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+            <el-date-picker v-model="form.declare_end_time" type="date" placeholder="选择日期"></el-date-picker>
           </div>
         </div>
       </el-col>
@@ -51,7 +51,7 @@
       <el-col :span="10">
         <div class="grid-content bg-purple">
           人员总数：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.total_person" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
@@ -59,7 +59,7 @@
       <el-col :span="12">
         <div class="grid-content bg-purple">
           负责人：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.head" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -69,7 +69,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           实验室地址：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.lab_address" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -78,7 +78,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           研究方向1：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.direction_one" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -86,7 +86,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           研究方向2：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.direction_two" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -94,7 +94,7 @@
       <el-col>
         <div class="grid-content bg-purple">
           研究方向3：
-          <el-input v-model="input" placeholder="请输入内容"></el-input>
+          <el-input v-model="form.direction_three" placeholder="请输入内容"></el-input>
         </div>
       </el-col>
     </el-row>
@@ -106,7 +106,7 @@
           <el-col :span="10">
             <div class="grid-content bg-purple">
               批准部门：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_department" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
           <el-col :span="2">&nbsp;</el-col>
@@ -114,7 +114,7 @@
           <el-col :span="12">
             <div class="grid-content bg-purple">
               批准时间：
-              <el-input v-model="input" placeholder="请输入内容"></el-input>
+              <el-input v-model="form.approval_time" placeholder="请输入内容"></el-input>
             </div>
           </el-col>
         </el-row>
@@ -163,6 +163,7 @@ export default {
   data() {
     return {
       form:{
+        id:"",
         lab_name:"",
         lav_approval_time:"",
         support_subject:"",
@@ -184,6 +185,7 @@ export default {
   },
   claer(){
     this.form={
+      id:"",
       lab_name:"",
         lav_approval_time:"",
         support_subject:"",

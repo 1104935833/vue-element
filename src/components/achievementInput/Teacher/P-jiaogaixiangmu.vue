@@ -3,95 +3,103 @@
     <el-row>
       <el-col :span="10">
         项目名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.project_name" placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         项目负责人：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.project_leader" placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         所属单位：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.unit_place" placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         项目所属专业：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.professional_place" placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         讲授的主要课程名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.course_name" placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         讲授的主要课程类别：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.course_category" placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="10">
         主持的教学研究课题名称：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.subject_name" placeholder="请输入..."></el-input>
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         主持的教学研究课题来源：
-        <el-input placeholder="请输入..."></el-input>
+        <el-input v-model="form.subject_source" placeholder="请输入..."></el-input>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         申报时间：
-        <el-date-picker v-model="value1" type="date" placeholder="选择日期"></el-date-picker>
+        <el-date-picker v-model="form.declare_time" type="date" placeholder="选择日期"></el-date-picker>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         项目类别:
-        <el-radio v-model="radio" label="1">总体研究</el-radio>
-        <el-radio v-model="radio" label="2">专业大类</el-radio>
-        <el-radio v-model="radio" label="3">教学管理</el-radio>
+        <el-radio-group v-model="form.project_category">
+          <el-radio label="0">总体研究</el-radio>
+          <el-radio label="1">专业大类</el-radio>
+          <el-radio label="2">教学管理</el-radio>
+        </el-radio-group>
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         申报项目类别:
-        <el-radio v-model="radio" label="1">重点项目</el-radio>
-        <el-radio v-model="radio" label="2">一般项目</el-radio>
+        <el-radio-group v-model="form.declare_category">
+          <el-radio  label="0">重点项目</el-radio>
+        <el-radio  label="1">一般项目</el-radio>
+        </el-radio-group>
+        
       </el-col>
     </el-row>
     <el-row>
       <el-col>
         等级:
-        <el-radio v-model="radio" label="1">国家级</el-radio>
-        <el-radio v-model="radio" label="2">省部级</el-radio>
-        <el-radio v-model="radio" label="3">市厅级</el-radio>
-        <el-radio v-model="radio" label="4">校院级</el-radio>
+        <el-radio-group v-model="form.grade">
+          <el-radio  label="0">国家级</el-radio>
+        <el-radio  label="1">省部级</el-radio>
+        <el-radio  label="2">市厅级</el-radio>
+        <el-radio label="3">校院级</el-radio>
+        </el-radio-group>
+        
       </el-col>
     </el-row>
     <el-row>
-        <el-col align="center">
-            上传佐证材料：
-        </el-col>
+      <el-col align="center">上传佐证材料：</el-col>
     </el-row>
     <el-row>
       <el-col :span="24" align="center">
-          <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        multiple>
-        <i class="el-icon-upload"></i>
+        <el-upload
+          class="upload-demo"
+          drag
+          action="https://jsonplaceholder.typicode.com/posts/"
+          multiple
+        >
+          <i class="el-icon-upload"></i>
 
-        <div class="el-upload__text">
-          将文件拖到此处，或<em>点击上传</em>
-        </div>
-      </el-upload>
+          <div class="el-upload__text">
+            将文件拖到此处，或
+            <em>点击上传</em>
+          </div>
+        </el-upload>
       </el-col>
     </el-row>
     <el-row>
@@ -113,10 +121,44 @@
 export default {
   data() {
     return {
+      form:{
+        id:"",
+        project_name:"",
+        project_leader:"",
+        unit_place:"",
+        professional_place:"",
+        course_name:"",
+        course_categacy:"",
+        subjcet_name:"",
+        subject_source:"",
+        decalre_time:"",
+        project_category:"",
+        declare_category:"",
+        grade:"",
+        file_id:"",
+      },
       input: "",
-      radio:"",
-      msgType:2
+      radio: "",
+      msgType: 2
     };
+  },
+  clear(){
+    this.form={
+      id:"",
+        project_name:"",
+        project_leader:"",
+        unit_place:"",
+        professional_place:"",
+        course_name:"",
+        course_categacy:"",
+        subjcet_name:"",
+        subject_source:"",
+        decalre_time:"",
+        project_category:"",
+        declare_category:"",
+        grade:"",
+        file_id:"",
+    }
   }
 };
 </script>
