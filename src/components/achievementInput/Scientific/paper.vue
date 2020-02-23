@@ -35,7 +35,8 @@
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
         发表出版时间：
-        <el-date-picker :disabled="disable"
+        <el-date-picker
+          :disabled="disable"
           v-model="form.time"
           type="date"
           placeholder="选择日期"
@@ -84,7 +85,7 @@
     <el-row>
       <el-col :span="24" align="center">
         <el-upload
-        :disabled="disable"
+          :disabled="disable"
           ref="file"
           class="upload-demo"
           drag
@@ -103,23 +104,27 @@
           </div>
           <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
         </el-upload>
-        
       </el-col>
-      <el-col :span="24" align="center" v-if="form.fileId!=null && form.fileId!=''" class="upload-demo">
-        <a @click="down" href="#">下载材料</a>
+      <el-col
+        :span="24"
+        align="center"
+        v-if="form.fileId!=null && form.fileId!=''"
+        class="upload-demo"
+      >
+        <a @click="down">下载材料</a>
       </el-col>
     </el-row>
     <el-row>
       <el-col :span="12" align="center">
-        <div v-if="buttonShow==1"  class="upload-demo">
+        <div v-if="buttonShow==1" class="upload-demo">
           <el-button type="primary" @click="onSubmit">提交</el-button>
           <el-button @click=" clear">取消</el-button>
         </div>
         <!-- 修改 -->
-        <div v-if="buttonShow==3"  class="upload-demo">
+        <div v-if="buttonShow==3" class="upload-demo">
           <el-button type="primary" @click="updata()">修改</el-button>
         </div>
-        <div v-if="buttonShow==2"  class="upload-demo">
+        <div v-if="buttonShow==2" class="upload-demo">
           <el-button type="primary" @click="check('1','1')">通过</el-button>
           <el-button @click="check('2','0')">不通过</el-button>
         </div>
@@ -128,6 +133,7 @@
   </div>
 </template>
 <script>
+import {isNumber} from '../../../utils/validate'
 export default {
   props: ["msgs"],
   data() {
@@ -144,19 +150,19 @@ export default {
         paperVolume: "",
         paperPage: "",
         paperGrade: "",
-        fileId:""
+        fileId: ""
       },
+      fileUrl: "",
       msgType: "",
       msg: "",
       buttonShow: "",
       role: "",
-      disable:true
+      disable: true
     };
   },
   mounted() {
     this.getComponents();
     let tableStatus = this.msg.tableid;
-    console.log(tableStatus)
     let user = JSON.parse(localStorage.getItem("user"));
     if (this.msgType != undefined) {
       if (this.msg.type == 2) {
@@ -172,7 +178,7 @@ export default {
           paperVolume: tableStatus.paper_volume,
           paperPage: tableStatus.paper_page,
           paperGrade: tableStatus.paper_grade,
-          fileId:tableStatus.file_id
+          fileId: tableStatus.file_id
         };
         this.disable = true;
       } else {
@@ -193,30 +199,37 @@ export default {
               tableStatus.audit_status == 0 &&
               res.data != 27 &&
               res.data != "")
-          )
-            {this.buttonShow = 2;
-            this.disable = true;}
-          else if (
+          ) {
+            this.buttonShow = 2;
+            this.disable = true;
+          } else if (
             res.data == 27 ||
-              (res.data == "" && tableStatus.audit_status == 2) ||
+            (res.data == "" && tableStatus.audit_status == 2) ||
             (tableStatus.proposer_name == tableStatus.auditor_research_name &&
               tableStatus.audit_status == 2)
           ) {
             this.buttonShow = 3;
             this.disable = false;
-
           }
         });
       }
-    } else {//提交
+    } else {
+      //提交
       this.buttonShow = 1;
       this.disable = false;
     }
   },
   methods: {
-    down(){
-window.open("http://localhost:8083/data/access/u_1582444607777.zip", '_self');
-      window.location.href = "http://localhost:8083/data/access/u_1582444607777.zip"; 
+    down() {
+      if (isNumber(this.form.fileId) && this.fileUrl=='') {
+        this.getRequest("/common/getFileNameById",{id:this.form.fileId}).then(res=>{
+          window.location.href = "http://localhost:8083/data/access/"+res.data.file.fileName;
+        })
+      } else if(isNumber(this.form.fileId)){
+        window.location.href = "http://localhost:8083/data/access/"+this.fileUrl;
+      }else{
+        window.location.href = "http://localhost:8083/data/access/"+this.form.fileId;
+      }
     },
     dateChangebirthday(val) {
       this.form.time = val;
@@ -277,17 +290,16 @@ window.open("http://localhost:8083/data/access/u_1582444607777.zip", '_self');
         paperVolume: "",
         paperPage: "",
         paperGrade: "",
-        fileId:""
+        fileId: ""
       };
       this.$refs.file.clearFiles();
     },
     handleSuccess(response, file, fileList) {
-      
       if (file.status == "success") {
         this.$message({ message: "文件上传成功", type: "success" });
-        this.form.fileId = file.response.obj.fileId
+        this.fileUrl = file.response.obj.fileName;
+        this.form.fileId = file.response.obj.fileId;
       }
-      console.log(this.form)
     },
     submitUpload() {
       this.$refs.upload.submit();
@@ -312,10 +324,10 @@ window.open("http://localhost:8083/data/access/u_1582444607777.zip", '_self');
 </script>
 
 <style>
-.upload-demo{
-  margin-bottom:30px;
+.upload-demo {
+  margin-bottom: 30px;
 }
-a{
-  margin-bottom:30px;
+a {
+  margin-bottom: 30px;
 }
 </style>
