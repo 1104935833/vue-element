@@ -25,7 +25,7 @@
       </el-table-column>
     </el-table>
   <!-- 分配用户与管理员 -->
-    <el-dialog :title="title" width="600px" :visible.sync="dialogUserVisible">
+    <el-dialog :title="title" width="610px" :visible.sync="dialogUserVisible">
       <template>
         <el-transfer
           ref="transfer"
