@@ -41,7 +41,7 @@
           </div>
         </el-card>
       </el-col>
-      <el-col :xs="24" :sm="24" :md="16" :lg="18" :xl="19">
+      <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="19">
         <!--    用户资料    -->
         <el-card class="box-card">
           <el-tabs v-model="activeName" @tab-click="handleClick">
