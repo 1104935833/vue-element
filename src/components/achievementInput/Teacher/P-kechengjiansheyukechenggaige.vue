@@ -10,7 +10,7 @@
         <el-col :span="2">&nbsp;</el-col>
         <el-col :span="12">
           <el-form-item label="所属专业：" prop="name">
-            <el-input v-model="professionalPlace" placeholder="请输入..." :disabled="disable"></el-input>
+            <el-input v-model="name" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
