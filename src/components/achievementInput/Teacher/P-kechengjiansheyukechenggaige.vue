@@ -1,97 +1,134 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="10">
-        课程名称：
-        <el-input v-model="form.course_name" placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        所属专业：
-        <el-input v-model="professional_place" placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        课程负责人：
-        <el-input v-model="form.course_leader" placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        主讲教师：
-        <el-input v-model="form.teacher_main" placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        主讲教师的专业领域：
-        <el-input v-model="form.teacher_professional" placeholder="请输入..."></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        主讲教师的职业资格证书：
-        <el-input v-model="form.teacher_certificate" placeholder="请输入..."></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        申报时间：
-        <el-date-picker v-model="form.declare_time" type="date" placeholder="选择日期"></el-date-picker>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        课程类型:
-        <el-radio-group v-model="form.course_category">
-          <el-radio label="1">优质核心课程</el-radio>
-          <el-radio label="2">一般教改课程</el-radio>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        等级:
-        <el-radio-group v-model="form.grade">
-          <el-radio label="1">国家级</el-radio>
-          <el-radio label="2">省部级</el-radio>
-          <el-radio label="3">市厅级</el-radio>
-          <el-radio label="3">校院级</el-radio>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col align="center">上传佐证材料：</el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24" align="center">
-        <el-upload
+    <el-form ref="form" :rules="rules" :model="form">
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="课程名称：" prop="name">
+            <el-input v-model="form.name" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="所属专业：" prop="name">
+            <el-input v-model="professionalPlace" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="课程负责人：" prop="name">
+            <el-input v-model="form.courseLeader" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="主讲教师：" prop="name">
+            <el-input v-model="form.teacherMain" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="主讲教师的专业领域：" prop="name">
+            <el-input v-model="form.teacherProfessional" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="主讲教师的职业资格证书：" prop="name">
+            <el-input v-model="form.teacherCertificate" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="申报时间：" prop="name">
+            <el-date-picker
+              v-model="form.declareTime"
+              type="date"
+              placeholder="选择日期"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              @change="dateChangebirthday"
+              :disabled="disable"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="课程类型：" prop="name">
+            <el-radio-group v-model="form.courseCategory" :disabled="disable">
+              <el-radio :label="0">优质核心课程</el-radio>
+              <el-radio :label="1">一般教改课程</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="等级:" prop="name">
+            <el-radio-group v-model="form.grade" :disabled="disable">
+              <el-radio :label="0">国家级</el-radio>
+              <el-radio :label="1">省部级</el-radio>
+              <el-radio :label="2">市厅级</el-radio>
+              <el-radio :label="3">校院级</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" align="center">
+          <el-upload
+            :disabled="disable"
+            ref="file"
+            class="upload-demo"
+            drag
+            acceept="application/pdf"
+            action="/common/file"
+            :on-success="handleSuccess"
+            accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+            :on-remove="handleRemove"
+            :on-error="handleError"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
+          </el-upload>
+        </el-col>
+        <el-col
+          :span="24"
+          align="center"
+          v-if="form.fileId!=null && form.fileId!=''"
           class="upload-demo"
-          drag
-          action="https://jsonplaceholder.typicode.com/posts/"
-          multiple
         >
-          <i class="el-icon-upload"></i>
-
-          <div class="el-upload__text">
-            将文件拖到此处，或
-            <em>点击上传</em>
+          <a @click="down">下载材料</a>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" align="center">
+          <div v-if="buttonShow==1" class="upload-demo">
+            <el-button type="primary" @click="onSubmit('form')">提交</el-button>
+            <el-button @click=" clear('form')">取消</el-button>
           </div>
-        </el-upload>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12" align="center">
-        <div v-if="msgType==undefined">
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button @click=" clear">取消</el-button>
-        </div>
-
-        <div v-if="msgType==1">
-          <el-button type="primary" @click="onSubmit">通过</el-button>
-          <el-button @click="clear">不通过</el-button>
-        </div>
-      </el-col>
-    </el-row>
+          <!-- 修改 -->
+          <div v-if="buttonShow==3" class="upload-demo">
+            <el-button type="primary" @click="updata()">修改</el-button>
+          </div>
+          <div v-if="buttonShow==2" class="upload-demo">
+            <el-button type="primary" @click="check('1','1')">通过</el-button>
+            <el-button @click="check('2','0')">不通过</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 <script>
@@ -100,36 +137,236 @@ export default {
     return {
       form: {
         id: "",
-        course_name: "",
-        professional_place: "",
-        course_leader: "",
-        teacher_main: "",
-        teacher_professional: "",
-        teacher_certificate: "",
-        declare_time: "",
-        course_category: "",
+        name: "",
+        professionalPlace: "",
+        courseLeader: "",
+        teacherMain: "",
+        teacherProfessional: "",
+        teacherCertificate: "",
+        declareTime: "",
+        courseCategory: "",
         grade: "",
-        file_id: ""
+        fileId: ""
       },
-      input: "",
-      radio: "",
-      msgType: 2
+      fileUrl: "",
+      msgType: "",
+      msg: "",
+      buttonShow: "",
+      role: "",
+      disable: true,
+      rules: {
+        name: [{ required: true, message: "请输入课程名称", trigger: "blur" }],
+        professionalPlace: [
+          { required: true, message: "请输入所属专业", trigger: "blur" }
+        ],
+        courseLeader: [
+          { required: true, message: "请输入课程负责人", trigger: "blur" }
+        ],
+        teacherMain: [
+          {
+            required: true,
+            message: "请输入主讲教师",
+            trigger: "blur"
+          }
+        ],
+        teacherProfessional: [
+          {
+            required: true,
+            message: "请输入主讲教师的专业领域",
+            trigger: "blur"
+          }
+        ],
+        teacherCertificate: [
+          {
+            required: true,
+            message: "请输入主讲教师的职业资格证书",
+            trigger: "blur"
+          }
+        ],
+        declareTime: [
+          {
+            required: true,
+            message: "请输入申报时间",
+            trigger: "blur"
+          }
+        ],
+        courseCategory: [
+          {
+            required: true,
+            message: "请选择课程类型",
+            trigger: "blur"
+          }
+        ],
+        grade: [{ required: true, message: "请选择等级", trigger: "blur" }]
+      }
     };
   },
-  clear() {
-    this.form = {
-      id: "",
-      course_name: "",
-      professional_place: "",
-      course_leader: "",
-      teacher_main: "",
-      teacher_professional: "",
-      teacher_certificate: "",
-      declare_time: "",
-      course_category: "",
-      grade: "",
-      file_id: ""
-    };
+  mounted() {
+    this.getComponents();
+    let tableStatus = this.msg.tableid;
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (this.msgType != undefined) {
+      if (this.msg.type == 2) {
+        this.form = {
+          id: tableStatus.id,
+          name: tableStatus.name,
+          firstAuthor: tableStatus.first_author,
+          correspondenceAuthor: tableStatus.correspondence_author,
+          firstAuthorType: tableStatus.first_author_type,
+          publication: tableStatus.publication,
+          time: tableStatus.time,
+          paperSchool: tableStatus.paper_school + "",
+          paperVolume: tableStatus.paper_volume,
+          paperPage: tableStatus.paper_page,
+          paperGrade: tableStatus.paper_grade,
+          fileId: tableStatus.file_id
+        };
+        this.disable = true;
+      } else {
+        this.getRequest("/getCourse", {
+          id: this.msg.message.table_id
+        }).then(res => {
+          this.form = res.data.res;
+        });
+        this.getRequest("/common/getUserRole").then(res => {
+          this.role = res.data;
+          if (
+            (res.data == 6 &&
+              tableStatus.auditor_court_name == undefined &&
+              tableStatus.auditor_research_name != undefined &&
+              tableStatus.audit_status != 0 &&
+              tableStatus.audit_status != 2) ||
+            (tableStatus.auditor_research_name == undefined &&
+              tableStatus.audit_status == 0 &&
+              res.data != 27 &&
+              res.data != "")
+          ) {
+            this.buttonShow = 2;
+            this.disable = true;
+          } else if (
+            res.data == 27 ||
+            (res.data == "" && tableStatus.audit_status == 2) ||
+            (tableStatus.proposer_name == tableStatus.auditor_research_name &&
+              tableStatus.audit_status == 2)
+          ) {
+            this.buttonShow = 3;
+            this.disable = false;
+          }
+        });
+      }
+    } else {
+      //提交
+      this.buttonShow = 1;
+      this.disable = false;
+    }
+  },
+  methods: {
+    down() {
+      if (isNumber(this.form.fileId) && this.fileUrl == "") {
+        this.getRequest("/common/getFileNameById", {
+          id: this.form.fileId
+        }).then(res => {
+          window.location.href =
+            "http://localhost:8083/data/access/" + res.data.file.fileName;
+        });
+      } else if (isNumber(this.form.fileId)) {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.fileUrl;
+      } else {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.form.fileId;
+      }
+    },
+    dateChangebirthday(val) {
+      this.form.time = val;
+    },
+    sendMsgToParent: function() {
+      this.$emit("listenToChild", false);
+    },
+    check(state, agree) {
+      if (
+        this.msg.tableid.auditor_research_name == undefined &&
+        this.role == 6
+      ) {
+        this.$message({ type: "error", message: "请等待教研室审核" });
+      } else {
+        this.getRequest("/check", {
+          tableId: this.msg.message.table_id,
+          status: state,
+          id: this.msg.tableid.id,
+          agree: agree
+        }).then(res => {
+          this.sendMsgToParent();
+        });
+      }
+    },
+    updata() {
+      this.post("/updataCourse", {
+        paper: this.form,
+        tableId: this.msg.tableid.table_id,
+        id: this.msg.tableid.id
+      }).then(res => {
+        this.sendMsgToParent();
+      });
+    },
+    getComponents() {
+      let msg = this.$attrs.msgType;
+      if (msg === undefined) {
+        this.msgType = undefined;
+      } else {
+        this.msgType = msg.type;
+        this.msg = msg;
+      }
+    },
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.postRequest("/insertCourse", this.form).then(res => {
+            this.clear();
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    clear(form) {
+      this.$refs[form].resetFields();
+      this.$refs.file.clearFiles();
+    },
+    handleSuccess(response, file, fileList) {
+      if (file.status == "success") {
+        this.$message({ message: "文件上传成功", type: "success" });
+        this.fileUrl = file.response.obj.fileName;
+        this.form.fileId = file.response.obj.fileId;
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      //文件移除钩子
+      this.getRequest("/common/delFile", {
+        fileName: file.response.obj.fileName,
+        fileId: file.response.obj.fileId
+      }).then(res => {});
+    },
+    handleError(err, file, fileList) {
+      //上传失败钩子
+      this.$message.error("文件上传失败");
+    },
+    handlePreview(file) {
+      //点击文件列表中已上传的文件时的钩子
+      // console.log(file);
+    }
   }
 };
 </script>
+
+<style>
+.upload-demo {
+  margin-bottom: 30px;
+}
+a {
+  margin-bottom: 30px;
+}
+</style>
