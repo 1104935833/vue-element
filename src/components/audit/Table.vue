@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- 荣誉 -->
-    <HonerGroup v-if="this.tableName.state=='4'" v-bind="$attrs"></HonerGroup>
-    <HonerSelf v-if="this.tableName.state=='3'" v-bind="$attrs"></HonerSelf>
+    <HonerGroup v-if="this.tableName.state=='23'" v-bind="$attrs"></HonerGroup>
+    <HonerSelf v-if="this.tableName.state=='22'" v-bind="$attrs"></HonerSelf>
     <!-- 专利 -->
     <patentInvent v-if="this.tableName.state=='9'" v-bind="$attrs"></patentInvent>
     <!-- 科研 -->

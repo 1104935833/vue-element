@@ -183,39 +183,61 @@ export default {
       role: "",
       disable: true,
       rules: {
-        name: [
-          { required: true, message: "请输入项目名称", trigger: "blur" }
-        ],
+        name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
         projectLeader: [
           { required: true, message: "请输入项目负责人", trigger: "blur" }
         ],
         unitPlace: [
           { required: true, message: "请输入所属单位", trigger: "blur" }
         ],
-        professionaPlace: [{ required: true, message: "请输入项目所属专业", trigger: "blur" }],
-        courseName: [{ required: true, message: "请输入讲授的主要课程名称", trigger: "blur" }],
+        professionaPlace: [
+          { required: true, message: "请输入项目所属专业", trigger: "blur" }
+        ],
+        courseName: [
+          {
+            required: true,
+            message: "请输入讲授的主要课程名称",
+            trigger: "blur"
+          }
+        ],
         courseCategory: [
-          { required: true, message: "请输入讲授的主要课程类别", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入讲授的主要课程类别",
+            trigger: "blur"
+          }
         ],
         subjectName: [
-          { required: true, message: "请输入主持的教学研究课题名称", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入主持的教学研究课题名称",
+            trigger: "blur"
+          }
         ],
         subjectSource: [
-          { required: true, message: "请输入主持的教学研究课题来源", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入主持的教学研究课题来源",
+            trigger: "blur"
+          }
         ],
-        declareTime: [{ required: true, message: "请输入申报时间", trigger: "blur" }],
-        projectCategory: [{ required: true, message: "请选择项目类别", trigger: "blur" }],
+        declareTime: [
+          { required: true, message: "请输入申报时间", trigger: "blur" }
+        ],
+        projectCategory: [
+          { required: true, message: "请选择项目类别", trigger: "blur" }
+        ],
         declareCategory: [
           { required: true, message: "请选择申报项目类别", trigger: "blur" }
         ],
-        grade: [{ required: true, message: "请选择等级", trigger: "blur" }],
+        grade: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
   mounted() {
     this.getComponents();
     let tableStatus = this.msg.tableid;
-    console.log(tableStatus)
+    console.log(tableStatus);
     let user = JSON.parse(localStorage.getItem("user"));
     if (this.msgType != undefined) {
       if (this.msg.type == 2) {
@@ -223,14 +245,16 @@ export default {
           id: tableStatus.id,
           name: tableStatus.name,
           projectLeader: tableStatus.project_leader,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          unitPlace: tableStatus.unit_place,
+          professionaPlace: tableStatus.professiona_place,
+          courseName: tableStatus.course_name,
+          courseCategory: tableStatus.course_category,
+          subjectName: tableStatus.subject_name,
+          subjectSource: tableStatus.subject_source,
+          declareTime: tableStatus.declare_time,
+          projectCategory: tableStatus.project_category,
+          declareCategory: tableStatus.declare_category,
+          grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
         this.disable = true;

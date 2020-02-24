@@ -115,13 +115,13 @@ export default {
     return {
       form: {
         id: "",
-        unitPlace: "",
+        name: "",
         professionalSubject: "",
         leader: "",
         phone: "",
         winningGrade: "",
         prize: "",
-        fileId:""
+        fileId: ""
       },
       fileUrl: "",
       msgType: "",
@@ -134,9 +134,7 @@ export default {
         professionalSubject: [
           { required: true, message: "请输入专业学科", trigger: "blur" }
         ],
-        leader: [
-          { required: true, message: "请输入负责人", trigger: "blur" }
-        ],
+        leader: [{ required: true, message: "请输入负责人", trigger: "blur" }],
         phone: [
           {
             required: true,
@@ -157,7 +155,7 @@ export default {
             message: "请选择等级",
             trigger: "blur"
           }
-        ],
+        ]
       }
     };
   },
@@ -170,15 +168,11 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          professionalSubject: tableStatus.professional_subject,
+          leader: tableStatus.leader,
+          phone: tableStatus.phone,
+          winningGrade: tableStatus.winning_grade,
+          prize: tableStatus.prize,
           fileId: tableStatus.file_id
         };
         this.disable = true;

@@ -62,12 +62,7 @@
         <el-col>
           <el-form-item label="等级：" prop="grade">
             <el-select v-model="form.grade" placeholder="请选择等级" :disabled="disable">
-                <el-option 
-                v-for=" i in options"
-                  :key="i.id"
-                  :value="i.value"
-                  :label="i.label"
-                ></el-option>
+              <el-option v-for=" i in options" :key="i.id" :value="i.value" :label="i.label"></el-option>
             </el-select>
           </el-form-item>
         </el-col>
@@ -142,7 +137,7 @@ export default {
         grade: "",
         fileId: ""
       },
-      options:[],
+      options: [],
       fileUrl: "",
       msgType: "",
       msg: "",
@@ -191,13 +186,17 @@ export default {
             message: "请输入等级",
             trigger: "blur"
           }
-        ],
+        ]
       }
     };
   },
   mounted() {
-    this.getRequest("/common/getOption",{option:'achiecement',value:'',title:'grade'}).then(res=>{
-      this.options = res.data.options
+    this.getRequest("/common/getOption", {
+      option: "achiecement",
+      value: "",
+      title: "grade"
+    }).then(res => {
+      this.options = res.data.options;
     });
     this.getComponents();
     let tableStatus = this.msg.tableid;
@@ -207,15 +206,13 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          completePerson: tableStatus.complete_person,
+          completeUnit: tableStatus.complete_unit,
+          sectionCategory: tableStatus.section_category,
+          declareUnit: tableStatus.declare_unit,
+          code: tableStatus.code,
+          applyTime: tableStatus.apply_time,
+          grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
         this.disable = true;

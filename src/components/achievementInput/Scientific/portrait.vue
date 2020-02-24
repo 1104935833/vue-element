@@ -40,9 +40,9 @@
       </el-col>
       <el-col :span="2">&nbsp;</el-col>
       <el-col :span="12">
-        <el-form-item label="申请总额：" prop="applyMoney">
+        <el-form-item label="申请总额：" prop="applyRental">
         
-        <el-input placeholder="请输入..." v-model="form.applyMoney"  :disabled="disable"></el-input>
+        <el-input placeholder="请输入..." v-model="form.applyRental"  :disabled="disable"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
@@ -64,9 +64,9 @@
     </el-row>
     <el-row>
       <el-col>
-        <el-form-item label="项目类型：" prop="projectType">
+        <el-form-item label="项目类型：" prop="type">
         
-        <el-input placeholder="请输入..." v-model="form.projectType"  :disabled="disable"></el-input>
+        <el-input placeholder="请输入..." v-model="form.type"  :disabled="disable"></el-input>
         </el-form-item>
       </el-col>
     </el-row>
@@ -136,10 +136,10 @@ export default {
         phone: "",
         department: "",
         title: "",
-        applyMoney: "",
+        applyRental: "",
         name: "",
         projectUnit: "",
-        projectType: "",
+        type: "",
         fileId: ""
       },
       fileUrl: "",
@@ -154,10 +154,10 @@ export default {
         phone: [{required:true,message:'请输入联系电话',trigger:'blur'}],
         department: [{required:true,message:'请输入所在部门',trigger:'blur'}],
         title: [{required:true,message:'请输入"职称',trigger:'blur'}],
-        applyMoney: [{required:true,message:'请输入申请总额',trigger:'blur'}],
+        applyRental: [{required:true,message:'请输入申请总额',trigger:'blur'}],
         name: [{required:true,message:'请输入项目名称',trigger:'blur'}],
         projectUnit: [{required:true,message:'请输入项目依托单位',trigger:'blur'}],
-        projectType: [{required:true,message:'请输入项目类型',trigger:'blur'}]
+        type: [{required:true,message:'请输入项目类型',trigger:'blur'}]
       }
     };
   },
@@ -170,15 +170,14 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          date: tableStatus.date,
+          projectLeader: tableStatus.project_leader,
+          phone: tableStatus.first_author_type,
+          department: tableStatus.publication,
+          title: tableStatus.time,
+          applyRental: tableStatus.apply_rental,
+          projectUnit: tableStatus.project_unit,
+          type: tableStatus.type,
           fileId: tableStatus.file_id
         };
         this.disable = true;

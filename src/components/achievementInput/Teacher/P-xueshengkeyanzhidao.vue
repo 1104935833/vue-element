@@ -27,14 +27,14 @@
       </el-row>
       <el-row>
         <el-col>
-            <el-form-item label="获奖等级：" prop="winningGrade">
-              <el-radio-group v-model="form.winningGrade" :disabled="disable">
-                <el-radio :label="0">国家级</el-radio>
-                <el-radio :label="1">省级</el-radio>
-                <el-radio :label="2">市厅级</el-radio>
-                <el-radio :label="3">校院级</el-radio>
-              </el-radio-group>
-            </el-form-item>
+          <el-form-item label="获奖等级：" prop="winningGrade">
+            <el-radio-group v-model="form.winningGrade" :disabled="disable">
+              <el-radio :label="0">国家级</el-radio>
+              <el-radio :label="1">省级</el-radio>
+              <el-radio :label="2">市厅级</el-radio>
+              <el-radio :label="3">校院级</el-radio>
+            </el-radio-group>
+          </el-form-item>
         </el-col>
       </el-row>
       <!--上传文件-->
@@ -114,9 +114,7 @@ export default {
         projectLeader: [
           { required: true, message: "请输入工程负责人", trigger: "blur" }
         ],
-        tutor: [
-          { required: true, message: "请输入指导教师", trigger: "blur" }
-        ],
+        tutor: [{ required: true, message: "请输入指导教师", trigger: "blur" }],
         phone: [
           {
             required: true,
@@ -130,7 +128,7 @@ export default {
             message: "请选择获奖等级",
             trigger: "blur"
           }
-        ],
+        ]
       }
     };
   },
@@ -143,15 +141,10 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          projectLeader: tableStatus.project_leader,
+          tutor: tableStatus.tutor,
+          phone: tableStatus.phone,
+          winningGrade: tableStatus.winning_grade,
           fileId: tableStatus.file_id
         };
         this.disable = true;

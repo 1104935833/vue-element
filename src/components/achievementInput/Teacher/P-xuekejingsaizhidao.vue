@@ -153,7 +153,7 @@ export default {
     return {
       form: {
         id: "",
-        competitionName: "",
+        name: "",
         organizer: "",
         participatingNumber: "",
         competitionLeader: "",
@@ -241,16 +241,16 @@ export default {
       if (this.msg.type == 2) {
         this.form = {
           id: tableStatus.id,
-          name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          organizer: tableStatus.organizer,
+          participatingNumber: tableStatus.participating_number,
+          competitionLeader: tableStatus.competition_leader,
+          responsibleTeacher: tableStatus.responsible_teacher,
+          phone: tableStatus.phone,
+          address: tableStatus.address,
+          agencyAddress: tableStatus.agency_address,
+          approvalDepartment: tableStatus.approval_department,
+          approvalTime: tableStatus.approval_time,
+          grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
         this.disable = true;

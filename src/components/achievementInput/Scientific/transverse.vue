@@ -201,15 +201,14 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          firstLevel: tableStatus.first_level,
+          researchCategory: tableStatus.research_category,
+          startTime: tableStatus.start_time,
+          clientName: tableStatus.client_name,
+          clientAddress: tableStatus.client_address,
+          contractNature: tableStatus.contract_nature,
+          projectLeader: tableStatus.project_leader,
+          level: tableStatus.level,
           fileId: tableStatus.file_id
         };
         this.disable = true;

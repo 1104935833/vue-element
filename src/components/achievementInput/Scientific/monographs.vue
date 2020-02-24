@@ -171,15 +171,13 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          themeWord: tableStatus.theme_word,
+          authorName: tableStatus.author_name,
+          finishTime: tableStatus.finish_time,
+          subordinateSubject: tableStatus.subordinate_subject,
+          phone: tableStatus.time,
+          wordNumber: tableStatus.word_number,
+          publishedNumber: tableStatus.published_number,
           fileId: tableStatus.file_id
         };
         this.disable = true;

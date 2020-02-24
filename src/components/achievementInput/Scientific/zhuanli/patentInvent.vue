@@ -162,15 +162,12 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          firstAuthor: tableStatus.first_author,
-          correspondenceAuthor: tableStatus.correspondence_author,
-          firstAuthorType: tableStatus.first_author_type,
-          publication: tableStatus.publication,
-          time: tableStatus.time,
-          paperSchool: tableStatus.paper_school + "",
-          paperVolume: tableStatus.paper_volume,
-          paperPage: tableStatus.paper_page,
-          paperGrade: tableStatus.paper_grade,
+          patentCategory: tableStatus.patent_category,
+          completer: tableStatus.completer,
+          patentNumber: tableStatus.patent_number,
+          signOrder: tableStatus.sign_order,
+          unitName: tableStatus.unit_name,
+          unitAddress: tableStatus.unit_address,
           fileId: tableStatus.file_id
         };
         this.disable = true;
