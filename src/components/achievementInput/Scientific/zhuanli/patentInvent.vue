@@ -1,199 +1,324 @@
 <template>
   <div>
-    <el-row>
-      <el-col>
-        专利名称：
-        <el-input placeholder="请输入..." v-model="form.projectName"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        类别：
-        <el-radio-group v-model="form.firstAuthorType">
-          <el-radio :label="0">发明专利</el-radio>
-          <el-radio :label="1">软件专著专利</el-radio>
-          <el-radio :label="2">实用型专利</el-radio>
-          <el-radio :label="3">外观设计专利</el-radio>
-          <el-radio :label="4">专利转让</el-radio>
-        </el-radio-group>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        完成者：
-        <el-input placeholder="请输入..." v-model="form.projectLeader"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        专利号：
-        <el-input placeholder="请输入..." v-model="form.inventName"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        署名次序：
-        <el-input placeholder="请输入..." v-model="form.patentNumber"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        完成者单位：
-        <el-input placeholder="请输入..." v-model="form.patentNumber"></el-input>
-      </el-col>
-    </el-row>
-    <!-- <el-row>
-      <el-col :span="12">
-        起始时间：
-        <el-date-picker v-model="form.startTime" type="date" placeholder="选择日期"></el-date-picker>
-      </el-col>
-      <el-col :span="12">
-        结束时间：
-        <el-date-picker v-model="form.finishTime" type="date" placeholder="选择日期"></el-date-picker>
-      </el-col>
-    </el-row> -->
-    <!-- <el-row>
-      <el-col :span="10">
-        受让单位名称：
-        <el-input placeholder="请输入..." v-model="form.acceptingUniName"></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        受让单位法定代表人：
-        <el-input placeholder="请输入..." v-model="form.acceptingUnitRepresentative"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        受让单位联系方式或通讯地址：
-        <el-input placeholder="请输入..." v-model="form.acceptingUnitPhone"></el-input>
-      </el-col>
-    </el-row> -->
-    <el-row>
-        <el-col align="center">
-            上传佐证材料：
+    <el-form ref="form" :rules="rules" :model="form">
+      <el-row>
+        <el-col>
+          <el-form-item label="专利名称：" prop="name">
+            <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
+          </el-form-item>
         </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24" align="center">
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="类别：" prop="patentCategory">
+            <el-radio-group v-model="form.patentCategory" :disabled="disable">
+              <el-radio label="0">发明专利</el-radio>
+              <el-radio label="1">实用新型专利</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="完成者：" prop="completer">
+            <el-input placeholder="请输入..." v-model="form.completer" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="专利号：" prop="patentNumber">
+            <el-input placeholder="请输入..." v-model="form.patentNumber" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="署名次序：" prop="signOorder">
+            <el-input placeholder="请输入..." v-model="form.signOrder" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="完成者单位：" prop="unitName">
+            <el-input placeholder="请输入..." v-model="form.unitName" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="完成者单位地址：" prop="unitAddress">
+            <el-input placeholder="请输入..." v-model="form.unitAddress" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" align="center">
           <el-upload
-        class="upload-demo"
-        drag
-        action="https://jsonplaceholder.typicode.com/posts/"
-        multiple>
-        <i class="el-icon-upload"></i>
-
-        <div class="el-upload__text">
-          将文件拖到此处，或<em>点击上传</em>
-        </div>
-      </el-upload>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12" align="center">
-        <div v-if="msgType==undefined">
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button @click=" clear">取消</el-button>
-        </div>
-
-        <div v-if="msgType==1">
-          <el-button type="primary" @click="onSubmit">通过</el-button>
-          <el-button @click="clear">不通过</el-button>
-        </div>
-      </el-col>
-    </el-row>
+            :disabled="disable"
+            ref="file"
+            class="upload-demo"
+            drag
+            acceept="application/pdf"
+            action="/common/file"
+            :on-success="handleSuccess"
+            accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+            :on-remove="handleRemove"
+            :on-error="handleError"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
+          </el-upload>
+        </el-col>
+        <el-col
+          :span="24"
+          align="center"
+          v-if="form.fileId!=null && form.fileId!=''"
+          class="upload-demo"
+        >
+          <a @click="down">下载材料</a>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" align="center">
+          <div v-if="buttonShow==1" class="upload-demo">
+            <el-button type="primary" @click="onSubmit('form')">提交</el-button>
+            <el-button @click=" clear('form')">取消</el-button>
+          </div>
+          <!-- 修改 -->
+          <div v-if="buttonShow==3" class="upload-demo">
+            <el-button type="primary" @click="updata()">修改</el-button>
+          </div>
+          <div v-if="buttonShow==2" class="upload-demo">
+            <el-button type="primary" @click="check('1','1')">通过</el-button>
+            <el-button @click="check('2','0')">不通过</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 <script>
+import { isNumber } from "../../../../utils/validate";
 export default {
   data() {
     return {
       form: {
         id: "",
-        inventName: "",
-        inventor: "",
-        phone: "",
-        inventAddress: "",
-        applicant: "",
-        agent: "",
-        applicationNumber: "",
-        applicantAddress: "",
-        agencyName: "",
-        agencyAddress: "",
-        agencyCode: "",
+        name: "",
+        patentCategory: "",
+        completer: "",
         patentNumber: "",
-        softwareFullName: "",
-        softwareShortName: "",
-        versionNumber: "",
-        startTime: "",
-        finishTime: "",
-        programmingLanguage: "",
-        programAmount: "",
-        hardwareEnvironment: "",
-        softwareEnvironment: "",
-        projectName: "",
-        inventionUnit: "",
-        projectLeader: "",
-        acceptingUniName: "",
-        acceptingUnitRepresentative: "",
-        acceptingUnitPhone: "",
-        acceptingUnitAddress: "",
-        fileId: "",
-        type: "",
-        tableState: -1
+        signOrder: "",
+        unitName: "",
+        unitAddress: "",
+        fileId: ""
       },
-      input: "",
-      msgType: 2
+      fileUrl: "",
+      msgType: "",
+      msg: "",
+      buttonShow: "",
+      role: "",
+      disable: true,
+      rules: {
+        name: [{ required: true, message: "请输入专利名称", trigger: "blur" }],
+        patentCategory: [
+          { required: true, message: "请选择类型", trigger: "blur" }
+        ],
+        completer: [
+          { required: true, message: "请输入完成者", trigger: "blur" }
+        ],
+        patentNumber: [
+          { required: true, message: "请输入专利号", trigger: "blur" }
+        ],
+        signOrder: [
+          { required: true, message: "请输入署名次序", trigger: "blur" }
+        ],
+        unitName: [
+          { required: true, message: "请输入完成者单位名称", trigger: "blur" }
+        ],
+        unitAddress: [
+          { required: true, message: "请输入完成者单位地址", trigger: "blur" }
+        ]
+      }
     };
   },
   mounted() {
-    let msg = this.$attrs.msgType;
-    if (msg === undefined) {
-      this.msgType = undefined;
-    } else this.msgType = msg.type;
+    this.getComponents();
+    let tableStatus = this.msg.tableid;
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (this.msgType != undefined) {
+      if (this.msg.type == 2) {
+        this.form = {
+          id: tableStatus.id,
+          name: tableStatus.name,
+          firstAuthor: tableStatus.first_author,
+          correspondenceAuthor: tableStatus.correspondence_author,
+          firstAuthorType: tableStatus.first_author_type,
+          publication: tableStatus.publication,
+          time: tableStatus.time,
+          paperSchool: tableStatus.paper_school + "",
+          paperVolume: tableStatus.paper_volume,
+          paperPage: tableStatus.paper_page,
+          paperGrade: tableStatus.paper_grade,
+          fileId: tableStatus.file_id
+        };
+        this.disable = true;
+      } else {
+        this.getRequest("/getPatent", { id: this.msg.message.table_id }).then(
+          res => {
+            this.form = res.data.res;
+          }
+        );
+        this.getRequest("/common/getUserRole").then(res => {
+          this.role = res.data;
+          if (
+            (res.data == 6 &&
+              tableStatus.auditor_court_name == undefined &&
+              tableStatus.auditor_research_name != undefined &&
+              tableStatus.audit_status != 0 &&
+              tableStatus.audit_status != 2) ||
+            (tableStatus.auditor_research_name == undefined &&
+              tableStatus.audit_status == 0 &&
+              res.data != 27 &&
+              res.data != "")
+          ) {
+            this.buttonShow = 2;
+            this.disable = true;
+          } else if (
+            res.data == 27 ||
+            (res.data == "" && tableStatus.audit_status == 2) ||
+            (tableStatus.proposer_name == tableStatus.auditor_research_name &&
+              tableStatus.audit_status == 2)
+          ) {
+            this.buttonShow = 3;
+            this.disable = false;
+          }
+        });
+      }
+    } else {
+      //提交
+      this.buttonShow = 1;
+      this.disable = false;
+    }
   },
-  created() {},
   methods: {
-    onSubmit() {
-      this.form.tableState=16;
-      this.postRequest("/insertPatentInvent", this.form).then(res => {});
+    down() {
+      if (isNumber(this.form.fileId) && this.fileUrl == "") {
+        this.getRequest("/common/getFileNameById", {
+          id: this.form.fileId
+        }).then(res => {
+          window.location.href =
+            "http://localhost:8083/data/access/" + res.data.file.fileName;
+        });
+      } else if (isNumber(this.form.fileId)) {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.fileUrl;
+      } else {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.form.fileId;
+      }
     },
-    clear() {
-      this.form = {
-        id: "",
-        inventName: "",
-        inventor: "",
-        phone: "",
-        inventAddress: "",
-        applicant: "",
-        agent: "",
-        applicationNumber: "",
-        applicantAddress: "",
-        agencyName: "",
-        agencyAddress: "",
-        agencyCode: "",
-        patentNumber: "",
-        softwareFullName: "",
-        softwareShortName: "",
-        versionNumber: "",
-        startTime: "",
-        finishTime: "",
-        programmingLanguage: "",
-        programAmount: "",
-        hardwareEnvironment: "",
-        softwareEnvironment: "",
-        projectName: "",
-        inventionUnit: "",
-        projectLeader: "",
-        acceptingUniName: "",
-        acceptingUnitRepresentative: "",
-        acceptingUnitPhone: "",
-        acceptingUnitAddress: "",
-        fileId: "",
-        type: "",
-        tableState: -1
-      };
+    dateChangebirthday(val) {
+      this.form.time = val;
+    },
+    sendMsgToParent: function() {
+      this.$emit("listenToChild", false);
+    },
+    check(state, agree) {
+      if (
+        this.msg.tableid.auditor_research_name == undefined &&
+        this.role == 6
+      ) {
+        this.$message({ type: "error", message: "请等待教研室审核" });
+      } else {
+        this.getRequest("/check", {
+          tableId: this.msg.message.table_id,
+          status: state,
+          id: this.msg.tableid.id,
+          agree: agree
+        }).then(res => {
+          this.sendMsgToParent();
+        });
+      }
+    },
+    updata() {
+      this.post("/updataPatent", {
+        paper: this.form,
+        tableId: this.msg.tableid.table_id,
+        id: this.msg.tableid.id
+      }).then(res => {
+        this.sendMsgToParent();
+      });
+    },
+    getComponents() {
+      let msg = this.$attrs.msgType;
+      if (msg === undefined) {
+        this.msgType = undefined;
+      } else {
+        this.msgType = msg.type;
+        this.msg = msg;
+      }
+    },
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.postRequest("/insertPatent", this.form).then(res => {
+            this.clear();
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    clear(form) {
+      this.$refs[form].resetFields();
+      this.$refs.file.clearFiles();
+    },
+    handleSuccess(response, file, fileList) {
+      if (file.status == "success") {
+        this.$message({ message: "文件上传成功", type: "success" });
+        this.fileUrl = file.response.obj.fileName;
+        this.form.fileId = file.response.obj.fileId;
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      //文件移除钩子
+      this.getRequest("/common/delFile", {
+        fileName: file.response.obj.fileName,
+        fileId: file.response.obj.fileId
+      }).then(res => {});
+    },
+    handleError(err, file, fileList) {
+      //上传失败钩子
+      this.$message.error("文件上传失败");
+    },
+    handlePreview(file) {
+      //点击文件列表中已上传的文件时的钩子
+      // console.log(file);
     }
   }
 };
 </script>
+
+<style>
+.upload-demo {
+  margin-bottom: 30px;
+}
+a {
+  margin-bottom: 30px;
+}
+</style>

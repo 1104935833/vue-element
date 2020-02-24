@@ -22,7 +22,7 @@
 <script>
 import paper from "./paper.vue";
 import monographs from "./monographs.vue";
-import patent from "./patent.vue";
+import patent from "./zhuanli/patentInvent";
 import portrait from "./portrait.vue";
 import transverse from "./transverse.vue";
 export default {

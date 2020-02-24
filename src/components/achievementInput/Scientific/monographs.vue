@@ -1,91 +1,128 @@
 <template>
   <div>
-    <el-row>
-      <el-col :span="10">
-        著作名称：
-        <el-input placeholder="请输入..." v-model="form.monographsName"></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        所属学科：
-        <el-input placeholder="请输入..." v-model="form.subordinateSubject"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        主&nbsp;题&nbsp;词：
-        <el-input placeholder="请输入..." v-model="form.themeWord"></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        联系电话：
-        <el-input placeholder="请输入..." v-model="form.phone"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        作者名称：
-        <el-input placeholder="请输入..." v-model="form.authorName"></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        总&nbsp;字&nbsp;数：
-        <el-input placeholder="请输入..." v-model="form.wordNumber"></el-input>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        出版册数：
-        <el-input placeholder="请输入..." v-model="form.publishedNumber"></el-input>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        著作完成时间：
-        <el-date-picker v-model="finishTime" type="date" placeholder="选择日期"></el-date-picker>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col align="center">上传佐证材料：</el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="24" align="center">
-        <el-upload
+    <el-form ref="form" :rules="rules" :model="form">
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="著作名称：" prop="name">
+            <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="所属学科：" prop="subordinateSubject">
+            <el-input placeholder="请输入..." v-model="form.subordinateSubject" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="主 题 词：" prop="themeWord">
+            <el-input placeholder="请输入..." v-model="form.themeWord" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="联系电话：" prop="phone">
+            <el-input placeholder="请输入..." v-model="form.phone" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="作者名称：" prop="authorName">
+            <el-input placeholder="请输入..." v-model="form.authorName" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="总 字 数：" prop="wordNumber">
+            <el-input placeholder="请输入..." v-model="form.wordNumber" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="出版册数：" prop="publishedNumber">
+            <el-input placeholder="请输入..." v-model="form.publishedNumber" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="著作完成时间：" prop="finishTime">
+            <el-date-picker
+              v-model="form.finishTime"
+              type="date"
+              placeholder="选择日期"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              @change="dateChangebirthday"
+              :disabled="disable"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" align="center">
+          <el-upload
+            :disabled="disable"
+            ref="file"
+            class="upload-demo"
+            drag
+            acceept="application/pdf"
+            action="/common/file"
+            :on-success="handleSuccess"
+            accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+            :on-remove="handleRemove"
+            :on-error="handleError"
+            multiple
+          >
+            <i class="el-icon-upload"></i>
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/pdf/zip/rar文件</div>
+          </el-upload>
+        </el-col>
+        <el-col
+          :span="24"
+          align="center"
+          v-if="form.fileId!=null && form.fileId!=''"
           class="upload-demo"
-          drag
-          action="https://jsonplaceholder.typicode.com/posts/"
-          multiple
         >
-          <i class="el-icon-upload"></i>
-
-          <div class="el-upload__text">
-            将文件拖到此处，或
-            <em>点击上传</em>
+          <a @click="down">下载材料</a>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" align="center">
+          <div v-if="buttonShow==1" class="upload-demo">
+            <el-button type="primary" @click="onSubmit('form')">提交</el-button>
+            <el-button @click=" clear('form')">取消</el-button>
           </div>
-        </el-upload>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="12" align="center">
-        <div v-if="msgType==undefined">
-          <el-button type="primary" @click="onSubmit">提交</el-button>
-          <el-button @click=" clear">取消</el-button>
-        </div>
-
-        <div v-if="msgType==1">
-          <el-button type="primary" @click="onSubmit">通过</el-button>
-          <el-button @click="clear">不通过</el-button>
-        </div>
-      </el-col>
-    </el-row>
+          <!-- 修改 -->
+          <div v-if="buttonShow==3" class="upload-demo">
+            <el-button type="primary" @click="updata()">修改</el-button>
+          </div>
+          <div v-if="buttonShow==2" class="upload-demo">
+            <el-button type="primary" @click="check('1','1')">通过</el-button>
+            <el-button @click="check('2','0')">不通过</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-form>
   </div>
 </template>
 <script>
+import { isNumber } from "../../../utils/validate";
 export default {
   data() {
     return {
       form: {
         id: "",
-        monographsName: "",
+        name: "",
         themeWord: "",
         authorName: "",
         finishTime: "",
@@ -95,36 +132,202 @@ export default {
         publishedNumber: "",
         fileId: ""
       },
-      input: "",
-      msgType: 2
+      fileUrl: "",
+      msgType: "",
+      msg: "",
+      buttonShow: "",
+      role: "",
+      disable: true,
+      rules: {
+        name: [{ required: true, message: '请输入著作标题', trigger: "blur" }],
+        themeWord: [
+          { required: true, message: "请输入主题词", trigger: "blur" }
+        ],
+        authorName: [
+          { required: true, message: "请输入作者名称", trigger: "blur" }
+        ],
+        finishTime: [
+          { required: true, message: "请选择著作完成时间", trigger: "blur" }
+        ],
+        subordinateSubject: [
+          { required: true, message: "请输入所属学科", trigger: "blur" }
+        ],
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+        wordNumber: [
+          { required: true, message: "请输入总字数", trigger: "blur" }
+        ],
+        publishedNumber: [
+          { required: true, message: "请输入出版册数", trigger: "blur" }
+        ]
+      }
     };
   },
-mounted() {
-    let msg = this.$attrs.msgType;
-    if (msg === undefined) {
-      this.msgType = undefined;
-    } else this.msgType = msg.type;
+  mounted() {
+    this.getComponents();
+    let tableStatus = this.msg.tableid;
+    let user = JSON.parse(localStorage.getItem("user"));
+    if (this.msgType != undefined) {
+      if (this.msg.type == 2) {
+        this.form = {
+          id: tableStatus.id,
+          name: tableStatus.name,
+          firstAuthor: tableStatus.first_author,
+          correspondenceAuthor: tableStatus.correspondence_author,
+          firstAuthorType: tableStatus.first_author_type,
+          publication: tableStatus.publication,
+          time: tableStatus.time,
+          paperSchool: tableStatus.paper_school + "",
+          paperVolume: tableStatus.paper_volume,
+          paperPage: tableStatus.paper_page,
+          paperGrade: tableStatus.paper_grade,
+          fileId: tableStatus.file_id
+        };
+        this.disable = true;
+      } else {
+        this.getRequest("/getMonographs", {
+          id: this.msg.message.table_id
+        }).then(res => {
+          this.form = res.data.res;
+        });
+        this.getRequest("/common/getUserRole").then(res => {
+          this.role = res.data;
+          if (
+            (res.data == 6 &&
+              tableStatus.auditor_court_name == undefined &&
+              tableStatus.auditor_research_name != undefined &&
+              tableStatus.audit_status != 0 &&
+              tableStatus.audit_status != 2) ||
+            (tableStatus.auditor_research_name == undefined &&
+              tableStatus.audit_status == 0 &&
+              res.data != 27 &&
+              res.data != "")
+          ) {
+            this.buttonShow = 2;
+            this.disable = true;
+          } else if (
+            res.data == 27 ||
+            (res.data == "" && tableStatus.audit_status == 2) ||
+            (tableStatus.proposer_name == tableStatus.auditor_research_name &&
+              tableStatus.audit_status == 2)
+          ) {
+            this.buttonShow = 3;
+            this.disable = false;
+          }
+        });
+      }
+    } else {
+      //提交
+      this.buttonShow = 1;
+      this.disable = false;
+    }
   },
-  created() {},
   methods: {
-    onSubmit() {
-      this.postRequest("/insertPaper", this.form).then(res => {});
+    down() {
+      if (isNumber(this.form.fileId) && this.fileUrl == "") {
+        this.getRequest("/common/getFileNameById", {
+          id: this.form.fileId
+        }).then(res => {
+          window.location.href =
+            "http://localhost:8083/data/access/" + res.data.file.fileName;
+        });
+      } else if (isNumber(this.form.fileId)) {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.fileUrl;
+      } else {
+        window.location.href =
+          "http://localhost:8083/data/access/" + this.form.fileId;
+      }
     },
-    clear() {
-      this.form = {
-        id: "",
-        paperTitle: "",
-        firstAuthor: "",
-        correspondenceAuthor: "",
-        firstAuthorType: "",
-        publication: "",
-        time: "",
-        paperSchool: "",
-        paperVolume: "",
-        paperPage: "",
-        paperGrade: ""
-      };
+    dateChangebirthday(val) {
+      this.form.time = val;
+    },
+    sendMsgToParent: function() {
+      this.$emit("listenToChild", false);
+    },
+    check(state, agree) {
+      if (
+        this.msg.tableid.auditor_research_name == undefined &&
+        this.role == 6
+      ) {
+        this.$message({ type: "error", message: "请等待教研室审核" });
+      } else {
+        this.getRequest("/check", {
+          tableId: this.msg.message.table_id,
+          status: state,
+          id: this.msg.tableid.id,
+          agree: agree
+        }).then(res => {
+          this.sendMsgToParent();
+        });
+      }
+    },
+    updata() {
+      this.post("/updataMonographs", {
+        paper: this.form,
+        tableId: this.msg.tableid.table_id,
+        id: this.msg.tableid.id
+      }).then(res => {
+        this.sendMsgToParent();
+      });
+    },
+    getComponents() {
+      let msg = this.$attrs.msgType;
+      if (msg === undefined) {
+        this.msgType = undefined;
+      } else {
+        this.msgType = msg.type;
+        this.msg = msg;
+      }
+    },
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          this.postRequest("/insertMonographs", this.form).then(res => {
+            this.clear();
+          });
+        } else {
+          return false;
+        }
+      });
+    },
+    clear(form) {
+      this.$refs[form].resetFields();
+      this.$refs.file.clearFiles();
+    },
+    handleSuccess(response, file, fileList) {
+      if (file.status == "success") {
+        this.$message({ message: "文件上传成功", type: "success" });
+        this.fileUrl = file.response.obj.fileName;
+        this.form.fileId = file.response.obj.fileId;
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit();
+    },
+    handleRemove(file, fileList) {
+      //文件移除钩子
+      this.getRequest("/common/delFile", {
+        fileName: file.response.obj.fileName,
+        fileId: file.response.obj.fileId
+      }).then(res => {});
+    },
+    handleError(err, file, fileList) {
+      //上传失败钩子
+      this.$message.error("文件上传失败");
+    },
+    handlePreview(file) {
+      //点击文件列表中已上传的文件时的钩子
+      // console.log(file);
     }
   }
 };
 </script>
+
+<style>
+.upload-demo {
+  margin-bottom: 30px;
+}
+a {
+  margin-bottom: 30px;
+}
+</style>

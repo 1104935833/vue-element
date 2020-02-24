@@ -14,8 +14,7 @@
             <el-input placeholder="请输入..." v-model="form.firstAuthor" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="1">&nbsp;</el-col>
-        <el-col :span="12">
+        <el-col :span="12" :offset="1">
           <el-form-item label="通讯作者：" prop="correspondenceAuthor">
             <el-input placeholder="请输入..." v-model="form.correspondenceAuthor" :disabled="disable"></el-input>
           </el-form-item>
@@ -38,8 +37,7 @@
             <el-input placeholder="请输入..." v-model="form.publication" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="1">&nbsp;</el-col>
-        <el-col :span="12">
+        <el-col :span="12" :offset="1">
           <el-form-item label="发表出版时间：" prop="time">
             <el-date-picker
               :disabled="disable"
@@ -69,8 +67,7 @@
             <el-input placeholder="请输入..." v-model="form.paperVolume" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="1">&nbsp;</el-col>
-        <el-col :span="12">
+        <el-col :span="12" :offset="1">
           <el-form-item label="页码范围：" prop="paperPage">
             <el-input placeholder="请输入..." v-model="form.paperPage" :disabled="disable"></el-input>
           </el-form-item>
@@ -179,7 +176,7 @@ export default {
         time: [{required:true,message:'请输入发表时间',trigger:'blur'}],
         paperSchool: [{required:true,message:'请选择学校署名',trigger:'blur'}],
         paperVolume: [{required:true,message:'请输入卷号',trigger:'blur'}],
-        paperPage: [{required:true,message:'请选输入页面范围',trigger:'blur'}],
+        paperPage: [{required:true,message:'请输入页面范围',trigger:'blur'}],
         paperGrade: [{required:true,message:'请选择等级',trigger:'blur'}],
       }
     };
@@ -314,8 +311,6 @@ export default {
     },
     clear(form) {
       this.$refs[form].resetFields();
-      console.log(this.form
-      )
       this.$refs.file.clearFiles();
     },
     handleSuccess(response, file, fileList) {
