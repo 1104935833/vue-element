@@ -9,40 +9,40 @@
         </el-col>
         <el-col :span="2">&nbsp;</el-col>
         <el-col :span="12">
-          <el-form-item label="所属专业：" prop="name">
-            <el-input v-model="name" placeholder="请输入..." :disabled="disable"></el-input>
+          <el-form-item label="所属专业：" prop="professionalPlace">
+            <el-input v-model="form.professionalPlace" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="课程负责人：" prop="name">
+          <el-form-item label="课程负责人：" prop="courseLeader">
             <el-input v-model="form.courseLeader" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="2">&nbsp;</el-col>
         <el-col :span="12">
-          <el-form-item label="主讲教师：" prop="name">
+          <el-form-item label="主讲教师：" prop="teacherMain">
             <el-input v-model="form.teacherMain" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="主讲教师的专业领域：" prop="name">
+          <el-form-item label="主讲教师的专业领域：" prop="teacherProfessional">
             <el-input v-model="form.teacherProfessional" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="2">&nbsp;</el-col>
         <el-col :span="12">
-          <el-form-item label="主讲教师的职业资格证书：" prop="name">
+          <el-form-item label="主讲教师的职业资格证书：" prop="teacherCertificate">
             <el-input v-model="form.teacherCertificate" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="申报时间：" prop="name">
+          <el-form-item label="申报时间：" prop="declareTime">
             <el-date-picker
               v-model="form.declareTime"
               type="date"
@@ -57,7 +57,7 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="课程类型：" prop="name">
+          <el-form-item label="课程类型：" prop="courseCategory">
             <el-radio-group v-model="form.courseCategory" :disabled="disable">
               <el-radio :label="0">优质核心课程</el-radio>
               <el-radio :label="1">一般教改课程</el-radio>
@@ -67,7 +67,7 @@
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="等级:" prop="name">
+          <el-form-item label="等级:" prop="grade">
             <el-radio-group v-model="form.grade" :disabled="disable">
               <el-radio :label="0">国家级</el-radio>
               <el-radio :label="1">省部级</el-radio>
