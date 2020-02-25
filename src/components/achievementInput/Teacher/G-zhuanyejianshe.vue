@@ -137,7 +137,7 @@ export default {
         };
         this.disable = true;
       } else {
-        this.getRequest("/getProfessional", { id: this.msg.message.table_id }).then(
+        this.getRequest("/getProfessional", { tableId: this.msg.message.id }).then(
           res => {
             this.form = res.data.res;
           }

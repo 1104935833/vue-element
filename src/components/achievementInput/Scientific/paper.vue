@@ -203,7 +203,7 @@ export default {
         };
         this.disable = true;
       } else {
-        this.getRequest("/getPaper", { id: this.msg.message.table_id }).then(
+        this.getRequest("/getPaper", { tableId: this.msg.message.id }).then(
           res => {
             this.form = res.data.res;
           }
@@ -291,12 +291,14 @@ export default {
     },
     getComponents() {
       let msg = this.$attrs.msgType;
+
       if (msg === undefined) {
         this.msgType = undefined;
       } else {
         this.msgType = msg.type;
         this.msg = msg;
       }
+            console.log(this.msg);
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

@@ -290,7 +290,7 @@ export default {
         };
         this.disable = true;
       } else {
-        this.getRequest("/getLab", { id: this.msg.message.table_id }).then(
+        this.getRequest("/getLab", { itableIdd: this.msg.message.id }).then(
           res => {
             this.form = res.data.res;
           }

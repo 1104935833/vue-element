@@ -184,7 +184,7 @@ export default {
         this.disable = true;
       } else {
         this.getRequest("/getHoner", {
-          id: this.msg.message.table_id
+          tableId: this.msg.message.id
         }).then(res => {
           this.form = res.data.res;
         });
