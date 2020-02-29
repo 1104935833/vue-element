@@ -14,6 +14,9 @@
             <el-radio-group v-model="form.patentCategory" :disabled="disable">
               <el-radio label="0">发明专利</el-radio>
               <el-radio label="1">实用新型专利</el-radio>
+              <el-radio label="2">外观设计专利</el-radio>
+              <el-radio label="3">软件著作专利</el-radio>
+              <el-radio label="4">专利转让</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
