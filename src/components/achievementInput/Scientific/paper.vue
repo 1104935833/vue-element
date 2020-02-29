@@ -264,6 +264,7 @@ export default {
       this.$emit("listenToChild", false);
     },
     check(state, agree) {
+      console.log(this.msg.message.id);
       if (
         this.msg.tableid.auditor_research_name == undefined &&
         this.role == 6
@@ -271,7 +272,7 @@ export default {
         this.$message({ type: "error", message: "请等待教研室审核" });
       } else {
         this.getRequest("/check", {
-          tableId: this.msg.message.table_id,
+          tableId: this.msg.message.id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree
@@ -283,7 +284,7 @@ export default {
     updata() {
       this.post("/updataPaper", {
         paper: this.form,
-        tableId: this.msg.tableid.table_id,
+        tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {
         this.sendMsgToParent();
@@ -298,7 +299,6 @@ export default {
         this.msgType = msg.type;
         this.msg = msg;
       }
-            console.log(this.msg);
     },
     onSubmit(form) {
       this.$refs[form].validate((valid) => {

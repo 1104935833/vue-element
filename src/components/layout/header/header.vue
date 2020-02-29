@@ -13,14 +13,18 @@
       </div>
       <ul class="personal">
         <li @click="mouseover">
-          <el-dropdown @command="handleCommand" >
+          <el-dropdown @command="handleCommand">
             <el-badge :is-dot="isDotCount">
               <i class="fa fa-bell-o" style="cursor: pointer"></i>
               <!-- 提醒 -->
             </el-badge>
             <el-dropdown-menu slot="dropdown">
               <template>
-                <el-dropdown-item v-for="(i) in peddingList" v-bind:key="i.id" :command="i.url">{{i.id}}-{{i.main}}</el-dropdown-item>
+                <el-dropdown-item
+                  v-for="(i) in peddingList"
+                  v-bind:key="i.id"
+                  :command="i.url"
+                >{{i.id}}-{{i.main}}</el-dropdown-item>
               </template>
             </el-dropdown-menu>
           </el-dropdown>
@@ -34,7 +38,7 @@
               style="width: 40px;height: 40px;margin-right: 5px;margin-left: 5px;border-radius: 40px"/></i>-->
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="/sys/center">个人中心</el-dropdown-item>
+              <!-- <el-dropdown-item command="/sys/center">个人中心</el-dropdown-item> -->
               <!-- <el-dropdown-item command="/sys/setting">设置</el-dropdown-item> -->
               <el-dropdown-item command="logout" divided>注销</el-dropdown-item>
             </el-dropdown-menu>
@@ -43,22 +47,24 @@
       </ul>
     </el-header>
     <tabNav></tabNav>
+    <mainBody v-if="this.$router.currentRoute.path=='/home'"></mainBody>
   </div>
 </template>
 <script>
+import mainBody from "../mainBody";
 import tabNav from "./tabNav";
 export default {
   data() {
     return {
-      send:true,
+      send: true,
       routername: "主页",
       menuName: "",
       isDotCount: false,
-      o:'/sys/center',
-      peddingList:[{name:"暂无消息"}]
+      o: "/sys/center",
+      peddingList: [{ name: "暂无消息" }]
     };
   },
-  components: { tabNav },
+  components: { tabNav, mainBody },
   created() {
     var _this = this;
     if (
@@ -70,29 +76,28 @@ export default {
       location.rseload();
       _this.$router.replace({ path: "/" });
     }
-   
   },
-  mounted() {    
+  mounted() {
     this.getpedding();
   },
   methods: {
-    mouseover(){
-    this.getpedding();
+    mouseover() {
+      this.getpedding();
     },
-    getpedding(){
-      if(this.send==true){
-      this.getRequest("/getPeddingName").then(res=>{
-        console.log(res.data.list);
-        if(res.data.list.length>0){
-          this.isDotCount=true;
-          this.peddingList = res.data.list;
-          }else{
-            this.isDotCount=false;
-            this.peddingList=[{id:'',main:"暂无消息-"}]
+    getpedding() {
+      if (this.send == true) {
+        this.getRequest("/getPeddingName").then(res => {
+          console.log(res.data.list);
+          if (res.data.list.length > 0) {
+            this.isDotCount = true;
+            this.peddingList = res.data.list;
+          } else {
+            this.isDotCount = false;
+            this.peddingList = [{ id: "", main: "暂无消息-" }];
           }
 
-        // console.log(res);
-      });
+          // console.log(res);
+        });
       }
     },
     collapse() {

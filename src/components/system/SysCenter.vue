@@ -8,7 +8,7 @@
           </div>
           <div>
             <div style="text-align: center"></div>
-            <ul class="user-info">
+            <ul class="user-info1">
               <li>
                 <div style="height: 100%">
                   <svg-icon icon-class="login" />登录账号
@@ -44,11 +44,11 @@
       <el-col :xs="24" :sm="24" :md="16" :lg="16" :xl="19">
         <!--    用户资料    -->
         <el-card class="box-card">
-          <el-tabs v-model="activeName" @tab-click="handleClick">
-            <el-tab-pane label="业绩汇总" name="first">
+          <el-tabs v-model="activeName">
+            <!-- <el-tab-pane label="业绩汇总" name="first">
               <Demo></Demo>
-            </el-tab-pane>
-            <el-tab-pane label="用户资料" name="second">
+            </el-tab-pane> -->
+            <el-tab-pane label="用户资料" name="first">
               <el-form
                 ref="form"
                 :model="form"
@@ -92,7 +92,7 @@
           <el-button
             type="warning"
             size="mini"
-            style="width:10%"
+            style="width:15%"
             v-show="show"
             @click="getYZM()"
           >获取验证码</el-button>
@@ -217,7 +217,7 @@ export default {
   display: block;
   border-radius: 50%;
 }
-.user-info {
+.user-info1 {
   padding-left: 0;
   list-style: none;
   li {

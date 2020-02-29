@@ -14,9 +14,6 @@
             <el-radio-group v-model="form.patentCategory" :disabled="disable">
               <el-radio label="0">发明专利</el-radio>
               <el-radio label="1">实用新型专利</el-radio>
-              <el-radio label="2">外观设计专利</el-radio>
-              <el-radio label="3">软件著作专利</el-radio>
-              <el-radio label="4">专利转让</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
@@ -243,7 +240,7 @@ export default {
         this.$message({ type: "error", message: "请等待教研室审核" });
       } else {
         this.getRequest("/check", {
-          tableId: this.msg.message.table_id,
+          tableId: this.msg.message.id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree
@@ -255,7 +252,7 @@ export default {
     updata() {
       this.post("/updataPatent", {
         paper: this.form,
-        tableId: this.msg.tableid.table_id,
+        tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {
         this.sendMsgToParent();

@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Center from '@/components/system/SysCenter'
-import Setting from '@/components/system/SysSetting'
 Vue.use(Router)
 
 const router = new Router({
@@ -20,25 +19,6 @@ const router = new Router({
             meta: {
                 requireAuth: true
             },
-            children: [{
-                path: '/sys/center',
-                name: '个人中心',
-                component: Center,
-                hidden: true,
-                meta: {
-                    keepAlive: false,
-                    requireAuth: true
-                }
-            }, {
-                path: '/sys/setting',
-                name: '设置',
-                component: Setting,
-                hidden: true,
-                meta: {
-                    keepAlive: false,
-                    requireAuth: true
-                }
-            }]
         }
 
 

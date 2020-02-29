@@ -250,7 +250,7 @@ export default {
         this.$message({ type: "error", message: "请等待教研室审核" });
       } else {
         this.getRequest("/check", {
-          tableId: this.msg.message.table_id,
+          tableId: this.msg.message.id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree
@@ -262,7 +262,7 @@ export default {
     updata() {
       this.post("/updataMonographs", {
         paper: this.form,
-        tableId: this.msg.tableid.table_id,
+        tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {
         this.sendMsgToParent();
