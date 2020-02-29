@@ -96,6 +96,9 @@ export default {
 };
 </script>
 <style rel="stylesheet/scss" lang="scss">
+body{
+  background:#E1F8FF;
+}
 .login-code {
   width: 33%;
   display: inline-block;
