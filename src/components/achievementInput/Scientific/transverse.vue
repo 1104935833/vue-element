@@ -211,6 +211,9 @@ export default {
           level: tableStatus.level,
           fileId: tableStatus.file_id
         };
+        if(this.form.startTime.length==13){
+          this.form.startTime = this.$options.filters['dateFormat'](this.form.startTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getTransverse", { tableId: this.msg.message.id }).then(

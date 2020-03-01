@@ -209,6 +209,9 @@ export default {
           level: tableStatus.level,
           fileId: tableStatus.file_id
         };
+        if(this.form.declareTime.length==13){
+          this.form.declareTime = this.$options.filters['dateFormat'](this.form.declareTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getAcademic", { tableId: this.msg.message.id }).then(

@@ -180,6 +180,9 @@ export default {
           type: tableStatus.type,
           fileId: tableStatus.file_id
         };
+        if(this.form.date.length==13){
+          this.form.date = this.$options.filters['dateFormat'](this.form.date)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getPortrait", { tableId: this.msg.message.id }).then(

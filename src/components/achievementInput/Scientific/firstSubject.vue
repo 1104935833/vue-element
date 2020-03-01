@@ -231,6 +231,12 @@ export default {
           approvalTime: tableStatus.approval_time,
           fileId: tableStatus.file_id
         };
+        if(this.form.inceptTime.length==13){
+          this.form.inceptTime = this.$options.filters['dateFormat'](this.form.inceptTime)
+        }
+        if(this.form.approvalTime.length==13){
+          this.form.approvalTime = this.$options.filters['dateFormat'](this.form.approvalTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getFirstSubject", {

@@ -148,6 +148,9 @@ export default {
           type: tableStatus.type,
           fileId: tableStatus.file_id
         };
+        if(this.form.personalGainTime.length==13){
+          this.form.personalGainTime = this.$options.filters['dateFormat'](this.form.personalGainTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getHoner", {

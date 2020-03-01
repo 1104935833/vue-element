@@ -227,6 +227,12 @@ export default {
           approvalTime: tableStatus.approval_time,
           fileId: tableStatus.file_id
         };
+        if(this.form.unionEffectTime.length==13){
+          this.form.unionEffectTime = this.$options.filters['dateFormat'](this.form.unionEffectTime)
+        }
+        if(this.form.approvalTime.length==13){
+          this.form.approvalTime = this.$options.filters['dateFormat'](this.form.approvalTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getProductionUnion", { tableId: this.msg.message.id }).then(

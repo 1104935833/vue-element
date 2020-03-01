@@ -180,6 +180,9 @@ export default {
           publishedNumber: tableStatus.published_number,
           fileId: tableStatus.file_id
         };
+        if(this.form.finishTime.length==13){
+          this.form.finishTime = this.$options.filters['dateFormat'](this.form.finishTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getMonographs", {

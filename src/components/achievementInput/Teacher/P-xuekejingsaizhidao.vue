@@ -253,6 +253,9 @@ export default {
           grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
+        if(this.form.approvalTime.length==13){
+          this.form.approvalTime = this.$options.filters['dateFormat'](this.form.approvalTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getCompetition", {

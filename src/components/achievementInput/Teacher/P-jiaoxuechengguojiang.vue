@@ -215,6 +215,9 @@ export default {
           grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
+        if(this.form.applyTime.length==13){
+          this.form.applyTime = this.$options.filters['dateFormat'](this.form.applyTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getAchievement", {

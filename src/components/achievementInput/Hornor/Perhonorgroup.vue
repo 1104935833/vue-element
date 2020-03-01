@@ -181,6 +181,9 @@ export default {
           organizationMember: tableStatus,organization_member, //组织成员
           type: tableStatus.type //1个人、2集体
         };
+        if(this.form.personalGainTime.length==13){
+          this.form.personalGainTime = this.$options.filters['dateFormat'](this.form.personalGainTime)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getHoner", {

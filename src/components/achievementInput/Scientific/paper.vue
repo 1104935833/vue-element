@@ -201,6 +201,9 @@ export default {
           paperGrade: tableStatus.paper_grade,
           fileId: tableStatus.file_id
         };
+        if(this.form.time.length==13){
+          this.form.time = this.$options.filters['dateFormat'](this.form.time)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getPaper", { tableId: this.msg.message.id }).then(
@@ -264,7 +267,6 @@ export default {
       this.$emit("listenToChild", false);
     },
     check(state, agree) {
-      console.log(this.msg.message.id);
       if (
         this.msg.tableid.auditor_research_name == undefined &&
         this.role == 6

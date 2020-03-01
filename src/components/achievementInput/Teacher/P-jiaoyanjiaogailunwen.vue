@@ -109,6 +109,9 @@ export default {
           grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
+        if(this.form.time.length==13){
+          this.form.time = this.$options.filters['dateFormat'](this.form.time)
+        }
         this.disable = true;
       } else {
         this.getRequest("/getTeachingReform", {
