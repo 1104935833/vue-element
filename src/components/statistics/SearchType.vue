@@ -3,8 +3,7 @@
     <div v-if="types=='3' || types=='4' || types=='22' || types=='23'">
       <!--荣誉-->
       组织名称：
-      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>荣誉名称：
-      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>
+      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>
     </div>
     <div v-if="types=='7'">
       <!--论文-->
@@ -23,8 +22,15 @@
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>作者名称：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
-    <div v-if="types=='9' || types=='10'">
-      <!--专利，纵向科研项目-->
+    <div v-if="types=='9'">
+      <!--专利-->
+     专利号：
+      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>完成者：
+      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>类别：
+      <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
+    </div>
+    <div v-if="types=='10'">
+      <!--纵向科研项目-->
      项目负责人：
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>项目类型：
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>依托单位：
@@ -34,7 +40,7 @@
       <!--横向科研项目-->
      所属一级学科:
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>研究类别：
-      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>依托单位：
+      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>项目负责人：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='24'">
@@ -56,8 +62,9 @@
     <div v-if="types=='17'">
       <!--重点(一流学科)-->
       依托学校：
-      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>负责人：
-      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>
+      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>申报学科名称：
+      <el-input placeholder="请输入内容" v-model="form.data2"></el-input>学科带头人：
+      <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='18'">
       <!--重点实验室-->
