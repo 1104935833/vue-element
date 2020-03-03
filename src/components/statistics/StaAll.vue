@@ -181,7 +181,9 @@ export default {
       tableData: []
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    this.search();
+  },
 
   methods: {
      currentChange(currentChange) {
@@ -202,6 +204,7 @@ export default {
       this.form.time = val;
     },
     search(){
+      this.tableLoading=true;
       this.form.page = this.currentPage
       let resform;
       let form1=this.form;
@@ -213,6 +216,7 @@ export default {
         resform = form1;
       }
       this.post("/searchPer",{resform:resform}).then(res=>{
+        this.tableLoading=false;
         this.tableData = res.data.res
         this.totalCount = res.data.count
       });
@@ -263,7 +267,7 @@ export default {
   created() {}
 };
 </script>
-<style>
+<style lang="scss">
 .el-row {
   margin-bottom: 20px;
   &:last-child {
