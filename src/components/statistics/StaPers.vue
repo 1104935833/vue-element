@@ -184,8 +184,6 @@ export default {
         username: "",
         option: "",
         time: "",
-        page: 0,
-        size: 10,
         group: "self"
       },
       tableData: []
@@ -268,8 +266,6 @@ export default {
         username: "",
         option: "",
         time: "",
-        size: 10,
-        start: 0,
         group: "self"
       };
     }
