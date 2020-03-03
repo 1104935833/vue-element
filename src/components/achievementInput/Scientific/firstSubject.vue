@@ -186,16 +186,14 @@ export default {
         supportSchool: [
           { required: true, message: "请输入依托学校", trigger: "blur" }
         ],
-        contact: [
-          { required: true, message: "请输入联系人", trigger: "blur" }
-        ],
-        phone: [
-          { required: true, message: "请输入联系电话", trigger: "blur" }
-        ],
+        contact: [{ required: true, message: "请输入联系人", trigger: "blur" }],
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
         declareSubjectName: [
           { required: true, message: "请输入申报学科名称", trigger: "blur" }
         ],
-        subjectLeader: [{ required: true, message: "请输入学科带头人", trigger: "blur" }],
+        subjectLeader: [
+          { required: true, message: "请输入学科带头人", trigger: "blur" }
+        ],
         inceptName: [
           { required: true, message: "请输入获得学位授权情况", trigger: "blur" }
         ],
@@ -203,10 +201,18 @@ export default {
           { required: true, message: "请输入获得学位授权情况", trigger: "blur" }
         ],
         subjectThirdEvaluation: [
-          { required: true, message: "请输入学科第三方评价情况", trigger: "blur" }
+          {
+            required: true,
+            message: "请输入学科第三方评价情况",
+            trigger: "blur"
+          }
         ],
-        approvalDepartment: [{ required: true, message: "请输入批准部门", trigger: "blur" }],
-        approvalTime: [{ required: true, message: "请选择批准时间", trigger: "blur" }],
+        approvalDepartment: [
+          { required: true, message: "请输入批准部门", trigger: "blur" }
+        ],
+        approvalTime: [
+          { required: true, message: "请选择批准时间", trigger: "blur" }
+        ]
       }
     };
   },
@@ -231,11 +237,15 @@ export default {
           approvalTime: tableStatus.approval_time,
           fileId: tableStatus.file_id
         };
-        if(this.form.inceptTime.length==13){
-          this.form.inceptTime = this.$options.filters['dateFormat'](this.form.inceptTime)
+        if (this.form.inceptTime.length == 13) {
+          this.form.inceptTime = this.$options.filters["dateFormat"](
+            this.form.inceptTime
+          );
         }
-        if(this.form.approvalTime.length==13){
-          this.form.approvalTime = this.$options.filters['dateFormat'](this.form.approvalTime)
+        if (this.form.approvalTime.length == 13) {
+          this.form.approvalTime = this.$options.filters["dateFormat"](
+            this.form.approvalTime
+          );
         }
         this.disable = true;
       } else {
@@ -372,7 +382,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

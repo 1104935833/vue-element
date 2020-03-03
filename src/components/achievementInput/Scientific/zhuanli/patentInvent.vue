@@ -305,7 +305,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

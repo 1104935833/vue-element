@@ -47,12 +47,7 @@
               <el-row>
                 <el-col :span="5">
                   业绩名称:
-                  <el-input
-                    v-model="emp.name"
-                    style="width: 130px"
-                    size="mini"
-                    placeholder="请输入"
-                  ></el-input>
+                  <el-input v-model="emp.name" style="width: 130px" size="mini" placeholder="请输入"></el-input>
                 </el-col>
                 <el-col :span="5">
                   业绩类别:
@@ -106,10 +101,10 @@
             style="width: 100%"
           >
             <el-table-column prop="id" align="left" fixed label="序号"></el-table-column>
-            <el-table-column prop="name"  align="left" label="业绩名称"></el-table-column>
-            <el-table-column prop="table_name" label="业绩类别" ></el-table-column>
-            <el-table-column  align="left" label="申请时间" prop="create_time"></el-table-column>
-            <el-table-column prop="audit_status"  align="left" label="审核状态"></el-table-column>
+            <el-table-column prop="name" align="left" label="业绩名称"></el-table-column>
+            <el-table-column prop="table_name" label="业绩类别"></el-table-column>
+            <el-table-column align="left" label="申请时间" prop="create_time"></el-table-column>
+            <el-table-column prop="audit_status" align="left" label="审核状态"></el-table-column>
             <el-table-column prop="file_id" align="left" label="佐证材料上交情况">
               <template slot-scope="scope">
                 <span v-if="scope.row.file_id==null">无</span>
@@ -118,7 +113,7 @@
             </el-table-column>
             <el-table-column prop="note" label="操作">
               <template slot-scope="scope">
-                 <el-button type="success" size="mini" @click="showPeddingInfo(scope.row)">查看</el-button>
+                <el-button type="success" size="mini" @click="showPeddingInfo(scope.row)">查看</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -143,8 +138,8 @@
 <script>
 import Table from "../audit/Table";
 export default {
-  components:{
-    Table:Table,
+  components: {
+    Table: Table
   },
   data() {
     return {
@@ -159,14 +154,14 @@ export default {
       currentPage: 1,
       tableLoading: false,
       advanceSearchViewVisible: false,
-      message1:"",
-      type:"",
+      message1: "",
+      type: "",
       emp: {
         name: "",
         table_name: "",
         create_time: "",
         audit_status: "",
-        file_id: "",
+        file_id: ""
       }
     };
   },
@@ -177,13 +172,12 @@ export default {
     //查看
     showPeddingInfo(row) {
       this.hackReset = false;
-        this.$nextTick(() => {
-          this.hackReset = true;
-        });
-        this.message1 = {state:row.table_state}
-        this.dialogVisible = true;
-        this.type = {message:this.message1, type: 2, tableid: row };
-      // console.log(row)
+      this.$nextTick(() => {
+        this.hackReset = true;
+      });
+      this.message1 = { state: row.table_state };
+      this.dialogVisible = true;
+      this.type = { message: this.message1, type: 2, tableid: row };
     },
     cancelSearch() {
       this.advanceSearchViewVisible = false;
@@ -197,14 +191,13 @@ export default {
       if (!this.advanceSearchViewVisible) {
         this.emptyEmpData();
         this.beginDateScope = "";
-        
       }
     },
 
     searchEmp() {
       this.post("/serchPerformance", {
         info: this.emp,
-        keywords:this.keywords,
+        keywords: this.keywords,
         page: this.currentPage,
         size: 10,
         time: this.beginDateScope
@@ -220,8 +213,9 @@ export default {
     loadEmps() {
       var _this = this;
       this.tableLoading = true;
-      this.getRequest("/getPerformanceByUserId",{
-        page: this.currentPage,size: 10
+      this.getRequest("/getPerformanceByUserId", {
+        page: this.currentPage,
+        size: 10
       }).then(resp => {
         this.tableLoading = false;
         if (resp && resp.status == 200) {
@@ -230,7 +224,7 @@ export default {
           _this.totalCount = data.count;
           _this.emptyEmpData();
         }
-      })
+      });
     },
     initData() {
       this.getRequest("/getPerformanceByUserId", {
@@ -248,7 +242,7 @@ export default {
         table_name: "",
         create_time: "",
         audit_status: "",
-        file_id: "",
+        file_id: ""
       };
     }
   }

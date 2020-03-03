@@ -265,11 +265,15 @@ export default {
           grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
-        if(this.form.writeFinishTime.length==13){
-          this.form.writeFinishTime = this.$options.filters['dateFormat'](this.form.writeFinishTime)
+        if (this.form.writeFinishTime.length == 13) {
+          this.form.writeFinishTime = this.$options.filters["dateFormat"](
+            this.form.writeFinishTime
+          );
         }
-        if(this.form.declareTime.length==13){
-          this.form.declareTime = this.$options.filters['dateFormat'](this.form.declareTime)
+        if (this.form.declareTime.length == 13) {
+          this.form.declareTime = this.$options.filters["dateFormat"](
+            this.form.declareTime
+          );
         }
         this.disable = true;
       } else {
@@ -406,7 +410,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

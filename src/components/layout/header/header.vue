@@ -87,7 +87,6 @@ export default {
     getpedding() {
       if (this.send == true) {
         this.getRequest("/getPeddingName").then(res => {
-          console.log(res.data.list);
           if (res.data.list.length > 0) {
             this.isDotCount = true;
             this.peddingList = res.data.list;
@@ -95,8 +94,6 @@ export default {
             this.isDotCount = false;
             this.peddingList = [{ id: "", main: "暂无消息-" }];
           }
-
-          // console.log(res);
         });
       }
     },

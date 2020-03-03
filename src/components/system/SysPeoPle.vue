@@ -95,7 +95,12 @@
                   </el-col>
                   <el-col :span="4">
                     姓名:
-                    <el-input v-model="empsearch.name" style="width: 130px" size="mini" placeholder="姓名"></el-input>
+                    <el-input
+                      v-model="empsearch.name"
+                      style="width: 130px"
+                      size="mini"
+                      placeholder="姓名"
+                    ></el-input>
                   </el-col>
                   <!-- <el-col :span="5">
                     身份证号码:
@@ -105,11 +110,11 @@
                       size="mini"
                       placeholder="身份证号码"
                     ></el-input>
-                  </el-col> -->
+                  </el-col>-->
                   <el-col :span="5">
                     所属部门:
                     <el-select style="width: 130px;" v-model="empsearch.tree" placeholder="请选择">
-                      <el-option value="">请选择</el-option>
+                      <el-option value>请选择</el-option>
                       <el-option
                         v-for="item in options"
                         :key="item.tree_code"
@@ -121,11 +126,11 @@
                   <el-col :span="4">
                     有否有效:
                     <el-radio-group v-model="empsearch.enable">
-                      <el-radio :label=1>有效</el-radio>
-                      <el-radio style="margin-left: 15px" :label=0>无效</el-radio>
+                      <el-radio :label="1">有效</el-radio>
+                      <el-radio style="margin-left: 15px" :label="0">无效</el-radio>
                     </el-radio-group>
                   </el-col>
-                  
+
                   <el-col :span="3" :offset="18">
                     <el-button size="mini" @click="cancelSearch">取消</el-button>
                     <el-button
@@ -152,15 +157,15 @@
               <el-table-column type="selection" align="left"></el-table-column>
               <el-table-column prop="name" align="left" fixed label="姓名"></el-table-column>
               <el-table-column prop="workID" align="left" label="工号"></el-table-column>
-              <el-table-column  label="性别">
+              <el-table-column label="性别">
                 <template slot-scope="scope">{{ scope.row.gender=='1' ?'男':'女' }}</template>
               </el-table-column>
               <!-- <el-table-column align="left" label="出生日期">
                 <template slot-scope="scope">{{ scope.row.birthday | formatDate}}</template>
-              </el-table-column> -->
+              </el-table-column>-->
               <el-table-column prop="office_id" align="left" label="办公室">
                 <template slot-scope="scope" class="select">
-                  <el-select  disabled  v-model="scope.row.office_id">
+                  <el-select disabled v-model="scope.row.office_id">
                     <el-option
                       v-for="item in officeOption"
                       :key="item.office"
@@ -260,10 +265,8 @@
                 </el-form-item>
               </div>
             </el-col>
-         
           </el-row>
           <el-row>
-         
             <el-col :span="5">
               <div>
                 <el-form-item label="电话号码:" prop="phone">
@@ -307,7 +310,6 @@
             </el-col>
           </el-row>
           <el-row>
-            
             <el-col :span="5">
               <div>
                 <el-form-item label="办公室:" prop="idCard">
@@ -322,7 +324,7 @@
                 </el-form-item>
               </div>
             </el-col>
-            
+
             <el-col :span="7">
               <div>
                 <el-form-item label="是否有效:" prop="enabled">
@@ -350,7 +352,7 @@ export default {
     return {
       isEdit: false,
       options: [],
-      officeOption:[],
+      officeOption: [],
       props: {
         label: "name"
       },
@@ -387,7 +389,7 @@ export default {
         username: "",
         gender: "1",
         email: "",
-        office_id:"",
+        office_id: "",
         enable: 1,
         tree: "",
         phone: "",
@@ -398,7 +400,7 @@ export default {
         name: "",
         username: "",
         gender: "1",
-        office_id:"",
+        office_id: "",
         email: "",
         enable: 1,
         tree: "",
@@ -406,7 +408,7 @@ export default {
         address: "",
         workID: ""
       },
-      
+
       rules: {
         name: [{ required: true, message: "必填:姓名", trigger: "blur" }],
         gender: [{ required: true, message: "必填:性别", trigger: "blur" }],
@@ -446,12 +448,9 @@ export default {
         this.options = res.data;
       }
     );
-    
-    
   },
- 
+
   methods: {
-   
     addEmp() {
       if (!this.isEdit)
         this.postRequest("/system/user/adduser", this.emp).then(res => {
@@ -537,7 +536,7 @@ export default {
       this.advanceSearchViewVisible = !this.advanceSearchViewVisible;
       if (!this.advanceSearchViewVisible) {
         this.initEmp();
-        
+
         this.beginDateScope = "";
         this.loadEmps();
       }
@@ -585,11 +584,11 @@ export default {
     searchEmp() {
       this.tableLoading = true;
       this.$set(this.empsearch, "page", this.currentPage);
-      this.postRequest("/system/user/searchinfo",this.empsearch).then(res=>{
+      this.postRequest("/system/user/searchinfo", this.empsearch).then(res => {
         this.tableLoading = false;
-        this.emps=res.data.users;
+        this.emps = res.data.users;
         this.totalCount = res.data.count;
-      })
+      });
       this.initEmp();
     },
 
@@ -647,7 +646,6 @@ export default {
       );
     },
     showEditEmpView(row) {
-      console.log(row)
       this.isEdit = true;
       this.dialogTitle = "编辑员工";
       this.emp = row;
@@ -662,41 +660,38 @@ export default {
       this.initEmp();
       this.dialogVisible = true;
     },
-    initEmp(){
-      this.emp={
+    initEmp() {
+      (this.emp = {
         name: "",
         username: "",
         gender: "1",
-        office_id:"",
+        office_id: "",
         email: "",
         enabled: 1,
         tree: "",
         phone: "",
         address: "",
         workID: ""
-      },
-      this.empsearch={
-        name: "",
-        username: "",
-        gender: "1",
-        office_id:"",
-        email: "",
-        enabled: 1,
-        tree: "",
-        phone: "",
-        address: "",
-        workID: ""
-      }
-      this.currentPage=1
+      }),
+        (this.empsearch = {
+          name: "",
+          username: "",
+          gender: "1",
+          office_id: "",
+          email: "",
+          enabled: 1,
+          tree: "",
+          phone: "",
+          address: "",
+          workID: ""
+        });
+      this.currentPage = 1;
     }
   },
-  created(){
-    this.getRequest("/system/user/office",).then(
-      res => {
-        
-        this.officeOption = res.data;
-      }
-    );
+  created() {
+    this.getRequest("/system/user/office").then(res => {
+      this.officeOption = res.data;
+    });
   }
 };
 </script>
@@ -710,13 +705,10 @@ export default {
   transition: all 0.8s ease;
 }
 .el-input__inner {
-    
-    height: 30px;
-    
+  height: 30px;
 }
 .el-input__icon {
-    
-    line-height: 10px;
+  line-height: 10px;
 }
 .slide-fade-leave-active {
   transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
@@ -734,18 +726,18 @@ export default {
   /*width:200px;*/
 }
 .el-select .el-input.is-disabled .el-input__inner {
-    cursor: text;
-    border: 0px;
+  cursor: text;
+  border: 0px;
 }
 .cell .el-select .el-icon-arrow-up:before {
-    content: none;
+  content: none;
 }
 .el-input.is-disabled .el-input__inner {
-    background-color: transparent;
-    color: #606266;
-    cursor: text;
+  background-color: transparent;
+  color: #606266;
+  cursor: text;
 }
 .cell .el-input.is-disabled .el-input__icon {
-    cursor: text;
+  cursor: text;
 }
 </style>

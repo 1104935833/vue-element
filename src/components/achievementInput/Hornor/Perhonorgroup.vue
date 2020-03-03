@@ -127,7 +127,7 @@ export default {
       optionsType: [],
       optionsName: [],
       form: {
-        id:"",
+        id: "",
         personalHonorType: "", //荣誉类型
         name: "", //荣誉名称
         personalGainTime: "", //获得时间
@@ -173,16 +173,19 @@ export default {
     if (this.msgType != undefined) {
       if (this.msg.type == 2) {
         this.form = {
-          id:tableStatus.id,
+          id: tableStatus.id,
           personalHonorType: tableStatus.personal_honor_type, //荣誉类型
           name: tableStatus.name, //荣誉名称
           personalGainTime: tableStatus.personal_gain_time, //获得时间
           organizationName: tableStatus.organization_name, //组织名称
-          organizationMember: tableStatus,organization_member, //组织成员
+          organizationMember: tableStatus,
+          organization_member, //组织成员
           type: tableStatus.type //1个人、2集体
         };
-        if(this.form.personalGainTime.length==13){
-          this.form.personalGainTime = this.$options.filters['dateFormat'](this.form.personalGainTime)
+        if (this.form.personalGainTime.length == 13) {
+          this.form.personalGainTime = this.$options.filters["dateFormat"](
+            this.form.personalGainTime
+          );
         }
         this.disable = true;
       } else {
@@ -339,7 +342,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

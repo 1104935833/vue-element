@@ -111,12 +111,18 @@ export default {
       buttonShow: "",
       role: "",
       disable: true,
-      rules:{
-        name: [{required:true,message:'请输入新增专业名称',trigger:'blur'}],
-        departmentPlace: [{required:true,message:'请输入所在院系',trigger:'blur'}],
-        professionalLeader: [{required:true,message:'请输入专业负责人',trigger:'blur'}],
-        phone: [{required:true,message:'请输入联系方式',trigger:'blur'}],
-        grade: [{required:true,message:'请选择等级',trigger:'blur'}],
+      rules: {
+        name: [
+          { required: true, message: "请输入新增专业名称", trigger: "blur" }
+        ],
+        departmentPlace: [
+          { required: true, message: "请输入所在院系", trigger: "blur" }
+        ],
+        professionalLeader: [
+          { required: true, message: "请输入专业负责人", trigger: "blur" }
+        ],
+        phone: [{ required: true, message: "请输入联系方式", trigger: "blur" }],
+        grade: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
@@ -137,11 +143,11 @@ export default {
         };
         this.disable = true;
       } else {
-        this.getRequest("/getProfessional", { tableId: this.msg.message.id }).then(
-          res => {
-            this.form = res.data.res;
-          }
-        );
+        this.getRequest("/getProfessional", {
+          tableId: this.msg.message.id
+        }).then(res => {
+          this.form = res.data.res;
+        });
         this.getRequest("/common/getUserRole").then(res => {
           this.role = res.data;
           if (
@@ -233,15 +239,15 @@ export default {
       }
     },
     onSubmit(form) {
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
-      this.postRequest("/insertProfessional", this.form).then(res => {
-        this.clear();
-      });
-      } else {
-            return false;
-          }
+          this.postRequest("/insertProfessional", this.form).then(res => {
+            this.clear();
           });
+        } else {
+          return false;
+        }
+      });
     },
     clear(form) {
       this.$refs[form].resetFields();
@@ -270,7 +276,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

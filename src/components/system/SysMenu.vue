@@ -70,7 +70,7 @@
                 layout="prev, pager, next"
                 :total="totalCount"
               ></el-pagination>
-            </div> -->
+            </div>-->
           </div>
         </el-main>
       </el-container>
@@ -284,8 +284,7 @@ export default {
           this.EditVisible = false;
         });
       } else {
-        console.log(this.form);
-        this.post("/system/menu/upMenu", {form:this.form}).then(res => {
+        this.post("/system/menu/upMenu", { form: this.form }).then(res => {
           this.init();
           this.loadEmps();
           this.EditVisible = false;
@@ -368,16 +367,14 @@ export default {
     loadEmps() {
       var _this = this;
       this.tableLoading = true;
-      this.getRequest("/system/menu/getAllMenus").then(
-        resp => {
-          this.tableLoading = false;
-          if (resp && resp.status == 200) {
-            var data = resp.data;
-            _this.tableData = data.list;
-            _this.totalCount = resp.data.count;
-          }
+      this.getRequest("/system/menu/getAllMenus").then(resp => {
+        this.tableLoading = false;
+        if (resp && resp.status == 200) {
+          var data = resp.data;
+          _this.tableData = data.list;
+          _this.totalCount = resp.data.count;
         }
-      );
+      });
     },
     showAddEmpView() {
       this.isEdit = false;

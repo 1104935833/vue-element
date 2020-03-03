@@ -47,7 +47,7 @@
           <el-tabs v-model="activeName">
             <!-- <el-tab-pane label="业绩汇总" name="first">
               <Demo></Demo>
-            </el-tab-pane> -->
+            </el-tab-pane>-->
             <el-tab-pane label="用户资料" name="first">
               <el-form
                 ref="form"
@@ -74,8 +74,6 @@
                 </el-form-item>
               </el-form>
             </el-tab-pane>
-
-            
           </el-tabs>
         </el-card>
       </el-col>
@@ -196,9 +194,7 @@ export default {
         }
       }
     },
-    handleClick(tab, event) {
-      // console.log(tab, event);
-    }
+    handleClick(tab, event) {}
   }
 };
 </script>

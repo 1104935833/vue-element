@@ -10,9 +10,8 @@ export default {
     return {};
   },
   mounted() {
-    this.getRequest("/center/PerforEchart1",).then(res => {
-      console.log(res)
-            let myChart1 = this.echarts.init(
+    this.getRequest("/center/PerforEchart1").then(res => {
+      let myChart1 = this.echarts.init(
         document.getElementById("chart_example1")
       );
       let option1 = {

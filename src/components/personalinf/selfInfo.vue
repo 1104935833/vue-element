@@ -64,7 +64,6 @@ export default {
     },
 
     onSubmit() {
-      console.log(this.form);
       this.post("/base/changeInfo", { info: this.form }).then(res => {
         if (res.data.msg == "修改成功") {
           let info = JSON.stringify(res.data.obj);

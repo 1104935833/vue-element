@@ -4,7 +4,6 @@
       <el-row>
         <el-col>
           <el-form-item label="项目名称：" prop="name">
-            
             <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
@@ -12,7 +11,6 @@
       <el-row>
         <el-col>
           <el-form-item label="所属一级学科：" prop="firstLevel">
-            
             <el-input placeholder="请输入..." v-model="form.firstLevel" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
@@ -31,17 +29,21 @@
       <el-row>
         <el-col>
           <el-form-item label="项目发起时间：" prop="startTime">
-            
-            <el-date-picker type="date" placeholder="选择日期" v-model="form.startTime" format="yyyy-MM-dd"
+            <el-date-picker
+              type="date"
+              placeholder="选择日期"
+              v-model="form.startTime"
+              format="yyyy-MM-dd"
               value-format="yyyy-MM-dd"
-              @change="dateChangebirthday" :disabled="disable"></el-date-picker>
+              @change="dateChangebirthday"
+              :disabled="disable"
+            ></el-date-picker>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
           <el-form-item label="委托单位全称：" prop="clientName">
-            
             <el-input placeholder="请输入..." v-model="form.clientName" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
@@ -49,7 +51,6 @@
       <el-row>
         <el-col>
           <el-form-item label="委托单位所在地：" prop="clientAddress">
-            
             <el-input placeholder="请输入..." v-model="form.clientAddress" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
@@ -146,7 +147,7 @@ export default {
   props: ["msgs"],
   data() {
     return {
-     form: {
+      form: {
         id: "",
         name: "",
         firstLevel: "",
@@ -179,16 +180,16 @@ export default {
         clientName: [
           { required: true, message: "请输入委托单位全称", trigger: "blur" }
         ],
-        clientAddress: [{ required: true, message: "请输入委托单位所在地", trigger: "blur" }],
+        clientAddress: [
+          { required: true, message: "请输入委托单位所在地", trigger: "blur" }
+        ],
         contractNature: [
           { required: true, message: "请选择合同性质", trigger: "blur" }
         ],
         projectLeader: [
           { required: true, message: "请输入项目负责人", trigger: "blur" }
         ],
-        level: [
-          { required: true, message: "请选择等级", trigger: "blur" }
-        ]
+        level: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
@@ -211,16 +212,18 @@ export default {
           level: tableStatus.level,
           fileId: tableStatus.file_id
         };
-        if(this.form.startTime.length==13){
-          this.form.startTime = this.$options.filters['dateFormat'](this.form.startTime)
+        if (this.form.startTime.length == 13) {
+          this.form.startTime = this.$options.filters["dateFormat"](
+            this.form.startTime
+          );
         }
         this.disable = true;
       } else {
-        this.getRequest("/getTransverse", { tableId: this.msg.message.id }).then(
-          res => {
-            this.form = res.data.res;
-          }
-        );
+        this.getRequest("/getTransverse", {
+          tableId: this.msg.message.id
+        }).then(res => {
+          this.form = res.data.res;
+        });
         this.getRequest("/common/getUserRole").then(res => {
           this.role = res.data;
           if (
@@ -349,7 +352,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

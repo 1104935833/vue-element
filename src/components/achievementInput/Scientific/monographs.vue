@@ -139,7 +139,7 @@ export default {
       role: "",
       disable: true,
       rules: {
-        name: [{ required: true, message: '请输入著作标题', trigger: "blur" }],
+        name: [{ required: true, message: "请输入著作标题", trigger: "blur" }],
         themeWord: [
           { required: true, message: "请输入主题词", trigger: "blur" }
         ],
@@ -180,8 +180,10 @@ export default {
           publishedNumber: tableStatus.published_number,
           fileId: tableStatus.file_id
         };
-        if(this.form.finishTime.length==13){
-          this.form.finishTime = this.$options.filters['dateFormat'](this.form.finishTime)
+        if (this.form.finishTime.length == 13) {
+          this.form.finishTime = this.$options.filters["dateFormat"](
+            this.form.finishTime
+          );
         }
         this.disable = true;
       } else {
@@ -318,7 +320,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

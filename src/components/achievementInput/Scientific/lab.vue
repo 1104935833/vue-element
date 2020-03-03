@@ -288,17 +288,25 @@ export default {
           approvalTime: tableStatus.approval_time,
           fileId: tableStatus.file_id
         };
-        if(this.form.labApprovalTime.length==13){
-          this.form.labApprovalTime = this.$options.filters['dateFormat'](this.form.labApprovalTime)
+        if (this.form.labApprovalTime.length == 13) {
+          this.form.labApprovalTime = this.$options.filters["dateFormat"](
+            this.form.labApprovalTime
+          );
         }
-        if(this.form.declareStartTime.length==13){
-          this.form.declareStartTime = this.$options.filters['dateFormat'](this.form.declareStartTime)
+        if (this.form.declareStartTime.length == 13) {
+          this.form.declareStartTime = this.$options.filters["dateFormat"](
+            this.form.declareStartTime
+          );
         }
-        if(this.form.declareEndTime.length==13){
-          this.form.declareEndTime = this.$options.filters['dateFormat'](this.form.declareEndTime)
+        if (this.form.declareEndTime.length == 13) {
+          this.form.declareEndTime = this.$options.filters["dateFormat"](
+            this.form.declareEndTime
+          );
         }
-        if(this.form.approvalTime.length==13){
-          this.form.approvalTime = this.$options.filters['dateFormat'](this.form.approvalTime)
+        if (this.form.approvalTime.length == 13) {
+          this.form.approvalTime = this.$options.filters["dateFormat"](
+            this.form.approvalTime
+          );
         }
         this.disable = true;
       } else {
@@ -435,7 +443,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

@@ -164,7 +164,9 @@ export default {
       role: "",
       disable: true,
       rules: {
-        name: [{ required: true, message: "请输入创新团队名称", trigger: "blur" }],
+        name: [
+          { required: true, message: "请输入创新团队名称", trigger: "blur" }
+        ],
         teamPersonnel: [
           { required: true, message: "请输入团队人员", trigger: "blur" }
         ],
@@ -177,16 +179,16 @@ export default {
         address: [
           { required: true, message: "请输入通讯地址", trigger: "blur" }
         ],
-        headPhone: [{ required: true, message: "请输入负责人联系电话", trigger: "blur" }],
+        headPhone: [
+          { required: true, message: "请输入负责人联系电话", trigger: "blur" }
+        ],
         declareTime: [
           { required: true, message: "请选择申报日期", trigger: "blur" }
         ],
         competentDepartment: [
           { required: true, message: "请输入主管部门", trigger: "blur" }
         ],
-        level: [
-          { required: true, message: "请选择等级", trigger: "blur" }
-        ]
+        level: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
@@ -209,8 +211,10 @@ export default {
           level: tableStatus.level,
           fileId: tableStatus.file_id
         };
-        if(this.form.declareTime.length==13){
-          this.form.declareTime = this.$options.filters['dateFormat'](this.form.declareTime)
+        if (this.form.declareTime.length == 13) {
+          this.form.declareTime = this.$options.filters["dateFormat"](
+            this.form.declareTime
+          );
         }
         this.disable = true;
       } else {
@@ -347,7 +351,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

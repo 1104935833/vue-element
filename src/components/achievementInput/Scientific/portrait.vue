@@ -1,79 +1,70 @@
 <template>
   <div>
     <el-form ref="form" :rules="rules" :model="form">
-    <el-row>
-      <el-col :span="10">
-        <el-form-item label="项目负责人：" prop="projectLeader">
-        
-        <el-input placeholder="请输入..." v-model="form.projectLeader"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        <el-form-item label="职称：" prop="title">
-        
-        <el-input placeholder="请输入..." v-model="form.title"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        <el-form-item label="所在部门：" prop="department">
-        
-        <el-input placeholder="请输入..." v-model="form.department"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        <el-form-item label="日期：" prop="date">
-        
-        <el-date-picker v-model="form.date" type="date" placeholder="选择日期"  :disabled="disable"></el-date-picker>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col :span="10">
-        <el-form-item label="联系电话：" prop="phone">
-        
-        <el-input placeholder="请输入..." v-model="form.phone"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-      <el-col :span="2">&nbsp;</el-col>
-      <el-col :span="12">
-        <el-form-item label="申请总额：" prop="applyRental">
-        
-        <el-input placeholder="请输入..." v-model="form.applyRental"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        <el-form-item label="项目名称：" prop="name">
-        
-        <el-input placeholder="请输入..." v-model="form.name"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        <el-form-item label="项目依托单位：" prop="projectUnit">
-        
-        <el-input placeholder="请输入..." v-model="form.projectUnit"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col>
-        <el-form-item label="项目类型：" prop="type">
-        
-        <el-input placeholder="请输入..." v-model="form.type"  :disabled="disable"></el-input>
-        </el-form-item>
-      </el-col>
-    </el-row>
-    <el-row>
-      <el-col align="center">上传佐证材料：</el-col>
-    </el-row>
-   <el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="项目负责人：" prop="projectLeader">
+            <el-input placeholder="请输入..." v-model="form.projectLeader" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="职称：" prop="title">
+            <el-input placeholder="请输入..." v-model="form.title" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="所在部门：" prop="department">
+            <el-input placeholder="请输入..." v-model="form.department" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="日期：" prop="date">
+            <el-date-picker v-model="form.date" type="date" placeholder="选择日期" :disabled="disable"></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="联系电话：" prop="phone">
+            <el-input placeholder="请输入..." v-model="form.phone" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="申请总额：" prop="applyRental">
+            <el-input placeholder="请输入..." v-model="form.applyRental" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="项目名称：" prop="name">
+            <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="项目依托单位：" prop="projectUnit">
+            <el-input placeholder="请输入..." v-model="form.projectUnit" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="项目类型：" prop="type">
+            <el-input placeholder="请输入..." v-model="form.type" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
+      <el-row>
         <el-col :span="24" align="center">
           <el-upload
             :disabled="disable"
@@ -148,16 +139,24 @@ export default {
       buttonShow: "",
       role: "",
       disable: true,
-      rules:{
-        date: [{required:true,message:'请选择日期',trigger:'blur'}],
-        projectLeader: [{required:true,message:'请输入项目负责人',trigger:'blur'}],
-        phone: [{required:true,message:'请输入联系电话',trigger:'blur'}],
-        department: [{required:true,message:'请输入所在部门',trigger:'blur'}],
-        title: [{required:true,message:'请输入"职称',trigger:'blur'}],
-        applyRental: [{required:true,message:'请输入申请总额',trigger:'blur'}],
-        name: [{required:true,message:'请输入项目名称',trigger:'blur'}],
-        projectUnit: [{required:true,message:'请输入项目依托单位',trigger:'blur'}],
-        type: [{required:true,message:'请输入项目类型',trigger:'blur'}]
+      rules: {
+        date: [{ required: true, message: "请选择日期", trigger: "blur" }],
+        projectLeader: [
+          { required: true, message: "请输入项目负责人", trigger: "blur" }
+        ],
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+        department: [
+          { required: true, message: "请输入所在部门", trigger: "blur" }
+        ],
+        title: [{ required: true, message: '请输入"职称', trigger: "blur" }],
+        applyRental: [
+          { required: true, message: "请输入申请总额", trigger: "blur" }
+        ],
+        name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
+        projectUnit: [
+          { required: true, message: "请输入项目依托单位", trigger: "blur" }
+        ],
+        type: [{ required: true, message: "请输入项目类型", trigger: "blur" }]
       }
     };
   },
@@ -180,8 +179,8 @@ export default {
           type: tableStatus.type,
           fileId: tableStatus.file_id
         };
-        if(this.form.date.length==13){
-          this.form.date = this.$options.filters['dateFormat'](this.form.date)
+        if (this.form.date.length == 13) {
+          this.form.date = this.$options.filters["dateFormat"](this.form.date);
         }
         this.disable = true;
       } else {
@@ -281,15 +280,15 @@ export default {
       }
     },
     onSubmit(form) {
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
-      this.postRequest("/insertPortrait", this.form).then(res => {
-        this.clear();
-      });
-      } else {
-            return false;
-          }
+          this.postRequest("/insertPortrait", this.form).then(res => {
+            this.clear();
           });
+        } else {
+          return false;
+        }
+      });
     },
     clear(form) {
       this.$refs[form].resetFields();
@@ -318,7 +317,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

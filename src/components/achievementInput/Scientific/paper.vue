@@ -167,17 +167,31 @@ export default {
       buttonShow: "",
       role: "",
       disable: true,
-      rules:{
-        name: [{required:true,message:'请输入论文标题',trigger:'blur'}],
-        firstAuthor: [{required:true,message:'请输入第一作者',trigger:'blur'}],
-        correspondenceAuthor: [{required:true,message:'请输入通讯作者',trigger:'blur'}],
-        firstAuthorType: [{required:true,message:'请选择第一作者类型',trigger:'blur'}],
-        publication: [{required:true,message:'请输入刊物论文集',trigger:'blur'}],
-        time: [{required:true,message:'请输入发表时间',trigger:'blur'}],
-        paperSchool: [{required:true,message:'请选择学校署名',trigger:'blur'}],
-        paperVolume: [{required:true,message:'请输入卷号',trigger:'blur'}],
-        paperPage: [{required:true,message:'请输入页面范围',trigger:'blur'}],
-        paperGrade: [{required:true,message:'请选择等级',trigger:'blur'}],
+      rules: {
+        name: [{ required: true, message: "请输入论文标题", trigger: "blur" }],
+        firstAuthor: [
+          { required: true, message: "请输入第一作者", trigger: "blur" }
+        ],
+        correspondenceAuthor: [
+          { required: true, message: "请输入通讯作者", trigger: "blur" }
+        ],
+        firstAuthorType: [
+          { required: true, message: "请选择第一作者类型", trigger: "blur" }
+        ],
+        publication: [
+          { required: true, message: "请输入刊物论文集", trigger: "blur" }
+        ],
+        time: [{ required: true, message: "请输入发表时间", trigger: "blur" }],
+        paperSchool: [
+          { required: true, message: "请选择学校署名", trigger: "blur" }
+        ],
+        paperVolume: [
+          { required: true, message: "请输入卷号", trigger: "blur" }
+        ],
+        paperPage: [
+          { required: true, message: "请输入页面范围", trigger: "blur" }
+        ],
+        paperGrade: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
@@ -201,8 +215,8 @@ export default {
           paperGrade: tableStatus.paper_grade,
           fileId: tableStatus.file_id
         };
-        if(this.form.time.length==13){
-          this.form.time = this.$options.filters['dateFormat'](this.form.time)
+        if (this.form.time.length == 13) {
+          this.form.time = this.$options.filters["dateFormat"](this.form.time);
         }
         this.disable = true;
       } else {
@@ -303,15 +317,15 @@ export default {
       }
     },
     onSubmit(form) {
-      this.$refs[form].validate((valid) => {
+      this.$refs[form].validate(valid => {
         if (valid) {
-      this.postRequest("/insertPaper", this.form).then(res => {
-        this.clear();
-      });
-      } else {
-            return false;
-          }
+          this.postRequest("/insertPaper", this.form).then(res => {
+            this.clear();
           });
+        } else {
+          return false;
+        }
+      });
     },
     clear(form) {
       this.$refs[form].resetFields();
@@ -340,7 +354,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

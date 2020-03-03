@@ -215,8 +215,10 @@ export default {
           grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
-        if(this.form.applyTime.length==13){
-          this.form.applyTime = this.$options.filters['dateFormat'](this.form.applyTime)
+        if (this.form.applyTime.length == 13) {
+          this.form.applyTime = this.$options.filters["dateFormat"](
+            this.form.applyTime
+          );
         }
         this.disable = true;
       } else {
@@ -353,7 +355,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

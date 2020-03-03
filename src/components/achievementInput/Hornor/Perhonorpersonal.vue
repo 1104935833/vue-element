@@ -111,12 +111,12 @@ export default {
       optionsType: [],
       optionsName: [],
       form: {
-        id:"",
+        id: "",
         personalHonorType: "", //页面选择传递数据的来源
         name: "",
         personalGainTime: "",
         type: "1", //1个人、2集体
-        fileId:""
+        fileId: ""
       },
       fileUrl: "",
       msgType: "",
@@ -148,8 +148,10 @@ export default {
           type: tableStatus.type,
           fileId: tableStatus.file_id
         };
-        if(this.form.personalGainTime.length==13){
-          this.form.personalGainTime = this.$options.filters['dateFormat'](this.form.personalGainTime)
+        if (this.form.personalGainTime.length == 13) {
+          this.form.personalGainTime = this.$options.filters["dateFormat"](
+            this.form.personalGainTime
+          );
         }
         this.disable = true;
       } else {
@@ -306,7 +308,6 @@ export default {
     },
     handlePreview(file) {
       //点击文件列表中已上传的文件时的钩子
-      // console.log(file);
     }
   }
 };

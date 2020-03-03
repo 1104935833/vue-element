@@ -8,37 +8,41 @@
     <div v-if="types=='7'">
       <!--论文-->
       第一作者：
-      <el-input placeholder="请输入内容"  v-model="form.data1"></el-input>发表时间：
-      <el-date-picker placeholder="选择日期"
-       type="date" v-model="form.data2" format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      @change="dateChangebirthday"></el-date-picker>第一作者类型：
+      <el-input placeholder="请输入内容" v-model="form.data1"></el-input>发表时间：
+      <el-date-picker
+        placeholder="选择日期"
+        type="date"
+        v-model="form.data2"
+        format="yyyy-MM-dd"
+        value-format="yyyy-MM-dd"
+        @change="dateChangebirthday"
+      ></el-date-picker>第一作者类型：
       <el-input placeholder="发表范围" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='8'">
       <!--专著-->
-     所属学科：
+      所属学科：
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>主题词：
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>作者名称：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='9'">
       <!--专利-->
-     专利号：
+      专利号：
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>完成者：
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>类别：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='10'">
       <!--纵向科研项目-->
-     项目负责人：
+      项目负责人：
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>项目类型：
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>依托单位：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
     </div>
     <div v-if="types=='11'">
       <!--横向科研项目-->
-     所属一级学科:
+      所属一级学科:
       <el-input placeholder="请输入内容" v-model="form.data1"></el-input>研究类别：
       <el-input placeholder="请输入内容" v-model="form.data2"></el-input>项目负责人：
       <el-input placeholder="请输入内容" v-model="form.data3"></el-input>
@@ -127,18 +131,18 @@ export default {
   data() {
     return {
       types: "",
-      form:{data1:"",data2:"",data3:"",data4:""}
+      form: { data1: "", data2: "", data3: "", data4: "" }
     };
   },
   mounted() {
     this.types = this.type;
-    this.form={data1:"",data2:"",data3:"",data4:""};
+    this.form = { data1: "", data2: "", data3: "", data4: "" };
   },
   methods: {
     dateChangebirthday(val) {
       this.form.data2 = val;
     },
-    getVal(){
+    getVal() {
       return this.form;
     }
   }
@@ -147,9 +151,9 @@ export default {
 <style scoped>
 #search .el-input {
   position: relative;
-    font-size: 14px;
-    display: inline-block;
-    width: 250px;
-    padding-right:5%;
+  font-size: 14px;
+  display: inline-block;
+  width: 250px;
+  padding-right: 5%;
 }
 </style>
