@@ -108,7 +108,8 @@
       </el-main>
     </el-container>
     <el-table
-      :data="tableData"
+      :data="tableData2"
+      :columns="fieldColumns"
       v-loading="tableLoading"
       border
       stripe
@@ -142,7 +143,7 @@
         </template>
       </el-table-column>
     </el-table>
-    <div style="display: flex;justify-content: space-between;margin: 2px">
+    <!-- <div style="display: flex;justify-content: space-between;margin: 2px">
       <el-pagination
         background
         :page-size="10"
@@ -151,6 +152,28 @@
         layout="prev, pager, next"
         :total="totalCount"
       ></el-pagination>
+    </div> -->
+    <div class="result-foot">
+      <ul class="ul" style="">
+        <!-- 上一页 -->
+        <li class="disabled" v-if="pageindex==1">
+          <a href="javascript:;"><</a>
+        </li>
+        <li v-else @click="LoadData(pageindex-1)">
+          <a href="javascript:;"><</a>
+        </li>
+        <!-- 页码 -->
+        <li v-for="n in totalpages" v-bind:class="pageindex==n ?'active':''" @click="LoadData(n)">
+          <a href="#" v-text="n"></a>
+        </li>
+        <!-- 下一页 -->
+        <li class="disabled" v-if="pageindex == totalpages || totalpages ==0">
+          <a href="javascript:;">></a>
+        </li>
+        <li v-else @click="LoadData(pageindex+1)">
+          <a href="javascript:;">></a></a>
+        </li>
+      </ul>
     </div>
     <el-dialog title="查看" :visible.sync="dialogVisible" width="70%">
       <Table v-if="hackReset" :message="message1" :msgType="type"></Table>
@@ -164,8 +187,10 @@ export default {
   components: { SearchType, Table },
   data() {
     return {
-      totalCount: -1,
-      currentPage: 1,
+      fieldColums: [],
+      total: 0,
+      pagesize: 10,
+      pageindex: 1,
       hackReset: true,
       faangledoubleup: "fa-angle-double-up",
       faangledoubledown: "fa-angle-double-down",
@@ -186,18 +211,27 @@ export default {
         time: "",
         group: "group"
       },
-      tableData: []
+      tableData: [],
+      tableData2:[]
     };
   },
   mounted: function() {
     this.search();
   },
-
+computed: {
+    totalpages: function() {
+      return Math.ceil((this.total * 1) / this.pagesize);
+    }
+  },
   methods: {
-    currentChange(currentChange) {
-      this.currentPage = currentChange;
-      this.search();
+    LoadData(value){
+      this.pageindex = value;
+      this.tableData2 = this.tableData.slice((value -1)*10,value*10)
     },
+    // currentChange(currentChange) {
+    //   this.currentPage = currentChange;
+    //   this.search();
+    // },
     //查看
     showPeddingInfo(row) {
       this.hackReset = false;
@@ -224,9 +258,10 @@ export default {
         resform = form1;
       }
       this.post("/searchPer", { resform: resform }).then(res => {
-        this.tableLoading=false;
+        this.tableLoading = false;
         this.tableData = res.data.res;
-        this.totalCount = res.data.count;
+        this.total = res.data.count;
+        this.LoadData(1)
       });
     },
     optionChange() {
@@ -302,4 +337,14 @@ export default {
   padding: 10px 0;
   background-color: #f9fafc;
 }
+
+.result-foot{
+  float: right;
+}
+.active{ background: #2d8cf0;}
+.active a{color:#fff !important;}
+.ul{list-style: none;margin: 20px;}
+.ul li{float: left;line-height: 28px;width: 30px;border: 1px solid #ccc;border-radius: 4px;height: 30px;text-align: center;margin: 5px;}
+.ul li.disabled{color:#333}
+.ul li a{color:#333}
 </style>
