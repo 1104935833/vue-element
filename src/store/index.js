@@ -9,8 +9,6 @@ export default new Vuex.Store({
     state: {
         user: {
             name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : window.localStorage.getItem('user' || '[]').name,
-            userface: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').userface,
-            username: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').username,
             roles: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').roles
         },
         routes: [],
@@ -39,7 +37,9 @@ export default new Vuex.Store({
         },
         logout(state) {
             window.localStorage.removeItem('user');
+            sessionStorage.removeItem('user');
             state.routes = [];
+            state.user={}
         },
     },
     actions: {

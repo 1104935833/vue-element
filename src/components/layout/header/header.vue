@@ -66,18 +66,19 @@ export default {
   },
   components: { tabNav, mainBody },
   created() {
+    
+  },
+  mounted() {
     var _this = this;
     if (
       this.$store.state.user.name == undefined ||
       this.$store.state.user.name == null
     ) {
-      _this.getRequest("/logout");
-      _this.$store.commit("logout");
-      location.rseload();
-      _this.$router.replace({ path: "/" });
+      // _this.getRequest("/logout");
+      // _this.$store.commit("logout");
+      location.reload();
+      // _this.$router.replace({ path: "/" });
     }
-  },
-  mounted() {
     this.getpedding();
   },
   methods: {
