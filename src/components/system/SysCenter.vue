@@ -34,7 +34,7 @@
               <li>
                 <svg-icon icon-class="anq" />安全设置
                 <div class="user-right">
-                  <el-button size="mini" type="text" @click="dialogFormVisible = true">修改密码</el-button>
+                  <el-button size="mini" type="text" @click="showEditPassword()">修改密码</el-button>
                 </div>
               </li>
             </ul>
@@ -98,7 +98,7 @@
           <span ref="input1" />
         </el-form-item>
         <el-form-item label="登录密码">
-          <el-input v-model="newPwd" style="width:35%" placeholder="请设置6-20位密码"></el-input>
+          <el-input v-model="newPwd" type="password" style="width:35%" placeholder="请设置6-20位密码"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -111,7 +111,6 @@
 
  <script>
 import demo from "./centerChart/Chart.vue";
-
 export default {
   components: {
     Demo: demo //将别名demo 变成 组件 Demo
@@ -137,6 +136,11 @@ export default {
     };
   },
   methods: {
+    showEditPassword() {
+      this.yzm = "";
+      this.newPwd = "";
+      this.dialogFormVisible = true;
+    },
     changeInfo() {
       this.post("/center/changeInfo", { info: this.form }).then(res => {
         if (res.data.msg == "修改成功") {
@@ -154,21 +158,17 @@ export default {
     },
     editPwd() {
       // this.dialogFormVisible = false;
-      if (!/^[1234567890]\d{6}$/.test(this.yzm)) {
-        this.$message.error("验证码错误");
-      } else {
-        this.postRequest("/center/editPwd", {
-          yzm: this.yzm,
-          newPwd: this.newPwd
-        }).then(res => {
-          if (res.data.msg == "修改成功") {
-            this.dialogFormVisible = false;
-            this.phone = info.phone;
-            this.yzm = "";
-            this.newPwd = "";
-          }
-        });
-      }
+      this.postRequest("/center/editPwd", {
+        yzm: this.yzm,
+        newPwd: this.newPwd
+      }).then(res => {
+        if (res.data.msg == "修改成功") {
+          this.dialogFormVisible = false;
+          this.phone = info.phone;
+          this.yzm = "";
+          this.newPwd = "";
+        }
+      });
     },
     getYZM() {
       if (!/^1[3456789]\d{9}$/.test(this.phone)) {

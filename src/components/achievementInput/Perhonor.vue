@@ -1,11 +1,15 @@
 <template>
   <div>
-    <el-row>
+    <el-row :gutter="20">
       <el-col :span="12">
-        <Personal></Personal>
+        <el-card   style="height:700px;">
+          <Personal></Personal>
+        </el-card>
       </el-col>
       <el-col :span="12">
-        <Group></Group>
+        <el-card>
+          <Group></Group>
+        </el-card>
       </el-col>
     </el-row>
   </div>

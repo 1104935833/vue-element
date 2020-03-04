@@ -173,4 +173,3 @@ export function validateIdNo(rule, value, callback) {
     }
   }
 }
-
