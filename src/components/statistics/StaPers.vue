@@ -109,7 +109,6 @@
     </el-container>
     <el-table
       :data="tableData2"
-      :columns="fieldColumns"
       v-loading="tableLoading"
       border
       stripe
@@ -117,7 +116,12 @@
       style="width: 100%"
     >
       <el-table-column prop="id" align="left" fixed label="序号"></el-table-column>
-      <el-table-column prop="name" align="left" label="业绩名称"></el-table-column>
+      <el-table-column prop="name" align="left" label="业绩名称">
+        <template slot-scope="scope">
+                <span v-if="scope.row.label==null">{{scope.row.name}}</span>
+                <span v-else>{{scope.row.label}}</span>
+              </template>
+      </el-table-column>
       <el-table-column prop="table_name" label="业绩类别"></el-table-column>
       <el-table-column align="left" label="申请时间" prop="create_time">
         <template slot-scope="scope">{{scope.row.create_time | dateFormat}}</template>
@@ -163,7 +167,7 @@
           <a href="javascript:;"><</a>
         </li>
         <!-- 页码 -->
-        <li v-for="n in totalpages" v-bind:class="pageindex==n ?'active':''" @click="LoadData(n)">
+        <li v-for="n in totalpages" :key="n" v-bind:class="pageindex==n ?'active':''" @click="LoadData(n)">
           <a href="#" v-text="n"></a>
         </li>
         <!-- 下一页 -->
@@ -187,7 +191,6 @@ export default {
   components: { SearchType, Table },
   data() {
     return {
-      fieldColums: [],
       total: 0,
       pagesize: 10,
       pageindex: 1,

@@ -1,53 +1,58 @@
 <template>
-  <div id  ="aa">
+  <div id="aa">
     <div class="a1 div">
-      
       <span style="margin-left:30px;">目前业绩情况:</span>
       <el-row>
         <el-col :span="12" style="height:170px;" :offset="1">
           <el-row>
-            <el-col :span="22">
+            <el-col :span="22" style="margin-bottom:10px;">
               <span>荣誉</span>
-              <hr></hr>
-              </el-col>
+              <hr />
+            </el-col>
           </el-row>
           <el-row>
             <el-col :span="22">
               <el-table
-                :data="tableData3"
+                :data="tableData1"
                 max-height="150"
                 style="width: 500px"
                 :show-header="false"
               >
-                <el-table-column fixed prop="name" label="日期" width="200"></el-table-column>
+                <el-table-column fixed prop="label" label="日期" width="200"></el-table-column>
                 <el-table-column prop="create_time" label="姓名" width="150"></el-table-column>
               </el-table>
             </el-col>
           </el-row>
           <el-row>
-        <el-col>
-          <el-row>
-            <el-col :span="22">科研<hr></hr></el-col>
-          </el-row>
-          <el-row>
-            <el-col :span="22">
-              <el-table
-                :data="tableData3"
-                style="width: 500px"
-                max-height="150"
-                :show-header="false"
-              >
-                <el-table-column fixed prop="name" label="日期" width="150"></el-table-column>
-                <el-table-column prop="create_time" label="姓名" width="150"></el-table-column>
-              </el-table>
+            <el-col>
+              <el-row>
+                <el-col :span="22"  style="margin-top:10px;">
+                  科研
+                  <hr />
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="22">
+                  <el-table
+                    :data="tableData2"
+                    style="width: 500px"
+                    max-height="150"
+                    :show-header="false"
+                  >
+                    <el-table-column fixed prop="name" label="日期" width="150"></el-table-column>
+                    <el-table-column prop="create_time" label="姓名" width="150"></el-table-column>
+                  </el-table>
+                </el-col>
+              </el-row>
             </el-col>
           </el-row>
-        </el-col>
-      </el-row>
         </el-col>
         <el-col :span="11">
           <el-row>
-            <el-col :span="22">教学<hr></hr></el-col>
+            <el-col :span="22">
+              教学
+              <hr />
+            </el-col>
           </el-row>
           <el-row>
             <el-col :span="22">
@@ -64,7 +69,6 @@
           </el-row>
         </el-col>
       </el-row>
-      
     </div>
     <div class="a2 div">
       <el-row>
@@ -172,22 +176,22 @@ export default {
 .div {
   border-radius: 10px;
   margin-bottom: 20px;
-  margin-left: 10px;
+  margin-left: 4%;
   box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
 }
 
-#aa .el-table__body-wrapper::-webkit-scrollbar{
-     /*width: 0;宽度为0隐藏*/
-    width: 0px;
-  }
-#aa .el-table__body-wrapper::-webkit-scrollbar-thumb{
-    border-radius: 2px;
-    height: 50px;
-    background: #eee;
-  }
-#aa .el-table__body-wrapper::-webkit-scrollbar-track{
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-    border-radius: 2px;
-    background: rgba(0,0,0,0.4);
-  }
+#aa .el-table__body-wrapper::-webkit-scrollbar {
+  /*width: 0;宽度为0隐藏*/
+  width: 0px;
+}
+#aa .el-table__body-wrapper::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  height: 50px;
+  background: #eee;
+}
+#aa .el-table__body-wrapper::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.4);
+}
 </style>

@@ -101,7 +101,12 @@
             style="width: 100%"
           >
             <el-table-column prop="id" align="left" fixed label="序号"></el-table-column>
-            <el-table-column prop="name" align="left" label="业绩名称"></el-table-column>
+            <el-table-column prop="name" align="left" label="业绩名称">
+              <template slot-scope="scope">
+                <span v-if="scope.row.label==null">{{scope.row.name}}</span>
+                <span v-else>{{scope.row.label}}</span>
+              </template>
+            </el-table-column>
             <el-table-column prop="table_name" label="业绩类别"></el-table-column>
             <el-table-column align="left" label="申请时间" prop="create_time"></el-table-column>
             <el-table-column prop="audit_status" align="left" label="审核状态"></el-table-column>

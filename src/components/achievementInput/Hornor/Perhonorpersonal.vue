@@ -153,13 +153,14 @@ export default {
             this.form.personalGainTime
           );
         }
-        this.disable = true;
-      } else {
         this.getRequest("/getHoner", {
-          tableId: this.msg.message.id
+          tableId: tableStatus.table_id
         }).then(res => {
           this.form = res.data.res;
         });
+        this.disable = true;
+      } else {
+        this.gethonor();
         this.getRequest("/common/getUserRole").then(res => {
           this.role = res.data;
           if (
@@ -193,6 +194,13 @@ export default {
     }
   },
   methods: {
+    gethonor() {
+      this.getRequest("/getHoner", {
+        tableId: this.msg.message.id
+      }).then(res => {
+        this.form = res.data.res;
+      });
+    },
     changeOption() {
       this.form.honorName = "";
       this.getRequest("/common/getOption", {
