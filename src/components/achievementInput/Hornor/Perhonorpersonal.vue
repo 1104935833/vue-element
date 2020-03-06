@@ -261,8 +261,9 @@ export default {
       }
     },
     updata() {
+      console.log(this.form)
       this.post("/updataHoner", {
-        paper: this.form,
+        honer: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

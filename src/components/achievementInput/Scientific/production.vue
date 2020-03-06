@@ -318,7 +318,7 @@ export default {
     },
     updata() {
       this.post("/updataProductionUnion", {
-        paper: this.form,
+        productionUnion: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

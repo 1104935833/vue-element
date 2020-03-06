@@ -389,7 +389,7 @@ export default {
     },
     updata() {
       this.post("/updataLab", {
-        paper: this.form,
+        lab: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

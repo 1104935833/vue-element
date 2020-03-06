@@ -1,14 +1,14 @@
 <template>
     <div>
-        <Zhuanyejianshe></Zhuanyejianshe>
+        <professional></professional>
     </div>
 </template>
 <script>
-import zhuanyejianshe from "./G-zhuanyejianshe";
+import professional from "./professional";
 
 export default {
   components: {
-    Zhuanyejianshe:zhuanyejianshe,
+    professional:professional,
   },
 }
 </script>

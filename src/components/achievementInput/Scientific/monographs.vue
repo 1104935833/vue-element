@@ -266,7 +266,7 @@ export default {
     },
     updata() {
       this.post("/updataMonographs", {
-        paper: this.form,
+        monographs: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

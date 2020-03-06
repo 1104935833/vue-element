@@ -298,7 +298,7 @@ export default {
     },
     updata() {
       this.post("/updataTransverse", {
-        paper: this.form,
+        transverse: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

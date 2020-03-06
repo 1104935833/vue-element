@@ -193,7 +193,7 @@ export default {
     },
     updata() {
       this.post("/updataTeachingReform", {
-        paper: this.form,
+        teachingReform: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

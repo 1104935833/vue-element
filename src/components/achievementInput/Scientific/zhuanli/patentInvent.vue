@@ -251,7 +251,7 @@ export default {
     },
     updata() {
       this.post("/updataPatent", {
-        paper: this.form,
+        patent: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

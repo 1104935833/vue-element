@@ -339,7 +339,7 @@ export default {
     },
     updata() {
       this.post("/updataCompetition", {
-        paper: this.form,
+        competition: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

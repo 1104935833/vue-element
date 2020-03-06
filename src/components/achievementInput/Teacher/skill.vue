@@ -259,7 +259,7 @@ export default {
     },
     updata() {
       this.post("/updataSkill", {
-        paper: this.form,
+        skill: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

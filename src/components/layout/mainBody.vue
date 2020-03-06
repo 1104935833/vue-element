@@ -80,21 +80,21 @@
         </el-col>
         <el-col :span="3" style="margin-top:50px;">
           {{count1}}
-          <br />待审核
+          <br />审核中
         </el-col>
         <el-col :span="3" :offset="1" style="margin-top:50px;">
           <img src="../../assets/audit1.jpg" height="50px;" />
         </el-col>
         <el-col :span="3" style="margin-top:50px;">
           {{count2}}
-          <br />已通过
+          <br />未通过
         </el-col>
         <el-col :span="3" :offset="1" style="margin-top:50px;">
           <img src="../../assets/audit2.jpg" height="50px;" />
         </el-col>
         <el-col :span="3" style="margin-top:50px;">
           {{count3}}
-          <br />未通过
+          <br />已通过
         </el-col>
       </el-row>
     </div>

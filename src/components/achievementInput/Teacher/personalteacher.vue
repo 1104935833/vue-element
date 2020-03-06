@@ -2,31 +2,31 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="学生科研指导">
-        <xueshengkeyanzhidao></xueshengkeyanzhidao>
+        <studentResearch></studentResearch>
       </el-tab-pane>
       <el-tab-pane label="教学技能竞赛">
-        <jiaoxuejinengjingsai></jiaoxuejinengjingsai>
+        <skill></skill>
       </el-tab-pane>
       <el-tab-pane label="学科竞赛指导">
-        <xuekejingsaizhidao></xuekejingsaizhidao>
+        <competition></competition>
       </el-tab-pane>
       <el-tab-pane label="教改项目">
-        <jiaogaixiangmu></jiaogaixiangmu>
+        <educational></educational>
       </el-tab-pane>
       <el-tab-pane label="教学成果奖">
-        <jiaoxuechengguojiang></jiaoxuechengguojiang>
+        <achiecement></achiecement>
       </el-tab-pane>
       <el-tab-pane label="教研教改论文">
-        <jiaoyanjiaogailunwen></jiaoyanjiaogailunwen>
+        <teachingReform></teachingReform>
       </el-tab-pane>
       <el-tab-pane label="课程建设与课程改革">
-        <kechengjiansheyukechenggaige></kechengjiansheyukechenggaige>
+        <course></course>
       </el-tab-pane>
       <el-tab-pane label="教材编写">
-        <jiaocaibianxie></jiaocaibianxie>
+        <textBook></textBook>
       </el-tab-pane>
       <el-tab-pane label="专业建设">
-        <zhuanuejianshe></zhuanuejianshe>
+        <professional></professional>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -41,26 +41,26 @@
            
 
 <script>
-import jiaocaibianxie from "./P-jiaocaibianxie";
-import jiaogaixiangmu from "./P-jiaogaixiangmu";
-import jiaoxuechengguojiang from "./P-jiaoxuechengguojiang";
-import jiaoxuejinengjingsai from "./P-jiaoxuejinengjingsai";
-import jiaoyanjiaogailunwen from "./P-jiaoyanjiaogailunwen";
-import kechengjiansheyukechenggaige from "./P-kechengjiansheyukechenggaige";
-import xuekejingsaizhidao from "./P-xuekejingsaizhidao";
-import xueshengkeyanzhidao from "./P-xueshengkeyanzhidao";
-import zhuanuejianshe from "./G-zhuanyejianshe";
+import textBook from "./textBook";
+import educational from "./educational";
+import achiecement from "./achiecement";
+import skill from "./skill";
+import teachingReform from "./teachingReform";
+import course from "./course";
+import competition from "./competition";
+import xueshengkeyanzhidao from "./studentResearch";
+import professional from "./professional";
 export default {
   components: {
-    jiaocaibianxie: jiaocaibianxie,
-    jiaogaixiangmu: jiaogaixiangmu,
-    jiaoxuechengguojiang: jiaoxuechengguojiang,
-    jiaoxuejinengjingsai: jiaoxuejinengjingsai,
-    jiaoyanjiaogailunwen: jiaoyanjiaogailunwen,
-    kechengjiansheyukechenggaige: kechengjiansheyukechenggaige,
-    xuekejingsaizhidao: xuekejingsaizhidao,
-    xueshengkeyanzhidao: xueshengkeyanzhidao,
-    zhuanuejianshe: zhuanuejianshe
+    textBook: textBook,
+    educational: educational,
+    achiecement: achiecement,
+    skill: skill,
+    teachingReform: teachingReform,
+    course: course,
+    competition: competition,
+    studentResearch: studentResearch,
+    professional: professional
   }
 };
 </script>

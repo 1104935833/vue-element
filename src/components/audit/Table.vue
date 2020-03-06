@@ -1,10 +1,10 @@
 <template>
   <div>
     <!-- 荣誉 -->
-    <HonerGroup v-if="this.tableName.state=='23'" v-bind="$attrs"></HonerGroup>
-    <HonerSelf v-if="this.tableName.state=='22'" v-bind="$attrs"></HonerSelf>
+    <HonerGroup v-if="this.tableName.state=='23'" v-bind="$attrs" v-on:listenToChild="showMsgFromChild"></HonerGroup>
+    <HonerSelf v-if="this.tableName.state=='22'" v-bind="$attrs" v-on:listenToChild="showMsgFromChild"></HonerSelf>
     <!-- 专利 -->
-    <patentInvent v-if="this.tableName.state=='9'" v-bind="$attrs"></patentInvent>
+    <patentInvent v-if="this.tableName.state=='9'" v-bind="$attrs" v-on:listenToChild="showMsgFromChild"></patentInvent>
     <!-- 科研 -->
     <academic
       v-if="this.tableName.state=='21'"
@@ -95,15 +95,15 @@ import production from "../achievementInput/Scientific/production";
 import portrait from "../achievementInput/Scientific/portrait";
 import technological from "../achievementInput/Scientific/technological";
 import transverse from "../achievementInput/Scientific/transverse";
-import professional from "../achievementInput/Teacher/G-zhuanyejianshe";
-import textBook from "../achievementInput/Teacher/P-jiaocaibianxie";
-import educational from "../achievementInput/Teacher/P-jiaogaixiangmu";
-import achiecement from "../achievementInput/Teacher/P-jiaoxuechengguojiang";
-import skill from "../achievementInput/Teacher/P-jiaoxuejinengjingsai";
-import teachingReform from "../achievementInput/Teacher/P-jiaoyanjiaogailunwen";
-import course from "../achievementInput/Teacher/P-kechengjiansheyukechenggaige";
-import competition from "../achievementInput/Teacher/P-xuekejingsaizhidao";
-import studentResearch from "../achievementInput/Teacher/P-xueshengkeyanzhidao";
+import professional from "../achievementInput/Teacher/professional";
+import textBook from "../achievementInput/Teacher/textBook";
+import educational from "../achievementInput/Teacher/educational";
+import achiecement from "../achievementInput/Teacher/achiecement";
+import skill from "../achievementInput/Teacher/skill";
+import teachingReform from "../achievementInput/Teacher/teachingReform";
+import course from "../achievementInput/Teacher/course";
+import competition from "../achievementInput/Teacher/competition";
+import studentResearch from "../achievementInput/Teacher/studentResearch";
 export default {
   props: ["message"],
   components: {

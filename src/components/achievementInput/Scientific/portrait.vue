@@ -263,7 +263,7 @@ export default {
     },
     updata() {
       this.post("/updataPortrait", {
-        paper: this.form,
+        portrait: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {

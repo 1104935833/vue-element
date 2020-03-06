@@ -4,40 +4,107 @@
       <el-row>
         <el-col :span="10">
           <el-form-item label="项目名称：" prop="name">
-            <el-input v-model="form.name" placeholder="请输入内容" :disabled="disable"></el-input>
+            <el-input v-model="form.name" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12" :offset="2">
-          <el-form-item label="工程负责人：" prop="projectLeader">
-            <el-input v-model="form.projectLeader" placeholder="请输入内容" :disabled="disable"></el-input>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="项目负责人：" prop="projectLeader">
+            <el-input v-model="form.projectLeader" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
-          <el-form-item label="指导教师：" prop="tutor">
-            <el-input v-model="form.tutor" placeholder="请输入内容" :disabled="disable"></el-input>
+          <el-form-item label="所属单位：" prop="unitPlace">
+            <el-input v-model="form.unitPlace" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
-        <el-col :span="12" :offset="2">
-          <el-form-item label="联系方式：" prop="phone">
-            <el-input v-model="form.phone" placeholder="请输入内容" :disabled="disable"></el-input>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="项目所属专业：" prop="professionalPlace">
+            <el-input v-model="form.professionalPlace" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="讲授的主要课程名称：" prop="courseName">
+            <el-input v-model="form.courseName" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="讲授的主要课程类别：" prop="courseCategory">
+            <el-input v-model="form.courseCategory" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="主持的教学研究课题名称：" prop="subjectName">
+            <el-input v-model="form.subjectName" placeholder="请输入..." :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="2">&nbsp;</el-col>
+        <el-col :span="12">
+          <el-form-item label="主持的教学研究课题来源：" prop="subjectSource">
+            <el-input v-model="form.subjectSource" placeholder="请输入..." :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="获奖等级：" prop="winningGrade">
-            <el-radio-group v-model="form.winningGrade" :disabled="disable">
-              <el-radio :label="0">国家级</el-radio>
-              <el-radio :label="1">省级</el-radio>
-              <el-radio :label="2">市厅级</el-radio>
-              <el-radio :label="3">校院级</el-radio>
+          <el-form-item label="申报时间：" prop="declareTime">
+            <el-date-picker
+              v-model="form.declareTime"
+              type="date"
+              placeholder="选择日期"
+              :disabled="disable"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              @change="dateChangebirthday"
+            ></el-date-picker>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="项目类别" prop="projectCategory">
+            :
+            <el-radio-group v-model="form.projectCategory" :disabled="disable">
+              <el-radio label="0">总体研究</el-radio>
+              <el-radio label="1">专业大类</el-radio>
+              <el-radio label="2">教学管理</el-radio>
             </el-radio-group>
           </el-form-item>
         </el-col>
       </el-row>
-      <!--上传文件-->
+      <el-row>
+        <el-col>
+          <el-form-item label="申报项目类别：" prop="declareCategory">
+            <el-radio-group v-model="form.declareCategory" :disabled="disable">
+              <el-radio label="0">重点项目</el-radio>
+              <el-radio label="1">一般项目</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <el-form-item label="等级：" prop="grade">
+            <el-radio-group v-model="form.grade" :disabled="disable">
+              <el-radio label="0">国家级</el-radio>
+              <el-radio label="1">省部级</el-radio>
+              <el-radio label="2">市厅级</el-radio>
+              <el-radio label="3">校院级</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
       <el-row>
         <el-col :span="24" align="center">
           <el-upload
@@ -89,7 +156,6 @@
     </el-form>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -98,9 +164,16 @@ export default {
         id: "",
         name: "",
         projectLeader: "",
-        tutor: "",
-        phone: "",
-        winningGrade: "",
+        unitPlace: "",
+        professionaPlace: "",
+        courseName: "",
+        courseCategory: "",
+        subjectName: "",
+        subjectSource: "",
+        declareTime: "",
+        projectCategory: "",
+        declareCategory: "",
+        grade: "",
         fileId: ""
       },
       fileUrl: "",
@@ -112,23 +185,52 @@ export default {
       rules: {
         name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
         projectLeader: [
-          { required: true, message: "请输入工程负责人", trigger: "blur" }
+          { required: true, message: "请输入项目负责人", trigger: "blur" }
         ],
-        tutor: [{ required: true, message: "请输入指导教师", trigger: "blur" }],
-        phone: [
+        unitPlace: [
+          { required: true, message: "请输入所属单位", trigger: "blur" }
+        ],
+        professionaPlace: [
+          { required: true, message: "请输入项目所属专业", trigger: "blur" }
+        ],
+        courseName: [
           {
             required: true,
-            message: "请输入联系方式",
+            message: "请输入讲授的主要课程名称",
             trigger: "blur"
           }
         ],
-        winningGrade: [
+        courseCategory: [
           {
             required: true,
-            message: "请选择获奖等级",
+            message: "请输入讲授的主要课程类别",
             trigger: "blur"
           }
-        ]
+        ],
+        subjectName: [
+          {
+            required: true,
+            message: "请输入主持的教学研究课题名称",
+            trigger: "blur"
+          }
+        ],
+        subjectSource: [
+          {
+            required: true,
+            message: "请输入主持的教学研究课题来源",
+            trigger: "blur"
+          }
+        ],
+        declareTime: [
+          { required: true, message: "请输入申报时间", trigger: "blur" }
+        ],
+        projectCategory: [
+          { required: true, message: "请选择项目类别", trigger: "blur" }
+        ],
+        declareCategory: [
+          { required: true, message: "请选择申报项目类别", trigger: "blur" }
+        ],
+        grade: [{ required: true, message: "请选择等级", trigger: "blur" }]
       }
     };
   },
@@ -142,14 +244,26 @@ export default {
           id: tableStatus.id,
           name: tableStatus.name,
           projectLeader: tableStatus.project_leader,
-          tutor: tableStatus.tutor,
-          phone: tableStatus.phone,
-          winningGrade: tableStatus.winning_grade,
+          unitPlace: tableStatus.unit_place,
+          professionaPlace: tableStatus.professiona_place,
+          courseName: tableStatus.course_name,
+          courseCategory: tableStatus.course_category,
+          subjectName: tableStatus.subject_name,
+          subjectSource: tableStatus.subject_source,
+          declareTime: tableStatus.declare_time,
+          projectCategory: tableStatus.project_category,
+          declareCategory: tableStatus.declare_category,
+          grade: tableStatus.grade,
           fileId: tableStatus.file_id
         };
+        if (this.form.declareTime.length == 13) {
+          this.form.declareTime = this.$options.filters["dateFormat"](
+            this.form.declareTime
+          );
+        }
         this.disable = true;
       } else {
-        this.getRequest("/getStudentResearch", {
+        this.getRequest("/getEducational", {
           tableId: this.msg.message.id
         }).then(res => {
           this.form = res.data.res;
@@ -227,8 +341,8 @@ export default {
       }
     },
     updata() {
-      this.post("/updataStudentResearch", {
-        paper: this.form,
+      this.post("/updataEducational", {
+        educational: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {
@@ -247,7 +361,7 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.postRequest("/insertStudentResearch", this.form).then(res => {
+          this.postRequest("/insertEducational", this.form).then(res => {
             this.clear();
           });
         } else {

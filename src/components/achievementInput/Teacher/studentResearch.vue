@@ -2,74 +2,42 @@
   <div>
     <el-form ref="form" :rules="rules" :model="form">
       <el-row>
-        <el-col>
-          <el-form-item label="成果名称：" prop="name">
-            <el-input v-model="form.name" placeholder="请输入..." :disabled="disable"></el-input>
+        <el-col :span="10">
+          <el-form-item label="项目名称：" prop="name">
+            <el-input v-model="form.name" placeholder="请输入内容" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" :offset="2">
+          <el-form-item label="工程负责人：" prop="projectLeader">
+            <el-input v-model="form.projectLeader" placeholder="请输入内容" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="10">
+          <el-form-item label="指导教师：" prop="tutor">
+            <el-input v-model="form.tutor" placeholder="请输入内容" :disabled="disable"></el-input>
+          </el-form-item>
+        </el-col>
+        <el-col :span="12" :offset="2">
+          <el-form-item label="联系方式：" prop="phone">
+            <el-input v-model="form.phone" placeholder="请输入内容" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col>
-          <el-form-item label="成果完成人：" prop="completePerson">
-            <el-input v-model="form.completePerson" placeholder="请输入..." :disabled="disable"></el-input>
+          <el-form-item label="获奖等级：" prop="winningGrade">
+            <el-radio-group v-model="form.winningGrade" :disabled="disable">
+              <el-radio :label="0">国家级</el-radio>
+              <el-radio :label="1">省级</el-radio>
+              <el-radio :label="2">市厅级</el-radio>
+              <el-radio :label="3">校院级</el-radio>
+            </el-radio-group>
           </el-form-item>
         </el-col>
       </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="成果完成单位：" prop="completeUnit">
-            <el-input v-model="form.completeUnit" placeholder="请输入..." :disabled="disable"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="成果科类：" prop="sectionCategory">
-            <el-input v-model="form.sectionCategory" placeholder="请输入..." :disabled="disable"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="申报单位：" prop="declareUnit">
-            <el-input v-model="form.declareUnit" placeholder="请输入..." :disabled="disable"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="代码：" prop="code">
-            <el-input v-model="form.code" placeholder="请输入..." :disabled="disable"></el-input>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="申请时间：" prop="applyTime">
-            <el-date-picker
-              :disabled="disable"
-              v-model="form.applyTime"
-              type="date"
-              placeholder="选择日期"
-              format="yyyy-MM-dd"
-              value-format="yyyy-MM-dd"
-              @change="dateChangebirthday"
-            ></el-date-picker>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <el-form-item label="等级：" prop="grade">
-            <el-select v-model="form.grade" placeholder="请选择等级" :disabled="disable">
-              <el-option v-for=" i in options" :key="i.id" :value="i.value" :label="i.label"></el-option>
-            </el-select>
-          </el-form-item>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col align="center">上传佐证材料：</el-col>
-      </el-row>
+      <!--上传文件-->
       <el-row>
         <el-col :span="24" align="center">
           <el-upload
@@ -121,6 +89,7 @@
     </el-form>
   </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -128,16 +97,12 @@ export default {
       form: {
         id: "",
         name: "",
-        completePerson: "",
-        completeUnit: "",
-        sectionCategory: "",
-        declareUnit: "",
-        code: "",
-        applyTime: "",
-        grade: "",
+        projectLeader: "",
+        tutor: "",
+        phone: "",
+        winningGrade: "",
         fileId: ""
       },
-      options: [],
       fileUrl: "",
       msgType: "",
       msg: "",
@@ -145,45 +110,22 @@ export default {
       role: "",
       disable: true,
       rules: {
-        name: [{ required: true, message: "请输入成果名称", trigger: "blur" }],
-        completePerson: [
-          { required: true, message: "请输入成果完成人", trigger: "blur" }
+        name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
+        projectLeader: [
+          { required: true, message: "请输入工程负责人", trigger: "blur" }
         ],
-        completeUnit: [
-          { required: true, message: "请输入成果完成单位", trigger: "blur" }
-        ],
-        sectionCategory: [
+        tutor: [{ required: true, message: "请输入指导教师", trigger: "blur" }],
+        phone: [
           {
             required: true,
-            message: "请输入成果科类",
+            message: "请输入联系方式",
             trigger: "blur"
           }
         ],
-        declareUnit: [
+        winningGrade: [
           {
             required: true,
-            message: "请输入申报单位",
-            trigger: "blur"
-          }
-        ],
-        code: [
-          {
-            required: true,
-            message: "请输入代码",
-            trigger: "blur"
-          }
-        ],
-        applyTime: [
-          {
-            required: true,
-            message: "请输入申请时间",
-            trigger: "blur"
-          }
-        ],
-        grade: [
-          {
-            required: true,
-            message: "请输入等级",
+            message: "请选择获奖等级",
             trigger: "blur"
           }
         ]
@@ -191,13 +133,6 @@ export default {
     };
   },
   mounted() {
-    this.getRequest("/common/getOption", {
-      option: "achiecement",
-      value: "",
-      title: "grade"
-    }).then(res => {
-      this.options = res.data.options;
-    });
     this.getComponents();
     let tableStatus = this.msg.tableid;
     let user = JSON.parse(localStorage.getItem("user"));
@@ -206,23 +141,15 @@ export default {
         this.form = {
           id: tableStatus.id,
           name: tableStatus.name,
-          completePerson: tableStatus.complete_person,
-          completeUnit: tableStatus.complete_unit,
-          sectionCategory: tableStatus.section_category,
-          declareUnit: tableStatus.declare_unit,
-          code: tableStatus.code,
-          applyTime: tableStatus.apply_time,
-          grade: tableStatus.grade,
+          projectLeader: tableStatus.project_leader,
+          tutor: tableStatus.tutor,
+          phone: tableStatus.phone,
+          winningGrade: tableStatus.winning_grade,
           fileId: tableStatus.file_id
         };
-        if (this.form.applyTime.length == 13) {
-          this.form.applyTime = this.$options.filters["dateFormat"](
-            this.form.applyTime
-          );
-        }
         this.disable = true;
       } else {
-        this.getRequest("/getAchievement", {
+        this.getRequest("/getStudentResearch", {
           tableId: this.msg.message.id
         }).then(res => {
           this.form = res.data.res;
@@ -300,8 +227,8 @@ export default {
       }
     },
     updata() {
-      this.post("/updataAchievement", {
-        paper: this.form,
+      this.post("/updataStudentResearch", {
+        studentResearch: this.form,
         tableId: this.msg.tableid.id,
         id: this.msg.tableid.id
       }).then(res => {
@@ -320,7 +247,7 @@ export default {
     onSubmit(form) {
       this.$refs[form].validate(valid => {
         if (valid) {
-          this.postRequest("/insertAchievement", this.form).then(res => {
+          this.postRequest("/insertStudentResearch", this.form).then(res => {
             this.clear();
           });
         } else {
