@@ -45,9 +45,9 @@ export default {
       },
       checked: true,
       loginForm: {
-        username: "00000003",
-        password: "123456",
-        code: "2"
+        username: "",
+        password: "",
+        code: ""
       },
       loading: false
     };

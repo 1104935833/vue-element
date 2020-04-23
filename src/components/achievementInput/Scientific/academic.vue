@@ -325,8 +325,10 @@ export default {
       });
     },
     clear(form) {
-      this.$refs[form].resetFields();
-      this.$refs.file.clearFiles();
+      this.$nextTick(() => {
+        this.$refs.form.resetFields();
+        this.$refs.file.clearFiles();
+      });
     },
     handleSuccess(response, file, fileList) {
       if (file.status == "success") {

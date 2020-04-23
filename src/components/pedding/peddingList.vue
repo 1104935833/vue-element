@@ -15,7 +15,7 @@
       </el-table-column>
     </el-table>
     <el-pagination
-    style="float:right;"
+      style="float:right;"
       background
       :page-size="10"
       :current-page="currentPage"
@@ -31,7 +31,7 @@ export default {
     return {
       peddingList: [],
       totalCount: -1,
-      currentPage: 1,
+      currentPage: 1
     };
   },
   created() {
@@ -43,10 +43,13 @@ export default {
       this.getpeddingList();
     },
     showPeddingInfo(row) {
-      this.$router.push({path:row.url});
+      this.$router.push({ path: row.url });
     },
     getpeddingList() {
-      this.getRequest("/getPeddingName",{page:this.currentPage,size:10}).then(res => {
+      this.getRequest("/getPeddingName", {
+        page: this.currentPage,
+        size: 10
+      }).then(res => {
         let list = res.data.list;
         for (let i = 0; i < list.length; i++) {
           switch (list[i].state) {
@@ -68,7 +71,7 @@ export default {
           }
         }
         this.peddingList = list;
-        this.totalCount = res.data.count
+        this.totalCount = res.data.count;
       });
     }
   }
