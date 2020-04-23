@@ -66,7 +66,7 @@ export default {
     submitClick: function() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
-          // if(this.isCode()){
+          if(this.isCode()){
           var _this = this;
           this.loading = true;
           this.postRequest("/login", {
@@ -83,9 +83,9 @@ export default {
               });
             }
           });
-        // }else{
-        //   this.$message.error('验证码错误！');
-        // }
+        }else{
+          this.$message.error('验证码错误！');
+        }
         }
       });
     }

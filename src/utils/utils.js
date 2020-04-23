@@ -58,6 +58,8 @@ export const formatRoutes = (routes) => {
                     require(['../components/pedding/' + component + '.vue'], resolve)
                 } else if (component.startsWith("Audit")) {
                     require(['../components/audit/' + component + '.vue'], resolve)
+                } else if (component.startsWith("Grade")) {
+                    require(['../components/Grade/' + component + '.vue'], resolve)
                 }
             },
             name: name,

@@ -261,7 +261,6 @@ export default {
       }
     },
     updata() {
-      console.log(this.form)
       this.post("/updataHoner", {
         honer: this.form,
         tableId: this.msg.tableid.id,
@@ -291,7 +290,10 @@ export default {
       });
     },
     clear(form) {
-      this.$refs[form].resetFields();
+      this.$nextTick(() => {
+          this.$refs.form.resetFields();
+        });
+      // this.$refs[form].resetFields();
       this.$refs.file.clearFiles();
     },
     handleSuccess(response, file, fileList) {

@@ -31,13 +31,6 @@
     </el-tabs>
   </div>
 </template>
-
-
-            
-    
-            
-    
-            
            
 
 <script>
@@ -50,6 +43,7 @@ import course from "./course";
 import competition from "./competition";
 import xueshengkeyanzhidao from "./studentResearch";
 import professional from "./professional";
+import studentResearch from "./studentResearch"
 export default {
   components: {
     textBook: textBook,
@@ -60,7 +54,7 @@ export default {
     course: course,
     competition: competition,
     studentResearch: studentResearch,
-    professional: professional
+    professional: professional,
   }
 };
 </script>
