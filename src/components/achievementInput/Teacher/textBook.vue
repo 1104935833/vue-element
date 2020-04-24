@@ -322,14 +322,14 @@ export default {
           id: this.form.fileId
         }).then(res => {
           window.location.href =
-            "http://localhost:8083/data/access/" + res.data.file.fileName;
+            this.$fileUrl + res.data.file.fileName;
         });
       } else if (isNumber(this.form.fileId)) {
         window.location.href =
-          "http://localhost:8083/data/access/" + this.fileUrl;
+          this.$fileUrl + this.fileUrl;
       } else {
         window.location.href =
-          "http://localhost:8083/data/access/" + this.form.fileId;
+          this.$fileUrl + this.form.fileId;
       }
     },
     dateChangebirthday(val) {
