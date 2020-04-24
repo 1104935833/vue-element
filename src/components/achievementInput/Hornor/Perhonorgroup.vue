@@ -25,8 +25,13 @@
               ></el-option>
             </el-select>
           </el-form-item>
-          <el-form-item label="荣誉名称" prop="name">
-            <el-select v-model="form.name" placeholder="请选择" :disabled="disable" style="width:100%">
+          <el-form-item label="荣誉名称" prop="honeNameId">
+            <el-select
+              v-model="form.honeNameId"
+              placeholder="请选择"
+              :disabled="disable"
+              style="width:100%"
+            >
               <el-option
                 v-for="item in optionsName"
                 :key="item.id"
@@ -135,6 +140,7 @@ export default {
         organizationName: "", //组织名称
         organizationMember: "", //组织成员
         type: "2", //1个人、2集体
+        honeNameId: "",
         fileId: ""
       },
       fileUrl: "",
@@ -144,7 +150,7 @@ export default {
       role: "",
       disable: true,
       rules: {
-        name: [{ required: true, message: "请选择荣誉名称" }],
+        honeNameId: [{ required: true, message: "请选择荣誉名称" }],
         personalHonorType: [{ required: true, message: "请选择荣誉类型" }],
         personalGainTime: [
           { required: true, message: "请输入获得时间", trigger: "blur" }
@@ -190,10 +196,18 @@ export default {
         }
         this.disable = true;
       } else {
+        //获取form值
         this.getRequest("/getHoner", {
           tableId: this.msg.message.id
         }).then(res => {
           this.form = res.data.res;
+          this.getRequest("/common/getOption", {
+            option: "honor",
+            title: "",
+            value: this.form.personalHonorType
+          }).then(res => {
+            this.optionsName = res.data.options;
+          });
         });
         this.getRequest("/common/getUserRole").then(res => {
           this.role = res.data;
@@ -229,7 +243,7 @@ export default {
   },
   methods: {
     changeOption() {
-      this.form.name = "";
+      this.form.honeNameId = "";
       this.getRequest("/common/getOption", {
         option: "honor",
         title: "",
@@ -253,15 +267,12 @@ export default {
         this.getRequest("/common/getFileNameById", {
           id: this.form.fileId
         }).then(res => {
-          window.location.href =
-            this.$fileUrl + res.data.file.fileName;
+          window.location.href = this.$fileUrl + res.data.file.fileName;
         });
       } else if (isNumber(this.form.fileId)) {
-        window.location.href =
-          this.$fileUrl + this.fileUrl;
+        window.location.href = this.$fileUrl + this.fileUrl;
       } else {
-        window.location.href =
-          this.$fileUrl + this.form.fileId;
+        window.location.href = this.$fileUrl + this.form.fileId;
       }
     },
     dateChangebirthday(val) {
@@ -279,6 +290,7 @@ export default {
       } else {
         this.getRequest("/check", {
           tableId: this.msg.message.id,
+          userId: this.msg.message.user_id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree

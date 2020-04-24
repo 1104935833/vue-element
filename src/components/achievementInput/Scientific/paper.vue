@@ -4,19 +4,29 @@
       <el-row>
         <el-col>
           <el-form-item label="论文标题：" prop="name">
-            <el-input placeholder="请输入..." v-model="form.name" :disabled="disable"></el-input>
+            <el-input placeholder="请输入..." v-model="form.name" maxlength="20" :disabled="disable"></el-input>
           </el-form-item>
         </el-col>
       </el-row>
       <el-row>
         <el-col :span="10">
           <el-form-item label="第一作者：" prop="firstAuthor">
-            <el-input placeholder="请输入..." v-model="form.firstAuthor" :disabled="disable"></el-input>
+            <el-input
+              placeholder="请输入..."
+              v-model="form.firstAuthor"
+              maxlength="10"
+              :disabled="disable"
+            ></el-input>
           </el-form-item>
         </el-col>
         <el-col :span="12" :offset="1">
           <el-form-item label="通讯作者：" prop="correspondenceAuthor">
-            <el-input placeholder="请输入..." v-model="form.correspondenceAuthor" :disabled="disable"></el-input>
+            <el-input
+              placeholder="请输入..."
+              v-model="form.correspondenceAuthor"
+              maxlength="10"
+              :disabled="disable"
+            ></el-input>
           </el-form-item>
         </el-col>
       </el-row>
@@ -263,15 +273,12 @@ export default {
         this.getRequest("/common/getFileNameById", {
           id: this.form.fileId
         }).then(res => {
-          window.location.href =
-            this.$fileUrl + res.data.file.fileName;
+          window.location.href = this.$fileUrl + res.data.file.fileName;
         });
       } else if (isNumber(this.form.fileId)) {
-        window.location.href =
-          this.$fileUrl + this.fileUrl;
+        window.location.href = this.$fileUrl + this.fileUrl;
       } else {
-        window.location.href =
-          this.$fileUrl + this.form.fileId;
+        window.location.href = this.$fileUrl + this.form.fileId;
       }
     },
     dateChangebirthday(val) {
@@ -289,6 +296,7 @@ export default {
       } else {
         this.getRequest("/check", {
           tableId: this.msg.message.id,
+          userId: this.msg.message.user_id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree

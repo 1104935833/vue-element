@@ -16,15 +16,15 @@
           <el-button type="text" @click="deleteRow(scope.row,0)" v-if="scope.row.state==1">禁用</el-button>
           <el-button type="text" @click="deleteRow(scope.row,1)" v-if="scope.row.state==0">启用</el-button>
           <span>|</span>
-          <el-button type="text" @click="handleClick(scope.row)">编辑</el-button>
+          <el-button type="text" @click="handleClick(scope.row,scope.row.state)">编辑</el-button>
           <span>|</span>
-          <el-button type="text" @click="transferClick(scope.row,1)">分配用户</el-button>
+          <el-button type="text" @click="transferClick(scope.row,1,scope.row.state)">分配用户</el-button>
           <span>|</span>
-          <el-button type="text" @click="transferClick(scope.row,2)">设置管理员</el-button>
+          <el-button type="text" @click="transferClick(scope.row,2,scope.row.state)">设置管理员</el-button>
         </template>
       </el-table-column>
     </el-table>
-  <!-- 分配用户与管理员 -->
+    <!-- 分配用户与管理员 -->
     <el-dialog :title="title" width="610px" :visible.sync="dialogUserVisible">
       <template>
         <el-transfer
@@ -165,8 +165,7 @@ export default {
               });
             }
             this.value = rightVlaue;
-          }
-        );
+      });
     },
     // 分配用户提交
     submit() {
@@ -182,14 +181,18 @@ export default {
       });
     },
     // 显示分配用户|管理员dialog
-    transferClick(row, type) {
-      if(type=="2"){
-        this.title="设置管理员";
-      }else{
-        this.title="分配用户";
+    transferClick(row, type, state) {
+      if (state == 1) {
+        if (type == "2") {
+          this.title = "设置管理员";
+        } else {
+          this.title = "分配用户";
+        }
+        this.dialogUserVisible = true;
+        this.initTransfer(row, type);
+      } else {
+        this.$message.error("此角色已禁用!");
       }
-      this.dialogUserVisible = true;
-      this.initTransfer(row, type);
     },
     // 编辑
     edit() {
@@ -249,11 +252,15 @@ export default {
         .catch(() => {});
     },
     //显示编辑的dialog
-    handleClick(row) {
-      this.form = JSON.parse(JSON.stringify(row));
-      this.dialogFormVisible = true;
-      this.openFullScreen1();
-      this.getCheckedNodes(row.id);
+    handleClick(row, state) {
+      if (state == 1) {
+        this.form = JSON.parse(JSON.stringify(row));
+        this.dialogFormVisible = true;
+        this.openFullScreen1();
+        this.getCheckedNodes(row.id);
+      } else {
+        this.$message.error("此角色已禁用!");
+      }
     },
     // 一跳出编辑的dialog，不会立马显示menu
     openFullScreen1() {

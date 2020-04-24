@@ -262,15 +262,12 @@ export default {
         this.getRequest("/common/getFileNameById", {
           id: this.form.fileId
         }).then(res => {
-          window.location.href =
-            this.$fileUrl + res.data.file.fileName;
+          window.location.href = this.$fileUrl + res.data.file.fileName;
         });
       } else if (isNumber(this.form.fileId)) {
-        window.location.href =
-          this.$fileUrl + this.fileUrl;
+        window.location.href = this.$fileUrl + this.fileUrl;
       } else {
-        window.location.href =
-          this.$fileUrl + this.form.fileId;
+        window.location.href = this.$fileUrl + this.form.fileId;
       }
     },
     dateChangebirthday(val) {
@@ -288,6 +285,7 @@ export default {
       } else {
         this.getRequest("/check", {
           tableId: this.msg.message.id,
+          userId: this.msg.message.user_id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree
