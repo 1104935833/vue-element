@@ -104,6 +104,7 @@
   </div>
 </template>
 <script>
+import { isNumber } from "../../../utils/validate";
 export default {
   data() {
     return {
@@ -252,6 +253,7 @@ export default {
       } else {
         this.getRequest("/check", {
           tableId: this.msg.message.id,
+          userId:this.msg.message.user_id,
           status: state,
           id: this.msg.tableid.id,
           agree: agree

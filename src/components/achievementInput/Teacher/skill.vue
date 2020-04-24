@@ -110,6 +110,7 @@
 </template>
 
 <script>
+import { isNumber } from "../../../utils/validate";
 export default {
   data() {
     return {

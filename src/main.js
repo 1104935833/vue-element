@@ -22,6 +22,8 @@ import echarts from 'echarts'
 Vue.prototype.echarts = echarts
 Vue.config.productionTip = false
 Vue.use(ElementUI)
+Vue.prototype.fileUrl="http://localhost:8083/data/access/"
+Vue.prototype.fileUrlMac="/Users/bondgg/Public/file/"
 
 Vue.prototype.getRequest = getRequest;
 Vue.prototype.postRequest = postRequest;
