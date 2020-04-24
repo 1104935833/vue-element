@@ -144,13 +144,15 @@ export default {
         projectLeader: [
           { required: true, message: "请输入项目负责人", trigger: "blur" }
         ],
-        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" },
+        { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码' }],
         department: [
           { required: true, message: "请输入所在部门", trigger: "blur" }
         ],
         title: [{ required: true, message: '请输入"职称', trigger: "blur" }],
         applyRental: [
-          { required: true, message: "请输入申请总额", trigger: "blur" }
+          { required: true, message: "请输入申请总额", trigger: "blur" },
+          {pattern: /^(?:0\.\d{0,1}[1-9]|(?!0)\d{1,6}(?:\.\d{0,1}[1-9])?)$/, message:"请输入正确的金额"}
         ],
         name: [{ required: true, message: "请输入项目名称", trigger: "blur" }],
         projectUnit: [

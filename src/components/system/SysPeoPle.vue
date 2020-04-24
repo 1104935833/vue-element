@@ -219,7 +219,7 @@
       </el-container>
     </el-container>
     <!-- 添加员工 -->
-    <el-form ref="addEmpForm" style="margin: 0px;padding: 0px;">
+    <el-form ref="addEmpForm" style="margin: 0px;padding: 0px;" :model="emp" :rules="empRule">
       <div style="text-align: left">
         <el-dialog
           :title="dialogTitle"
@@ -282,7 +282,7 @@
             </el-col>
             <el-col :span="7">
               <div>
-                <el-form-item label="所在教研室:" prop="idCard">
+                <el-form-item label="所在教研室:" prop="tree">
                   <el-select style="width:150px;" v-model="emp.tree" placeholder="请选择">
                     <el-option
                       v-for="item in options"
@@ -312,7 +312,7 @@
           <el-row>
             <el-col :span="5">
               <div>
-                <el-form-item label="办公室:" prop="idCard">
+                <el-form-item label="办公室:" prop="office_id">
                   <el-select style="width:150px;" v-model="emp.office_id" placeholder="请选择">
                     <el-option
                       v-for="item in officeOption"
@@ -328,7 +328,7 @@
             <el-col :span="7">
               <div>
                 <el-form-item label="是否有效:" prop="enabled">
-                  <el-radio-group v-model="emp.enable">
+                  <el-radio-group v-model="emp.enabled">
                     <el-radio :label="1">有效</el-radio>
                     <el-radio :label="0">无效</el-radio>
                   </el-radio-group>
@@ -408,35 +408,35 @@ export default {
         address: "",
         workID: ""
       },
-
-      rules: {
-        name: [{ required: true, message: "必填:姓名", trigger: "blur" }],
-        gender: [{ required: true, message: "必填:性别", trigger: "blur" }],
-        birthday: [
-          { required: true, message: "必填:出生日期", trigger: "blur" }
+      empRule: {
+        phone: [
+          { required: true, message: "请输入联系方式", trigger: "blur" },
+          {
+            pattern: /^1[34578]\d{9}$/,
+            message: "目前只支持中国大陆的手机号码"
+          }
         ],
-        idCard: [
+        name: [{ required: true, message: "请输入姓名", trigger: "blur" }],
+        gender: [
+          { required: true, message: "请选择性别", trigger: "blur" }
+        ],
+        tree: [{ required: true, message: "请选择教研室", trigger: "blur" }],
+        office_id: [{ required: true, message: "请选择办公室", trigger: "blur" }],
+        enabled: [{ required: true, message: "请选择状态", trigger: "blur" }],
+        workID: [
+          { required: true, message: "请输入工号", trigger: "blur" },
           {
-            required: true,
-            message: "必填:身份证号码",
-            trigger: "blur"
-          },
-          {
-            pattern: /(^[1-9]\d{5}(18|19|([23]\d))\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$)|(^[1-9]\d{5}\d{2}((0[1-9])|(10|11|12))(([0-2][1-9])|10|20|30|31)\d{2}$)/,
-            message: "身份证号码格式不正确",
-            trigger: "blur"
+            pattern: /[0-9]\d$/,
+            message: "请输入正确的工号"
           }
         ],
         email: [
-          { required: true, message: "必填:电子邮箱", trigger: "blur" },
+          { required: true, message: "请输入邮箱", trigger: "blur" },
           {
-            type: "email",
-            message: "邮箱格式不正确",
-            trigger: "blur"
+            pattern: /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/,
+            message: "请输入正确的邮箱地址"
           }
-        ],
-        phone: [{ required: true, message: "必填:电话号码", trigger: "blur" }],
-        address: [{ required: true, message: "必填:联系地址", trigger: "blur" }]
+        ]
       }
     };
   },
@@ -452,21 +452,27 @@ export default {
 
   methods: {
     addEmp() {
-      if (!this.isEdit)
-        this.postRequest("/system/user/adduser", this.emp).then(res => {
-          this.dialogVisible = false;
-          this.initData();
-          this.loadEmps();
-          this.initEmp();
-        });
-      else {
-        this.postRequest("/system/user/edituser", this.emp).then(res => {
-          this.dialogVisible = false;
-          this.initEmp();
-          this.initData();
-          this.loadEmps();
-        });
-      }
+      this.$refs["addEmpForm"].validate(valid => {
+        if (valid) {
+          if (!this.isEdit)
+            this.postRequest("/system/user/adduser", this.emp).then(res => {
+              this.dialogVisible = false;
+              this.initData();
+              this.loadEmps();
+              this.initEmp();
+            });
+          else {
+            this.postRequest("/system/user/edituser", this.emp).then(res => {
+              this.dialogVisible = false;
+              this.initEmp();
+              this.initData();
+              this.loadEmps();
+            });
+          }
+        } else {
+          return false;
+        }
+      });
     },
     handleCheckChange(data, checked, indeterminate) {
       this.keywords = checked.data.name;

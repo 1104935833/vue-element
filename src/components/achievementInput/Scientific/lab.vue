@@ -246,7 +246,9 @@ export default {
           }
         ],
         totalPerson: [
-          { required: true, message: "请输入人员总数", trigger: "blur" }
+          { required: true, message: "请输入人员总数", trigger: "blur" },
+          ,
+        { pattern: /[0-9]\d$/, message: '请输入正确的人数' }
         ],
         head: [{ required: true, message: "请输入负责人", trigger: "blur" }],
         labAddress: [

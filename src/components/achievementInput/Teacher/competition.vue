@@ -180,7 +180,8 @@ export default {
           { required: true, message: "请输入主办单位", trigger: "blur" }
         ],
         participatingNumber: [
-          { required: true, message: "请输入参赛人数", trigger: "blur" }
+          { required: true, message: "请输入参赛人数", trigger: "blur" },
+        { pattern: /^[0-9]\d$/, message: '请输入正确的人数' }
         ],
         competitionLeader: [
           {
@@ -201,7 +202,8 @@ export default {
             required: true,
             message: "请输入联系方式",
             trigger: "blur"
-          }
+          },
+        { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码' }
         ],
         address: [
           {

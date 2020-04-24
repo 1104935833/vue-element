@@ -187,7 +187,8 @@ export default {
           { required: true, message: "请输入依托学校", trigger: "blur" }
         ],
         contact: [{ required: true, message: "请输入联系人", trigger: "blur" }],
-        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" }],
+        phone: [{ required: true, message: "请输入联系电话", trigger: "blur" },
+        { pattern: /^1[34578]\d{9}$/, message: '目前只支持中国大陆的手机号码' }],
         declareSubjectName: [
           { required: true, message: "请输入申报学科名称", trigger: "blur" }
         ],

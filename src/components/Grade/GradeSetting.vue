@@ -8,7 +8,7 @@
           <span>{{item.table_name}}</span>
         </el-col>
         <el-col :span="3">
-          <el-input v-model="item.grade" placeholder></el-input>
+          <el-input v-model="item.grade" type="number" placeholder onkeyup="value=value.replace(/[^\d]/g,'')"></el-input>
         </el-col>
         <el-col :span="3">
           <el-button type="primary" style="margin-left:10px" @click="editGrade(item)">提交</el-button>
@@ -38,16 +38,18 @@ export default {
     this.getList();
   },
   methods: {
-      editGrade(row){
-          
-        this.putRequest("/grade/editGrade",{id:row.id,grade:row.grade}).then(res=>{
-            if(res.data.status==200){
-                this.$message.success("跟新成功!");
-                this.currentPage=1
-                this.getList();
-            }
-        })
-      },
+    editGrade(row) {
+      this.putRequest("/grade/editGrade", {
+        id: row.id,
+        grade: row.grade
+      }).then(res => {
+        if (res.data.status == 200) {
+          this.$message.success("跟新成功!");
+          this.currentPage = 1;
+          this.getList();
+        }
+      });
+    },
 
     currentChange(currentChange) {
       this.currentPage = currentChange;

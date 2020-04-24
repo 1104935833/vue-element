@@ -76,7 +76,7 @@
       </el-container>
     </el-container>
     <!-- 编辑菜单 -->
-    <el-form ref="EditForm" style="margin: 0px;padding: 0px;">
+    <el-form ref="EditForm" style="margin: 0px;padding: 0px;" :model="form" :rules="rule">
       <div style="text-align: left">
         <el-dialog
           :title="dialogTitle"
@@ -100,7 +100,7 @@
           <el-row v-if="isType">
             <el-col :span="24">
               <div>
-                <el-form-item label="上级菜单：">
+                <el-form-item label="上级菜单：" prop="parentId">
                   <el-select v-model="form.parentId" placeholder="请选择" @focus="this.getAllParent">
                     <el-option
                       v-for="item in parentData"
@@ -116,7 +116,7 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="菜单名称：">
+                <el-form-item label="菜单名称：" prop="name">
                   <el-input
                     v-model="form.name"
                     prefix-icon="el-icon-edit"
@@ -131,7 +131,7 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="模块名称：">
+                <el-form-item label="模块名称：" prop="component">
                   <el-input
                     v-model="form.component"
                     prefix-icon="el-icon-edit"
@@ -146,7 +146,7 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="访问路径：">
+                <el-form-item label="访问路径：" prop="path">
                   <el-input
                     v-model="form.path"
                     prefix-icon="el-icon-edit"
@@ -161,7 +161,7 @@
           <el-row>
             <el-col :span="24">
               <div>
-                <el-form-item label="请求路径：">
+                <el-form-item label="请求路径：" prop="url">
                   <el-input
                     v-model="form.url"
                     prefix-icon="el-icon-edit"
@@ -174,7 +174,7 @@
             </el-col>
             <el-col :span="24" v-if="!isType">
               <div>
-                <el-form-item label="目录图标:">
+                <el-form-item label="目录图标:" prop="iconCls">
                   <el-button type="button" @click="centerDialogVisible = true">选择目录图标</el-button>
                   <svg-icon :icon-class="this.form.iconCls" style="height: 40px;width: 40px;" />
                 </el-form-item>
@@ -241,7 +241,20 @@ export default {
         name: "",
         path: ""
       },
-
+      rule: {
+        parentId: [
+          { required: true, message: "请选择上级菜单", trigger: "blur" }
+        ],
+        name: [{ required: true, message: "请输入菜单名称", trigger: "blur" }],
+        component: [
+          { required: true, message: "请输入模块名称：", trigger: "blur" }
+        ],
+        path: [{ required: true, message: "请输入访问路径", trigger: "blur" }],
+        url: [{ required: true, message: "请输入请求路径", trigger: "blur" }],
+        iconCls: [
+          { required: true, message: "请选择目录图标", trigger: "blur" }
+        ]
+      },
       isDisabled: false,
       isEdit: false,
       count: 1,
@@ -277,19 +290,26 @@ export default {
     },
     addEmp() {
       //添加菜单
-      this.$set(this.form, "enabled", this.enabled);
-      if (!this.isEdit) {
-        this.postRequest("/system/menu/addMenu", this.form).then(res => {
-          this.init();
-          this.EditVisible = false;
-        });
-      } else {
-        this.post("/system/menu/upMenu", { form: this.form }).then(res => {
-          this.init();
-          this.loadEmps();
-          this.EditVisible = false;
-        });
-      }
+
+      this.$refs["EditForm"].validate(valid => {
+        if (valid) {
+          this.$set(this.form, "enabled", this.enabled);
+          if (!this.isEdit) {
+            this.postRequest("/system/menu/addMenu", this.form).then(res => {
+              this.init();
+              this.EditVisible = false;
+            });
+          } else {
+            this.post("/system/menu/upMenu", { form: this.form }).then(res => {
+              this.init();
+              this.loadEmps();
+              this.EditVisible = false;
+            });
+          }
+        } else {
+          return false;
+        }
+      });
     },
     init() {
       this.form = {
