@@ -63,6 +63,11 @@ http {
     include servers/*;
 }
 ```
+# 配置完启动nginx就行了
+
+
+
+
 ## 后端部署
 mvn clean package #此命令去打包
 #打包完默认路径是在项目的target文件夹下有个[项目名].jar的文件
