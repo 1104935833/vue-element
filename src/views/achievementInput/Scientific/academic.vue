@@ -1,0 +1,319 @@
+<template>
+  <div>
+    <el-form ref="form" :rules="rules" :model="form">
+      <el-row>
+        <!--第1行-->
+        <el-col :span="24">
+          <el-form-item label="创新团队名称：" prop="name">
+            <el-input v-model="form.name" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第2行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="团队人员：" prop="teamPersonnel">
+            <el-input v-model="form.teamPersonnel" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第3行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="研究方向：" prop="direction">
+            <el-input v-model="form.direction" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第4行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="所在学校：" prop="schoolPlace">
+            <el-input v-model="form.schoolPlace" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第5行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="通讯地址：" prop="address">
+            <el-input v-model="form.address" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第6行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="负责人联系电话：" prop="headPhone">
+            <el-input v-model="form.headPhone" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第7行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="申报日期：" prop="declareTime">
+            <el-date-picker
+              v-model="form.declareTime"
+              :disabled="disable"
+              type="date"
+              placeholder="选择日期"
+              format="yyyy-MM-dd"
+              value-format="yyyy-MM-dd"
+              @change="dateChangebirthday"
+            />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <!--第8行-->
+      <el-row>
+        <el-col :span="24">
+          <el-form-item label="主管部门：" prop="competentDepartment">
+            <el-input v-model="form.competentDepartment" placeholder="请输入内容" :disabled="disable" />
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>&nbsp;</el-col>
+        <el-col>
+          <el-form-item label="等级：" prop="level">
+            <el-radio-group v-model="form.level" :disabled="disable">
+              <el-radio label="0">国家级</el-radio>
+              <el-radio label="1">省部级</el-radio>
+              <el-radio label="2">市厅级</el-radio>
+              <el-radio label="3">校院级</el-radio>
+            </el-radio-group>
+          </el-form-item>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col align="center">上传佐证材料：</el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="24" align="center">
+          <el-upload
+            ref="file"
+            :disabled="disable"
+            class="upload-demo"
+            drag
+            acceept="application/pdf"
+            action="/common/file"
+            :on-success="handleSuccess"
+            accept=".jpg, .jpeg, .png, .pdf, .JPG, .JPEG, .PDF, .zip, .rar"
+            :on-remove="handleRemove"
+            :on-error="handleError"
+            multiple
+          >
+            <i class="el-icon-upload" />
+            <div class="el-upload__text">
+              将文件拖到此处，或
+              <em>点击上传</em>
+            </div>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/pdf/zip/rar文件</div>
+          </el-upload>
+        </el-col>
+        <el-col
+          v-if="form.fileId!=null && form.fileId!=''"
+          :span="24"
+          align="center"
+          class="upload-demo"
+        >
+          <a @click="down">下载材料</a>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col :span="12" align="center">
+          <div v-if="buttonShow==1" class="upload-demo">
+            <el-button type="primary" @click="onSubmit('form')">提交</el-button>
+            <el-button @click=" clear('form')">取消</el-button>
+          </div>
+          <!-- 修改 -->
+          <div v-if="buttonShow==3" class="upload-demo">
+            <el-button type="primary" @click="updata()">修改</el-button>
+          </div>
+          <div v-if="buttonShow==2" class="upload-demo">
+            <el-button type="primary" @click="check('1','1')">通过</el-button>
+            <el-button @click="check('2','0')">不通过</el-button>
+          </div>
+        </el-col>
+      </el-row>
+    </el-form>
+  </div>
+</template>
+<script>
+import { getIsCheck } from "@/api/check";
+import { isNumber } from '@/utils/validate'
+import { getAcademic, getUserRole, getFileNameById,insertAcademic,updataAcademic, check, delFile } from "@/api/achievementinput";
+export default {
+  props: ["table"],
+  data() {
+    return {
+      form: {
+        id: '',
+        name: '',
+        teamPersonnel: '',
+        direction: '',
+        schoolPlace: '',
+        address: '',
+        headPhone: '',
+        declareTime: '',
+        competentDepartment: '',
+        level: '',
+        fileId: ''
+      },
+      fileUrl: '',
+      msgType: '',
+      msg: '',
+      buttonShow: '',
+      role: '',
+      disable: true,
+      rules: {
+        name: [
+          { required: true, message: '请输入创新团队名称', trigger: 'blur' }
+        ],
+        teamPersonnel: [
+          { required: true, message: '请输入团队人员', trigger: 'blur' }
+        ],
+        direction: [
+          { required: true, message: '请输入研究方向', trigger: 'blur' }
+        ],
+        schoolPlace: [
+          { required: true, message: '请输入所在学校', trigger: 'blur' }
+        ],
+        address: [
+          { required: true, message: '请输入通讯地址', trigger: 'blur' }
+        ],
+        headPhone: [
+          { required: true, message: '请输入负责人联系电话', trigger: 'blur' }
+        ],
+        declareTime: [
+          { required: true, message: '请选择申报日期', trigger: 'blur' }
+        ],
+        competentDepartment: [
+          { required: true, message: '请输入主管部门', trigger: 'blur' }
+        ],
+        level: [{ required: true, message: '请选择等级', trigger: 'blur' }]
+      }
+    }
+  },
+  mounted() {
+    if (this.table != undefined && this.table != null) {
+      getAcademic({ tableId: this.table.tableId }).then(res => {
+        this.form = res.data.res;
+      });
+      if (this.table.type == 2) {
+        if (this.form.declareTime.length == 13) {
+          this.form.declareTime = this.$options.filters['dateFormat'](
+            this.form.declareTime
+          )
+        }
+        this.disable = true;
+      } else {
+        getIsCheck({
+          tableId: this.table.tableId,
+          auditStatus: this.table.auditStatus
+        }).then(res => {
+          if (
+            (this.table.auditStatus == 0 || this.table.auditStatus == 1) &&
+            res.data == "True"
+          ) {
+            //教研室
+            this.buttonShow = 2;
+          } else if (this.table.auditStatus == 2 && res.data == "True") {
+            this.buttonShow = 3;
+          } else {
+            this.buttonShow = 0;
+          }
+        });
+      }
+    } else {
+      // 提交
+      this.buttonShow = 1;
+      this.disable = false;
+    }
+  },
+  methods: {
+    down() {
+      if (isNumber(this.form.fileId) && this.fileUrl == '') {
+        getFileNameById({
+          id: this.form.fileId
+        }).then(res => {
+          window.location.href = this.$fileUrl + res.data.file.fileName
+        })
+      } else if (isNumber(this.form.fileId)) {
+        window.location.href = this.$fileUrl + this.fileUrl
+      } else {
+        window.location.href = this.$fileUrl + this.form.fileId
+      }
+    },
+    dateChangebirthday(val) {
+      this.form.time = val
+    },
+    sendMsgToParent: function() {
+      this.$emit('listenToChild', false)
+    },
+    check(state, agree) {
+      check({
+        tableId: this.table.tableId,
+        status: state,
+        id: this.table.id,
+        agree: agree
+      }).then(res => {
+        this.sendMsgToParent();
+      });
+    },
+    updata() {
+      updataHoner({
+        honer: this.form,
+        tableId: this.table.tableId,
+        id: this.table.id
+      }).then(res => {
+        this.sendMsgToParent();
+      });
+    },
+    onSubmit(form) {
+      this.$refs[form].validate(valid => {
+        if (valid) {
+          insertAcademic(this.form).then(res => {
+            this.clear()
+          })
+        } else {
+          return false
+        }
+      })
+    },
+    clear(form) {
+      this.$nextTick(() => {
+        this.$refs.form.resetFields()
+        this.$refs.file.clearFiles()
+      })
+    },
+    handleSuccess(response, file, fileList) {
+      if (file.status == 'success') {
+        this.$message({ message: '文件上传成功', type: 'success' })
+        this.fileUrl = file.response.obj.fileName
+        this.form.fileId = file.response.obj.fileId
+      }
+    },
+    submitUpload() {
+      this.$refs.upload.submit()
+    },
+    handleRemove(file, fileList) {
+      // 文件移除钩子
+      delFile({
+        fileName: file.response.obj.fileName,
+        fileId: file.response.obj.fileId
+      }).then(res => {})
+    },
+    handleError(err, file, fileList) {
+      // 上传失败钩子
+      this.$message.error('文件上传失败')
+    },
+    handlePreview(file) {
+      // 点击文件列表中已上传的文件时的钩子
+    }
+  }
+}
+</script>
+
+

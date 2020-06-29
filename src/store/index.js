@@ -1,54 +1,25 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import '../lib/sockjs'
-import '../lib/stomp'
+import getters from './getters'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
-    state: {
-        user: {
-            name: window.localStorage.getItem('user' || '[]') == null ? '未登录' : window.localStorage.getItem('user' || '[]').name,
-            roles: window.localStorage.getItem('user' || '[]') == null ? '' : window.localStorage.getItem('user' || '[]').roles
-        },
-        routes: [],
-        isCollapse: false,
-        currentFriend: {},
-        logoShow: false,
-        stomp: null,
-    },
-    mutations: {
-        collapse(state, arg) {
-            state.isCollapse = !state.isCollapse
-            if (state.logoShow) {
-                setTimeout(function() {
-                    state.logoShow = false
-                }, 300)
-            } else {
-                state.logoShow = true
-            }
-        },
-        initMenu(state, menus) {
-            state.routes = menus;
-        },
-        login(state, user) {
-            state.user = user;
-            window.localStorage.setItem('user', JSON.stringify(user));
-        },
-        logout(state) {
-            window.localStorage.removeItem('user');
-            sessionStorage.removeItem('user');
-            state.routes = [];
-            state.user={}
-        },
-    },
-    actions: {
-        collapse({ commit }, arg) {
-            commit('collapse', arg)
-        },
-    },
-    getters: {
-        logoShow: state => state.logoShow,
-        isCollapse: state => state.isCollapse,
-    }
-});
+// https://webpack.js.org/guides/dependency-management/#requirecontext
+const modulesFiles = require.context('./modules', true, /\.js$/)
+
+// you do not need `import app from './modules/app'`
+// it will auto require all vuex module from modules file
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // set './app.js' => 'app'
+  const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const value = modulesFiles(modulePath)
+  modules[moduleName] = value.default
+  return modules
+}, {})
+
+const store = new Vuex.Store({
+  modules,
+  getters
+})
+
+export default store
